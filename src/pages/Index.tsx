@@ -317,7 +317,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
@@ -332,7 +332,7 @@ const Index = () => {
               <CarouselContent className="-ml-4">
                 {testimonials.map((t_item, i) => (
                   <CarouselItem key={i} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <Card className="bg-card border-border h-full">
+                    <Card className="bg-secondary border-border/50 h-full">
                       <CardContent className="p-8">
                         <Quote className="h-8 w-8 text-primary/30 mb-4" />
                         <p className="text-muted-foreground mb-6 leading-relaxed">{t_item.text}</p>
