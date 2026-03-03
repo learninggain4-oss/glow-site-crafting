@@ -4,6 +4,7 @@ import { Star, Clock, Shield, Award, Car, Wrench, Palette, Zap, Sofa, ChevronRig
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -297,7 +298,7 @@ const Index = () => {
             </div>
           </ScrollReveal>
           <ScrollReveal variant="fadeUp">
-            <Carousel opts={{ align: "start", loop: true }} className="w-full">
+            <Carousel opts={{ align: "start", loop: true }} plugins={[Autoplay({ delay: 4000, stopOnInteraction: false })]} className="w-full">
               <CarouselContent className="-ml-4">
                 {testimonials.map((t, i) => (
                   <CarouselItem key={i} className="pl-4 md:basis-1/2 lg:basis-1/3">
