@@ -4,6 +4,15 @@ import { Star, Clock, Shield, Award, Car, Wrench, Palette, Zap, Sofa, ChevronRig
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
+import heroBg from "@/assets/hero-bg.jpg";
+import portfolio1 from "@/assets/portfolio-1.jpg";
+import portfolio2 from "@/assets/portfolio-2.jpg";
+import portfolio3 from "@/assets/portfolio-3.jpg";
+import portfolio4 from "@/assets/portfolio-4.jpg";
+import portfolio5 from "@/assets/portfolio-5.jpg";
+import portfolio6 from "@/assets/portfolio-6.jpg";
+
+const portfolioImages = [portfolio1, portfolio2, portfolio3, portfolio4, portfolio5, portfolio6];
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -47,10 +56,9 @@ const Index = () => {
     <Layout>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/10" />
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-primary rounded-full blur-3xl" />
+        <div className="absolute inset-0">
+          <img src={heroBg} alt="Auto care service center" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-background/70" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -225,15 +233,13 @@ const Index = () => {
               </h2>
             </motion.div>
             <motion.div variants={fadeInUp} className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
+              {portfolioImages.map((img, i) => (
                 <div
                   key={i}
                   className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative"
                 >
-                  <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary flex items-center justify-center">
-                    <Car className="h-12 w-12 text-muted-foreground/50" />
-                  </div>
-                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
+                  <img src={img} alt={`Portfolio project ${i + 1}`} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-background/0 group-hover:bg-background/60 transition-colors flex items-center justify-center">
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity text-foreground font-heading font-semibold">
                       View Project
                     </span>

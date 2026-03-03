@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Award, Users, Target, Heart, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
+import aboutStory from "@/assets/about-story.jpg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -51,10 +52,8 @@ const About = () => {
               </div>
             </motion.div>
             <motion.div variants={fadeInUp}>
-              <div className="aspect-square bg-muted rounded-2xl overflow-hidden flex items-center justify-center">
-                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary flex items-center justify-center">
-                  <Award className="h-24 w-24 text-muted-foreground/30" />
-                </div>
+              <div className="aspect-square bg-muted rounded-2xl overflow-hidden">
+                <img src={aboutStory} alt="First Option UAE workshop" className="w-full h-full object-cover" />
               </div>
             </motion.div>
           </motion.div>
