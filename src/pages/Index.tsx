@@ -10,6 +10,10 @@ import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useLanguage } from "@/i18n/LanguageContext";
 import heroBg from "@/assets/hero-bg.jpg";
+import heroSlide1 from "@/assets/hero-slide-1.jpg";
+import heroSlide2 from "@/assets/hero-slide-2.jpg";
+import heroSlide3 from "@/assets/hero-slide-3.jpg";
+import heroSlide4 from "@/assets/hero-slide-4.jpg";
 import avatarAhmed from "@/assets/avatar-ahmed.jpg";
 import avatarSarah from "@/assets/avatar-sarah.jpg";
 import avatarMohammed from "@/assets/avatar-mohammed.jpg";
@@ -23,7 +27,7 @@ import portfolio4 from "@/assets/portfolio-4.jpg";
 import portfolio5 from "@/assets/portfolio-5.jpg";
 import portfolio6 from "@/assets/portfolio-6.jpg";
 
-const heroSlides = [heroBg, portfolio1, portfolio2, portfolio3, portfolio4, portfolio5, portfolio6];
+const heroSlides = [heroBg, heroSlide1, heroSlide2, heroSlide3, heroSlide4];
 const portfolioImages = [portfolio1, portfolio2, portfolio3, portfolio4, portfolio5, portfolio6];
 
 const fadeInUp = {
