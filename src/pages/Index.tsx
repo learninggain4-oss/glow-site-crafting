@@ -3,12 +3,16 @@ import { motion } from "framer-motion";
 import { Star, Clock, Shield, Award, Car, Wrench, Palette, Zap, Sofa, ChevronRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
 import heroBg from "@/assets/hero-bg.jpg";
 import avatarAhmed from "@/assets/avatar-ahmed.jpg";
 import avatarSarah from "@/assets/avatar-sarah.jpg";
 import avatarMohammed from "@/assets/avatar-mohammed.jpg";
+import avatarFatima from "@/assets/avatar-fatima.jpg";
+import avatarRaj from "@/assets/avatar-raj.jpg";
+import avatarJames from "@/assets/avatar-james.jpg";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
 import portfolio3 from "@/assets/portfolio-3.jpg";
@@ -53,6 +57,9 @@ const testimonials = [
   { name: "Ahmed K.", text: "Outstanding service! My car looks brand new after their detailing work. Highly recommended!", rating: 5, avatar: avatarAhmed },
   { name: "Sarah M.", text: "Best auto care center in Dubai. Professional team and excellent results every time.", rating: 5, avatar: avatarSarah },
   { name: "Mohammed R.", text: "The leather restoration work was incredible. They truly care about quality.", rating: 5, avatar: avatarMohammed },
+  { name: "Fatima A.", text: "Amazing paint correction on my SUV. The team is super knowledgeable and friendly. Will definitely come back!", rating: 5, avatar: avatarFatima },
+  { name: "Raj P.", text: "They upgraded the entire electrical system in my vehicle flawlessly. Excellent craftsmanship and fair pricing.", rating: 5, avatar: avatarRaj },
+  { name: "James W.", text: "From PPF installation to interior detailing, everything was top-notch. A truly premium experience.", rating: 5, avatar: avatarJames },
 ];
 
 const Index = () => {
@@ -289,27 +296,35 @@ const Index = () => {
               </h2>
             </div>
           </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <ScrollReveal key={i} variant="fadeUp" delay={i * 0.15}>
-                <Card className="bg-card border-border h-full">
-                  <CardContent className="p-8">
-                    <Quote className="h-8 w-8 text-primary/30 mb-4" />
-                    <p className="text-muted-foreground mb-6 leading-relaxed">{t.text}</p>
-                    <div className="flex items-center gap-2 mb-2">
-                      {[...Array(t.rating)].map((_, j) => (
-                        <Star key={j} className="h-4 w-4 fill-primary text-primary" />
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
-                      <p className="font-heading font-semibold text-foreground">{t.name}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-            ))}
-          </div>
+          <ScrollReveal variant="fadeUp">
+            <Carousel opts={{ align: "start", loop: true }} className="w-full">
+              <CarouselContent className="-ml-4">
+                {testimonials.map((t, i) => (
+                  <CarouselItem key={i} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <Card className="bg-card border-border h-full">
+                      <CardContent className="p-8">
+                        <Quote className="h-8 w-8 text-primary/30 mb-4" />
+                        <p className="text-muted-foreground mb-6 leading-relaxed">{t.text}</p>
+                        <div className="flex items-center gap-2 mb-2">
+                          {[...Array(t.rating)].map((_, j) => (
+                            <Star key={j} className="h-4 w-4 fill-primary text-primary" />
+                          ))}
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                          <p className="font-heading font-semibold text-foreground">{t.name}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center gap-2 mt-8">
+                <CarouselPrevious className="static translate-y-0" />
+                <CarouselNext className="static translate-y-0" />
+              </div>
+            </Carousel>
+          </ScrollReveal>
         </div>
       </section>
 
