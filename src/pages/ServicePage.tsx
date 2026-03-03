@@ -4,6 +4,7 @@ import { Car, Wrench, Sofa, Zap, Palette, CheckCircle, ChevronRight } from "luci
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -132,8 +133,8 @@ const ServicePage = () => {
       {/* Details */}
       <section className="py-24">
         <div className="container mx-auto px-4">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid md:grid-cols-2 gap-16 items-start">
-            <motion.div variants={fadeInUp}>
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+            <ScrollReveal variant="fadeLeft">
               <h2 className="font-heading text-3xl font-bold text-foreground mb-6">About This <span className="text-primary">Service</span></h2>
               <p className="text-muted-foreground leading-relaxed mb-8">{service.longDescription}</p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -148,8 +149,8 @@ const ServicePage = () => {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
-            <motion.div variants={fadeInUp}>
+            </ScrollReveal>
+            <ScrollReveal variant="fadeRight" delay={0.2}>
               <Card className="bg-card border-border">
                 <CardContent className="p-8">
                   <h3 className="font-heading font-semibold text-xl text-foreground mb-6">What's Included</h3>
@@ -163,15 +164,15 @@ const ServicePage = () => {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
-          </motion.div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-24 bg-primary/5">
         <div className="container mx-auto px-4 text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+          <ScrollReveal variant="blur">
             <h2 className="font-heading text-4xl font-bold text-foreground mb-6">
               Ready to Get Started?
             </h2>
@@ -181,7 +182,7 @@ const ServicePage = () => {
             <Link to="/booking">
               <Button size="lg" className="text-base px-8 py-6">Book Now</Button>
             </Link>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </section>
     </Layout>

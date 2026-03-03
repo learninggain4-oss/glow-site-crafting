@@ -4,6 +4,7 @@ import { Star, Clock, Shield, Award, Car, Wrench, Palette, Zap, Sofa, ChevronRig
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
+import ScrollReveal from "@/components/ScrollReveal";
 import heroBg from "@/assets/hero-bg.jpg";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
@@ -100,15 +101,9 @@ const Index = () => {
       {/* Stats Bar */}
       <section className="relative z-10 -mt-16">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4"
-          >
-            {stats.map((stat) => (
-              <motion.div key={stat.label} variants={fadeInUp}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {stats.map((stat, i) => (
+              <ScrollReveal key={stat.label} variant="fadeUp" delay={i * 0.15}>
                 <Card className="bg-card border-border hover:border-primary/50 transition-colors">
                   <CardContent className="flex items-center gap-4 p-6">
                     <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -120,203 +115,194 @@ const Index = () => {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </ScrollReveal>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Features */}
       <section className="py-24">
         <div className="container mx-auto px-4">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-            <motion.div variants={fadeInUp} className="text-center mb-16">
+          <ScrollReveal variant="fadeUp">
+            <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Why Choose Us</p>
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
                 What Makes Us <span className="text-primary">Different</span>
               </h2>
-            </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {features.map((feature) => (
-                <motion.div key={feature.title} variants={fadeInUp}>
-                  <Card className="bg-card border-border hover:border-primary/50 transition-all hover:-translate-y-1 h-full">
-                    <CardContent className="p-6 text-center">
-                      <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                        <feature.icon className="h-7 w-7 text-primary" />
-                      </div>
-                      <h3 className="font-heading font-semibold text-lg text-foreground mb-2">{feature.title}</h3>
-                      <p className="text-sm text-muted-foreground">{feature.description}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
             </div>
-          </motion.div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature, i) => (
+              <ScrollReveal key={feature.title} variant="scaleIn" delay={i * 0.1}>
+                <Card className="bg-card border-border hover:border-primary/50 transition-all hover:-translate-y-1 h-full">
+                  <CardContent className="p-6 text-center">
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <feature.icon className="h-7 w-7 text-primary" />
+                    </div>
+                    <h3 className="font-heading font-semibold text-lg text-foreground mb-2">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Services */}
       <section className="py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-            <motion.div variants={fadeInUp} className="text-center mb-16">
+          <ScrollReveal variant="fadeUp">
+            <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">What We Offer</p>
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
                 Our <span className="text-primary">Services</span>
               </h2>
-            </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service) => (
-                <motion.div key={service.title} variants={fadeInUp}>
-                  <Link to={service.path}>
-                    <Card className="bg-card border-border hover:border-primary transition-all hover:-translate-y-2 group h-full cursor-pointer">
-                      <CardContent className="p-8">
-                        <div className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-5 transition-colors">
-                          <service.icon className="h-7 w-7 text-primary" />
-                        </div>
-                        <h3 className="font-heading font-semibold text-xl text-foreground mb-2">{service.title}</h3>
-                        <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
-                        <span className="inline-flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                          Learn More <ChevronRight className="h-4 w-4" />
-                        </span>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </motion.div>
-              ))}
             </div>
-          </motion.div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((service, i) => (
+              <ScrollReveal key={service.title} variant={i % 2 === 0 ? "fadeLeft" : "fadeRight"} delay={i * 0.1}>
+                <Link to={service.path}>
+                  <Card className="bg-card border-border hover:border-primary transition-all hover:-translate-y-2 group h-full cursor-pointer">
+                    <CardContent className="p-8">
+                      <div className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-5 transition-colors">
+                        <service.icon className="h-7 w-7 text-primary" />
+                      </div>
+                      <h3 className="font-heading font-semibold text-xl text-foreground mb-2">{service.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
+                      <span className="inline-flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
+                        Learn More <ChevronRight className="h-4 w-4" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Flawless Finish / Trust Section */}
       <section className="py-24">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="text-center"
-          >
-            <motion.div variants={fadeInUp}>
-              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Excellence</p>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
-                Flawless <span className="text-primary">Finish</span>
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
-                We take pride in delivering impeccable results that exceed expectations. Every vehicle receives our signature touch of excellence.
-              </p>
-            </motion.div>
-            <motion.div variants={fadeInUp} className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-              {["Trusted Auto Care", "Top Car Service", "Expert Vehicle Care"].map((trust) => (
-                <div key={trust} className="flex flex-col items-center gap-3">
+        <div className="container mx-auto px-4 text-center">
+          <ScrollReveal variant="blur">
+            <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Excellence</p>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Flawless <span className="text-primary">Finish</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
+              We take pride in delivering impeccable results that exceed expectations. Every vehicle receives our signature touch of excellence.
+            </p>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+            {["Trusted Auto Care", "Top Car Service", "Expert Vehicle Care"].map((trust, i) => (
+              <ScrollReveal key={trust} variant="scaleIn" delay={i * 0.15}>
+                <div className="flex flex-col items-center gap-3">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
                     <Shield className="h-8 w-8 text-primary" />
                   </div>
                   <p className="font-heading font-semibold text-foreground">{trust}</p>
                 </div>
-              ))}
-            </motion.div>
-          </motion.div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Portfolio Preview */}
       <section className="py-24 bg-secondary/30">
         <div className="container mx-auto px-4">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-            <motion.div variants={fadeInUp} className="text-center mb-16">
+          <ScrollReveal variant="fadeUp">
+            <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Our Work</p>
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
                 Work <span className="text-primary">Portfolio</span>
               </h2>
-            </motion.div>
-            <motion.div variants={fadeInUp} className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {portfolioImages.map((img, i) => (
-                <div
-                  key={i}
-                  className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative"
-                >
-                  <img src={img} alt={`Portfolio project ${i + 1}`} className="w-full h-full object-cover" />
+            </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {portfolioImages.map((img, i) => (
+              <ScrollReveal key={i} variant="scaleIn" delay={i * 0.08}>
+                <div className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative">
+                  <img src={img} alt={`Portfolio project ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-background/0 group-hover:bg-background/60 transition-colors flex items-center justify-center">
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity text-foreground font-heading font-semibold">
                       View Project
                     </span>
                   </div>
                 </div>
-              ))}
-            </motion.div>
-            <motion.div variants={fadeInUp} className="text-center mt-10">
+              </ScrollReveal>
+            ))}
+          </div>
+          <ScrollReveal variant="fadeUp" delay={0.3}>
+            <div className="text-center mt-10">
               <Link to="/portfolio">
                 <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   Explore More <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Testimonials */}
       <section className="py-24">
         <div className="container mx-auto px-4">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-            <motion.div variants={fadeInUp} className="text-center mb-16">
+          <ScrollReveal variant="fadeUp">
+            <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Testimonials</p>
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
                 What Our Clients <span className="text-primary">Say</span>
               </h2>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {testimonials.map((t, i) => (
-                <motion.div key={i} variants={fadeInUp}>
-                  <Card className="bg-card border-border h-full">
-                    <CardContent className="p-8">
-                      <Quote className="h-8 w-8 text-primary/30 mb-4" />
-                      <p className="text-muted-foreground mb-6 leading-relaxed">{t.text}</p>
-                      <div className="flex items-center gap-2 mb-2">
-                        {[...Array(t.rating)].map((_, j) => (
-                          <Star key={j} className="h-4 w-4 fill-primary text-primary" />
-                        ))}
-                      </div>
-                      <p className="font-heading font-semibold text-foreground">{t.name}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
             </div>
-          </motion.div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((t, i) => (
+              <ScrollReveal key={i} variant="fadeUp" delay={i * 0.15}>
+                <Card className="bg-card border-border h-full">
+                  <CardContent className="p-8">
+                    <Quote className="h-8 w-8 text-primary/30 mb-4" />
+                    <p className="text-muted-foreground mb-6 leading-relaxed">{t.text}</p>
+                    <div className="flex items-center gap-2 mb-2">
+                      {[...Array(t.rating)].map((_, j) => (
+                        <Star key={j} className="h-4 w-4 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <p className="font-heading font-semibold text-foreground">{t.name}</p>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-24 bg-primary/5">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Ready to Transform Your <span className="text-primary">Vehicle</span>?
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8">
-              Book a free consultation today and let our experts take care of your car.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/booking">
-                <Button size="lg" className="text-base px-8 py-6">Book Free Consultation</Button>
-              </Link>
-              <Link to="/contact">
-                <Button variant="outline" size="lg" className="text-base px-8 py-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  Contact Us
-                </Button>
-              </Link>
+          <ScrollReveal variant="blur">
+            <div className="text-center max-w-3xl mx-auto">
+              <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
+                Ready to Transform Your <span className="text-primary">Vehicle</span>?
+              </h2>
+              <p className="text-muted-foreground text-lg mb-8">
+                Book a free consultation today and let our experts take care of your car.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/booking">
+                  <Button size="lg" className="text-base px-8 py-6">Book Free Consultation</Button>
+                </Link>
+                <Link to="/contact">
+                  <Button variant="outline" size="lg" className="text-base px-8 py-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                    Contact Us
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </section>
     </Layout>

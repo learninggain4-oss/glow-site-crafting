@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
+import ScrollReveal from "@/components/ScrollReveal";
 import { useState } from "react";
 import { z } from "zod";
 
@@ -71,9 +72,9 @@ const Contact = () => {
 
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-12">
             {/* Form */}
-            <motion.div variants={fadeInUp}>
+            <ScrollReveal variant="fadeLeft">
               <Card className="bg-card border-border">
                 <CardContent className="p-8">
                   <h2 className="font-heading text-2xl font-bold text-foreground mb-6">Send Us a Message</h2>
@@ -111,33 +112,35 @@ const Contact = () => {
                   </form>
                 </CardContent>
               </Card>
-            </motion.div>
+            </ScrollReveal>
 
             {/* Info */}
-            <motion.div variants={fadeInUp} className="space-y-6">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Contact Information</h2>
-              <p className="text-muted-foreground mb-6">Reach out to us through any of the following channels.</p>
-              {contactInfo.map((item) => (
-                <a key={item.label} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <item.icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">{item.label}</p>
-                    <p className="text-foreground font-medium">{item.value}</p>
-                  </div>
-                </a>
-              ))}
+            <ScrollReveal variant="fadeRight" delay={0.2}>
+              <div className="space-y-6">
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-2">Contact Information</h2>
+                <p className="text-muted-foreground mb-6">Reach out to us through any of the following channels.</p>
+                {contactInfo.map((item) => (
+                  <a key={item.label} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <item.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">{item.label}</p>
+                      <p className="text-foreground font-medium">{item.value}</p>
+                    </div>
+                  </a>
+                ))}
 
-              {/* Map placeholder */}
-              <div className="aspect-video bg-muted rounded-lg overflow-hidden flex items-center justify-center mt-6">
-                <div className="text-center text-muted-foreground">
-                  <MapPin className="h-10 w-10 mx-auto mb-2" />
-                  <p className="text-sm">Google Maps – Al Quoz, Dubai</p>
+                {/* Map placeholder */}
+                <div className="aspect-video bg-muted rounded-lg overflow-hidden flex items-center justify-center mt-6">
+                  <div className="text-center text-muted-foreground">
+                    <MapPin className="h-10 w-10 mx-auto mb-2" />
+                    <p className="text-sm">Google Maps – Al Quoz, Dubai</p>
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
     </Layout>
