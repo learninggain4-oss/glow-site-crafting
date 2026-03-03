@@ -1,0 +1,296 @@
+export type Language = "en" | "ar";
+
+export const translations = {
+  // Header
+  "nav.home": { en: "Home", ar: "الرئيسية" },
+  "nav.about": { en: "About Us", ar: "من نحن" },
+  "nav.services": { en: "Our Services", ar: "خدماتنا" },
+  "nav.portfolio": { en: "Work Portfolio", ar: "أعمالنا" },
+  "nav.booking": { en: "Online Booking", ar: "الحجز الإلكتروني" },
+  "nav.contact": { en: "Contact Us", ar: "اتصل بنا" },
+  "nav.callNow": { en: "Call Now", ar: "اتصل الآن" },
+  "nav.services_label": { en: "Services", ar: "الخدمات" },
+
+  // Services
+  "service.autoCare": { en: "Auto Care", ar: "العناية بالسيارات" },
+  "service.accessories": { en: "Accessories", ar: "الإكسسوارات" },
+  "service.leather": { en: "Leather", ar: "الجلود" },
+  "service.electrical": { en: "Electrical", ar: "الكهرباء" },
+  "service.painting": { en: "Painting", ar: "الدهان" },
+
+  // Hero
+  "hero.welcome": { en: "Welcome to First Option UAE", ar: "مرحبًا بكم في فيرست أوبشن الإمارات" },
+  "hero.title1": { en: "Best Auto Care", ar: "أفضل مركز عناية" },
+  "hero.title2": { en: "Service Centre", ar: "بالسيارات" },
+  "hero.subtitle": {
+    en: "Experience premium auto care services with cutting-edge technology and a passionate team dedicated to perfection.",
+    ar: "استمتع بخدمات العناية الفائقة بالسيارات مع أحدث التقنيات وفريق شغوف ملتزم بالكمال.",
+  },
+  "hero.bookNow": { en: "Book Now", ar: "احجز الآن" },
+  "hero.exploreServices": { en: "Explore Services", ar: "استكشف الخدمات" },
+
+  // Stats
+  "stats.googleRating": { en: "Google Rating", ar: "تقييم جوجل" },
+  "stats.yearsExperience": { en: "Years Experience", ar: "سنوات الخبرة" },
+  "stats.happyCustomers": { en: "Happy Customers", ar: "عملاء سعداء" },
+
+  // Features
+  "features.subtitle": { en: "Why Choose Us", ar: "لماذا تختارنا" },
+  "features.title1": { en: "What Makes Us", ar: "ما الذي يجعلنا" },
+  "features.title2": { en: "Different", ar: "مختلفين" },
+  "features.bestUae": { en: "Best in UAE", ar: "الأفضل في الإمارات" },
+  "features.bestUaeDesc": { en: "Top-rated auto care service center", ar: "مركز خدمة سيارات الأعلى تقييمًا" },
+  "features.24hour": { en: "24-Hour Service", ar: "خدمة على مدار الساعة" },
+  "features.24hourDesc": { en: "Round the clock availability", ar: "متاحون على مدار الساعة" },
+  "features.freeAssessment": { en: "Free Assessment", ar: "تقييم مجاني" },
+  "features.freeAssessmentDesc": { en: "Complimentary vehicle inspection", ar: "فحص مجاني للسيارة" },
+  "features.precisionCare": { en: "Precision Care", ar: "عناية دقيقة" },
+  "features.precisionCareDesc": { en: "Attention to every detail", ar: "اهتمام بكل التفاصيل" },
+
+  // Marquee
+  "marquee.title": { en: "Trusted By Leading Brands", ar: "موثوق به من قبل العلامات التجارية الرائدة" },
+
+  // Services Section
+  "services.subtitle": { en: "What We Offer", ar: "ما نقدمه" },
+  "services.title1": { en: "Our", ar: "خدماتنا" },
+  "services.title2": { en: "Services", ar: "" },
+  "services.learnMore": { en: "Learn More", ar: "اعرف المزيد" },
+  "service.autoCareDesc": { en: "Complete vehicle maintenance and detailing services", ar: "خدمات صيانة وتلميع شاملة للسيارات" },
+  "service.accessoriesDesc": { en: "Premium vehicle accessories and upgrades", ar: "إكسسوارات وترقيات فاخرة للسيارات" },
+  "service.leatherDesc": { en: "Expert leather restoration and customization", ar: "ترميم وتخصيص الجلود بخبرة" },
+  "service.electricalDesc": { en: "Advanced electrical system diagnostics and repair", ar: "تشخيص وإصلاح الأنظمة الكهربائية المتقدمة" },
+  "service.paintingDesc": { en: "Professional auto painting and refinishing", ar: "دهان وتجديد السيارات الاحترافي" },
+
+  // Flawless Finish
+  "flawless.subtitle": { en: "Excellence", ar: "التميز" },
+  "flawless.title1": { en: "Flawless", ar: "لمسة" },
+  "flawless.title2": { en: "Finish", ar: "مثالية" },
+  "flawless.description": {
+    en: "We take pride in delivering impeccable results that exceed expectations. Every vehicle receives our signature touch of excellence.",
+    ar: "نفتخر بتقديم نتائج لا تشوبها شائبة تفوق التوقعات. كل سيارة تحصل على لمستنا المميزة من التميز.",
+  },
+  "flawless.trust1": { en: "Trusted Auto Care", ar: "عناية موثوقة" },
+  "flawless.trust2": { en: "Top Car Service", ar: "خدمة سيارات متميزة" },
+  "flawless.trust3": { en: "Expert Vehicle Care", ar: "عناية احترافية" },
+
+  // Portfolio
+  "portfolio.subtitle": { en: "Our Work", ar: "أعمالنا" },
+  "portfolio.title1": { en: "Work", ar: "معرض" },
+  "portfolio.title2": { en: "Portfolio", ar: "الأعمال" },
+  "portfolio.viewProject": { en: "View Project", ar: "عرض المشروع" },
+  "portfolio.exploreMore": { en: "Explore More", ar: "استكشف المزيد" },
+
+  // Testimonials
+  "testimonials.subtitle": { en: "Testimonials", ar: "آراء العملاء" },
+  "testimonials.title1": { en: "What Our Clients", ar: "ماذا يقول" },
+  "testimonials.title2": { en: "Say", ar: "عملاؤنا" },
+
+  // CTA
+  "cta.title1": { en: "Ready to Transform Your", ar: "هل أنت مستعد لتحويل" },
+  "cta.title2": { en: "Vehicle", ar: "سيارتك" },
+  "cta.description": { en: "Book a free consultation today and let our experts take care of your car.", ar: "احجز استشارة مجانية اليوم ودع خبراءنا يعتنون بسيارتك." },
+  "cta.bookFree": { en: "Book Free Consultation", ar: "احجز استشارة مجانية" },
+  "cta.contactUs": { en: "Contact Us", ar: "اتصل بنا" },
+
+  // Footer
+  "footer.description": {
+    en: "Premium auto care services in the UAE. Your vehicle deserves the best treatment with our expert team.",
+    ar: "خدمات عناية فاخرة بالسيارات في الإمارات. سيارتك تستحق أفضل معاملة مع فريقنا المتخصص.",
+  },
+  "footer.quickLinks": { en: "Quick Links", ar: "روابط سريعة" },
+  "footer.ourServices": { en: "Our Services", ar: "خدماتنا" },
+  "footer.contactInfo": { en: "Contact Info", ar: "معلومات الاتصال" },
+  "footer.rights": { en: "All rights reserved.", ar: "جميع الحقوق محفوظة." },
+  "footer.premiumService": { en: "Premium Auto Care Services", ar: "خدمات عناية فاخرة بالسيارات" },
+  "footer.workingHours": { en: "Mon - Sat: 8:00 AM - 8:00 PM", ar: "الاثنين - السبت: 8:00 صباحًا - 8:00 مساءً" },
+
+  // About Page
+  "about.subtitle": { en: "About Us", ar: "من نحن" },
+  "about.title1": { en: "Your Trusted", ar: "شريكك الموثوق في" },
+  "about.title2": { en: "Auto Care", ar: "العناية" },
+  "about.title3": { en: "Partner", ar: "بالسيارات" },
+  "about.intro": {
+    en: "First Option UAE has been delivering premium auto care services, earning the trust of hundreds of satisfied customers across the UAE.",
+    ar: "فيرست أوبشن الإمارات تقدم خدمات عناية فاخرة بالسيارات، وقد حازت على ثقة مئات العملاء الراضين في جميع أنحاء الإمارات.",
+  },
+  "about.storySubtitle": { en: "Our Story", ar: "قصتنا" },
+  "about.storyTitle1": { en: "A Legacy of", ar: "إرث من" },
+  "about.storyTitle2": { en: "Excellence", ar: "التميز" },
+  "about.storyP1": {
+    en: "Founded with a vision to redefine auto care standards in the UAE, First Option UAE has grown from a small workshop into one of the most trusted names in the industry.",
+    ar: "تأسست برؤية لإعادة تعريف معايير العناية بالسيارات في الإمارات، ونمت فيرست أوبشن من ورشة صغيرة إلى واحدة من أكثر الأسماء الموثوقة في الصناعة.",
+  },
+  "about.storyP2": {
+    en: "Our team of skilled professionals brings years of expertise and a genuine passion for automobiles. We treat every vehicle as if it were our own, ensuring meticulous attention to detail.",
+    ar: "يجلب فريقنا من المحترفين المهرة سنوات من الخبرة وشغف حقيقي بالسيارات. نعامل كل سيارة كأنها سيارتنا الخاصة.",
+  },
+  "about.storyP3": {
+    en: "From basic maintenance to complete vehicle transformation, we offer a comprehensive range of services designed to keep your car in pristine condition.",
+    ar: "من الصيانة الأساسية إلى التحويل الكامل للسيارة، نقدم مجموعة شاملة من الخدمات المصممة للحفاظ على سيارتك في حالة ممتازة.",
+  },
+  "about.missionSubtitle": { en: "Our Mission", ar: "مهمتنا" },
+  "about.missionTitle1": { en: "Driven by", ar: "مدفوعون" },
+  "about.missionTitle2": { en: "Passion", ar: "بالشغف" },
+  "about.missionDesc": {
+    en: "To provide world-class auto care services that exceed expectations, combining cutting-edge technology with skilled craftsmanship to deliver outstanding results every time.",
+    ar: "تقديم خدمات عناية بالسيارات على مستوى عالمي تفوق التوقعات، بدمج أحدث التقنيات مع الحرفية المتقنة لتحقيق نتائج متميزة في كل مرة.",
+  },
+  "about.qualityFirst": { en: "Quality First", ar: "الجودة أولاً" },
+  "about.qualityFirstDesc": { en: "We never compromise on the quality of our work", ar: "لا نساوم أبدًا على جودة عملنا" },
+  "about.customerFocus": { en: "Customer Focus", ar: "التركيز على العميل" },
+  "about.customerFocusDesc": { en: "Your satisfaction is our top priority", ar: "رضاك هو أولويتنا القصوى" },
+  "about.innovation": { en: "Innovation", ar: "الابتكار" },
+  "about.innovationDesc": { en: "Using the latest technology and techniques", ar: "استخدام أحدث التقنيات والأساليب" },
+  "about.passion": { en: "Passion", ar: "الشغف" },
+  "about.passionDesc": { en: "We love what we do and it shows in our results", ar: "نحب ما نفعله وهذا يظهر في نتائجنا" },
+  "about.whySubtitle": { en: "Why First Option", ar: "لماذا فيرست أوبشن" },
+  "about.whyTitle1": { en: "The", ar: "الفرق" },
+  "about.whyTitle2": { en: "Difference", ar: "" },
+  "about.why1": { en: "Certified and experienced technicians", ar: "فنيون معتمدون وذوو خبرة" },
+  "about.why2": { en: "State-of-the-art equipment and facilities", ar: "معدات ومرافق حديثة" },
+  "about.why3": { en: "Genuine parts and premium materials", ar: "قطع أصلية ومواد فاخرة" },
+  "about.why4": { en: "Transparent pricing with no hidden costs", ar: "أسعار شفافة بدون تكاليف مخفية" },
+  "about.why5": { en: "Customer satisfaction guarantee", ar: "ضمان رضا العملاء" },
+  "about.why6": { en: "Convenient location in Al Quoz, Dubai", ar: "موقع مناسب في القوز، دبي" },
+
+  // Portfolio Page
+  "portfolioPage.subtitle": { en: "Portfolio", ar: "معرض الأعمال" },
+  "portfolioPage.title1": { en: "Our", ar: "أعمالنا" },
+  "portfolioPage.title2": { en: "Work", ar: "" },
+  "portfolioPage.description": { en: "Browse through our completed projects and see the quality we deliver.", ar: "تصفح مشاريعنا المكتملة وشاهد الجودة التي نقدمها." },
+  "portfolioPage.all": { en: "All", ar: "الكل" },
+  "portfolioPage.project": { en: "Project", ar: "مشروع" },
+
+  // Contact Page
+  "contact.subtitle": { en: "Get In Touch", ar: "تواصل معنا" },
+  "contact.title1": { en: "Contact", ar: "اتصل" },
+  "contact.title2": { en: "Us", ar: "بنا" },
+  "contact.sendMessage": { en: "Send Us a Message", ar: "أرسل لنا رسالة" },
+  "contact.name": { en: "Your Name", ar: "اسمك" },
+  "contact.email": { en: "Email Address", ar: "البريد الإلكتروني" },
+  "contact.phone": { en: "Phone Number", ar: "رقم الهاتف" },
+  "contact.selectService": { en: "Select Service", ar: "اختر الخدمة" },
+  "contact.message": { en: "Your Message", ar: "رسالتك" },
+  "contact.send": { en: "Send Message", ar: "إرسال الرسالة" },
+  "contact.other": { en: "Other", ar: "أخرى" },
+  "contact.infoTitle": { en: "Contact Information", ar: "معلومات الاتصال" },
+  "contact.infoDesc": { en: "Reach out to us through any of the following channels.", ar: "تواصل معنا من خلال أي من القنوات التالية." },
+  "contact.phoneLabel": { en: "Phone", ar: "الهاتف" },
+  "contact.whatsapp": { en: "WhatsApp", ar: "واتساب" },
+  "contact.emailLabel": { en: "Email", ar: "البريد الإلكتروني" },
+  "contact.location": { en: "Location", ar: "الموقع" },
+  "contact.workingHours": { en: "Working Hours", ar: "ساعات العمل" },
+  "contact.messageSent": { en: "Message Sent!", ar: "تم إرسال الرسالة!" },
+  "contact.messageDesc": { en: "We'll get back to you as soon as possible.", ar: "سنعود إليك في أقرب وقت ممكن." },
+
+  // Booking Page
+  "booking.subtitle": { en: "Schedule", ar: "جدولة" },
+  "booking.title1": { en: "Online", ar: "الحجز" },
+  "booking.title2": { en: "Booking", ar: "الإلكتروني" },
+  "booking.description": { en: "Book your appointment online and we'll take care of the rest.", ar: "احجز موعدك عبر الإنترنت وسنهتم بالباقي." },
+  "booking.contactInfo": { en: "Contact Information", ar: "معلومات الاتصال" },
+  "booking.fullName": { en: "Full Name", ar: "الاسم الكامل" },
+  "booking.serviceDetails": { en: "Service Details", ar: "تفاصيل الخدمة" },
+  "booking.vehicleInfo": { en: "Vehicle Information", ar: "معلومات السيارة" },
+  "booking.make": { en: "Make (e.g. Toyota)", ar: "الشركة المصنعة (مثل تويوتا)" },
+  "booking.model": { en: "Model (e.g. Camry)", ar: "الموديل (مثل كامري)" },
+  "booking.year": { en: "Year", ar: "السنة" },
+  "booking.dateTime": { en: "Preferred Date & Time", ar: "التاريخ والوقت المفضل" },
+  "booking.pickDate": { en: "Pick a date", ar: "اختر تاريخًا" },
+  "booking.selectTime": { en: "Select Time", ar: "اختر الوقت" },
+  "booking.notes": { en: "Additional notes (optional)", ar: "ملاحظات إضافية (اختياري)" },
+  "booking.confirm": { en: "Confirm Booking", ar: "تأكيد الحجز" },
+  "booking.confirmed": { en: "Booking Confirmed!", ar: "تم تأكيد الحجز!" },
+  "booking.confirmedDesc": {
+    en: "Thank you for choosing First Option UAE. We'll contact you shortly to confirm your appointment details.",
+    ar: "شكرًا لاختيارك فيرست أوبشن الإمارات. سنتصل بك قريبًا لتأكيد تفاصيل موعدك.",
+  },
+  "booking.bookAnother": { en: "Book Another", ar: "حجز آخر" },
+
+  // Service Page
+  "servicePage.aboutService": { en: "About This", ar: "عن هذه" },
+  "servicePage.service": { en: "Service", ar: "الخدمة" },
+  "servicePage.bookThis": { en: "Book This Service", ar: "احجز هذه الخدمة" },
+  "servicePage.getQuote": { en: "Get Quote", ar: "احصل على عرض سعر" },
+  "servicePage.whatsIncluded": { en: "What's Included", ar: "ما يشمله" },
+  "servicePage.readyTitle": { en: "Ready to Get Started?", ar: "هل أنت مستعد للبدء؟" },
+  "servicePage.readyDesc": {
+    en: "Book your appointment today and experience the First Option difference.",
+    ar: "احجز موعدك اليوم واختبر فرق فيرست أوبشن.",
+  },
+  "servicePage.notFound": { en: "Service Not Found", ar: "الخدمة غير موجودة" },
+  "servicePage.goHome": { en: "Go Home", ar: "العودة للرئيسية" },
+
+  // Service features (auto-care)
+  "service.ac.f1": { en: "Full interior & exterior detailing", ar: "تلميع داخلي وخارجي كامل" },
+  "service.ac.f2": { en: "Paint correction & ceramic coating", ar: "تصحيح الطلاء والطلاء السيراميكي" },
+  "service.ac.f3": { en: "Engine bay cleaning", ar: "تنظيف حجرة المحرك" },
+  "service.ac.f4": { en: "Upholstery deep cleaning", ar: "تنظيف عميق للمفروشات" },
+  "service.ac.f5": { en: "Headlight restoration", ar: "ترميم المصابيح الأمامية" },
+  "service.ac.f6": { en: "Scratch & dent removal", ar: "إزالة الخدوش والانبعاجات" },
+  // Accessories
+  "service.acc.f1": { en: "Alloy wheel upgrades", ar: "ترقية العجلات المعدنية" },
+  "service.acc.f2": { en: "Body kits & spoilers", ar: "أطقم الهيكل والجناح الخلفي" },
+  "service.acc.f3": { en: "Window tinting", ar: "تظليل النوافذ" },
+  "service.acc.f4": { en: "Interior trim upgrades", ar: "ترقية الديكور الداخلي" },
+  "service.acc.f5": { en: "Audio system installation", ar: "تركيب نظام صوتي" },
+  "service.acc.f6": { en: "LED lighting upgrades", ar: "ترقية إضاءة LED" },
+  // Leather
+  "service.lth.f1": { en: "Leather seat restoration", ar: "ترميم المقاعد الجلدية" },
+  "service.lth.f2": { en: "Custom leather upholstery", ar: "تنجيد جلدي مخصص" },
+  "service.lth.f3": { en: "Leather cleaning & conditioning", ar: "تنظيف وترطيب الجلود" },
+  "service.lth.f4": { en: "Color matching & dyeing", ar: "مطابقة وصبغ الألوان" },
+  "service.lth.f5": { en: "Steering wheel re-wrap", ar: "إعادة تغليف المقود" },
+  "service.lth.f6": { en: "Dashboard leather covering", ar: "تغطية لوحة القيادة بالجلد" },
+  // Electrical
+  "service.elc.f1": { en: "Full electrical diagnostics", ar: "تشخيص كهربائي كامل" },
+  "service.elc.f2": { en: "ECU programming & coding", ar: "برمجة وتكويد وحدة التحكم" },
+  "service.elc.f3": { en: "Wiring harness repair", ar: "إصلاح الأسلاك الكهربائية" },
+  "service.elc.f4": { en: "Battery testing & replacement", ar: "فحص واستبدال البطارية" },
+  "service.elc.f5": { en: "Sensor calibration", ar: "معايرة المستشعرات" },
+  "service.elc.f6": { en: "Multimedia system setup", ar: "إعداد نظام الوسائط المتعددة" },
+  // Painting
+  "service.pnt.f1": { en: "Full body respray", ar: "إعادة رش الهيكل بالكامل" },
+  "service.pnt.f2": { en: "Custom color matching", ar: "مطابقة الألوان المخصصة" },
+  "service.pnt.f3": { en: "Touch-up painting", ar: "طلاء التصحيح" },
+  "service.pnt.f4": { en: "Clear coat application", ar: "تطبيق الطبقة الشفافة" },
+  "service.pnt.f5": { en: "Matte & gloss finishes", ar: "تشطيبات مطفية ولامعة" },
+  "service.pnt.f6": { en: "Protective film application", ar: "تطبيق الفيلم الحماية" },
+
+  // Service long descriptions
+  "service.autoCare.long": {
+    en: "Our comprehensive auto care services cover everything from routine maintenance to full vehicle detailing. We use premium products and state-of-the-art equipment to ensure your vehicle receives the best treatment possible.",
+    ar: "تغطي خدمات العناية الشاملة بالسيارات لدينا كل شيء من الصيانة الروتينية إلى التلميع الكامل للسيارة. نستخدم منتجات فاخرة ومعدات حديثة لضمان حصول سيارتك على أفضل معاملة ممكنة.",
+  },
+  "service.accessories.long": {
+    en: "Transform your vehicle with our wide range of premium accessories. From aesthetic enhancements to functional upgrades, we source and install only the highest quality accessories.",
+    ar: "حوّل سيارتك مع مجموعتنا الواسعة من الإكسسوارات الفاخرة. من التحسينات الجمالية إلى الترقيات الوظيفية، نوفر ونركب فقط أجود الإكسسوارات.",
+  },
+  "service.leather.long": {
+    en: "Our leather specialists bring worn interiors back to life. Whether it's restoration, repair, or complete re-upholstery, we deliver craftsmanship of the highest standard.",
+    ar: "يعيد متخصصو الجلود لدينا الحياة للديكورات الداخلية البالية. سواء كان ترميمًا أو إصلاحًا أو إعادة تنجيد كاملة، نقدم حرفية من أعلى المعايير.",
+  },
+  "service.electrical.long": {
+    en: "Our certified electrical technicians handle everything from basic wiring to complex electronic system diagnostics. We use advanced tools to pinpoint and fix electrical issues efficiently.",
+    ar: "يتعامل فنيو الكهرباء المعتمدون لدينا مع كل شيء من الأسلاك الأساسية إلى تشخيص الأنظمة الإلكترونية المعقدة.",
+  },
+  "service.painting.long": {
+    en: "Our painting experts deliver flawless finishes with precision color matching. From minor touch-ups to complete resprays, we use premium paints and coatings.",
+    ar: "يقدم خبراء الدهان لدينا تشطيبات لا تشوبها شائبة مع مطابقة دقيقة للألوان. من التصحيحات البسيطة إلى إعادة الرش الكاملة.",
+  },
+
+  // NotFound
+  "notFound.title": { en: "404", ar: "404" },
+  "notFound.message": { en: "Oops! Page not found", ar: "عفوًا! الصفحة غير موجودة" },
+  "notFound.returnHome": { en: "Return to Home", ar: "العودة للرئيسية" },
+
+  // Testimonials content
+  "testimonial.ahmed": { en: "Outstanding service! My car looks brand new after their detailing work. Highly recommended!", ar: "خدمة متميزة! سيارتي تبدو جديدة تمامًا بعد عمل التلميع. أنصح بشدة!" },
+  "testimonial.sarah": { en: "Best auto care center in Dubai. Professional team and excellent results every time.", ar: "أفضل مركز عناية بالسيارات في دبي. فريق محترف ونتائج ممتازة في كل مرة." },
+  "testimonial.mohammed": { en: "The leather restoration work was incredible. They truly care about quality.", ar: "عمل ترميم الجلود كان مذهلاً. هم حقًا يهتمون بالجودة." },
+  "testimonial.fatima": { en: "Amazing paint correction on my SUV. The team is super knowledgeable and friendly. Will definitely come back!", ar: "تصحيح طلاء مذهل لسيارتي. الفريق على دراية كبيرة وودود. سأعود بالتأكيد!" },
+  "testimonial.raj": { en: "They upgraded the entire electrical system in my vehicle flawlessly. Excellent craftsmanship and fair pricing.", ar: "قاموا بترقية النظام الكهربائي بالكامل في سيارتي بشكل مثالي. حرفية ممتازة وأسعار عادلة." },
+  "testimonial.james": { en: "From PPF installation to interior detailing, everything was top-notch. A truly premium experience.", ar: "من تركيب فيلم الحماية إلى التلميع الداخلي، كل شيء كان من الدرجة الأولى. تجربة فاخرة حقًا." },
+} as const;
+
+export type TranslationKey = keyof typeof translations;

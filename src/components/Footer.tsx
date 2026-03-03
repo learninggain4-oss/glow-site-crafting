@@ -1,7 +1,26 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
+  const quickLinks = [
+    { name: t("nav.home"), path: "/" },
+    { name: t("nav.about"), path: "/about" },
+    { name: t("nav.portfolio"), path: "/portfolio" },
+    { name: t("nav.booking"), path: "/booking" },
+    { name: t("nav.contact"), path: "/contact" },
+  ];
+
+  const serviceLinks = [
+    { name: t("service.autoCare"), path: "/services/auto-care" },
+    { name: t("service.accessories"), path: "/services/accessories" },
+    { name: t("service.leather"), path: "/services/leather" },
+    { name: t("service.electrical"), path: "/services/electrical" },
+    { name: t("service.painting"), path: "/services/painting" },
+  ];
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-16">
@@ -18,7 +37,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Premium auto care services in the UAE. Your vehicle deserves the best treatment with our expert team.
+              {t("footer.description")}
             </p>
             <div className="flex gap-3">
               {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
@@ -35,15 +54,9 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Quick Links</h4>
+            <h4 className="font-heading font-semibold text-foreground mb-4">{t("footer.quickLinks")}</h4>
             <ul className="space-y-2.5">
-              {[
-                { name: "Home", path: "/" },
-                { name: "About Us", path: "/about" },
-                { name: "Work Portfolio", path: "/portfolio" },
-                { name: "Online Booking", path: "/booking" },
-                { name: "Contact Us", path: "/contact" },
-              ].map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link to={link.path} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {link.name}
@@ -55,15 +68,9 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Our Services</h4>
+            <h4 className="font-heading font-semibold text-foreground mb-4">{t("footer.ourServices")}</h4>
             <ul className="space-y-2.5">
-              {[
-                { name: "Auto Care", path: "/services/auto-care" },
-                { name: "Accessories", path: "/services/accessories" },
-                { name: "Leather", path: "/services/leather" },
-                { name: "Electrical", path: "/services/electrical" },
-                { name: "Painting", path: "/services/painting" },
-              ].map((link) => (
+              {serviceLinks.map((link) => (
                 <li key={link.path}>
                   <Link to={link.path} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {link.name}
@@ -75,15 +82,13 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-heading font-semibold text-foreground mb-4">Contact Info</h4>
+            <h4 className="font-heading font-semibold text-foreground mb-4">{t("footer.contactInfo")}</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <Phone className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <div>
-                  <a href="tel:+971505551234" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    +971 50 555 1234
-                  </a>
-                </div>
+                <a href="tel:+971505551234" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  +971 50 555 1234
+                </a>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="h-4 w-4 text-primary mt-0.5 shrink-0" />
@@ -100,7 +105,7 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <Clock className="h-4 w-4 text-primary mt-0.5 shrink-0" />
                 <span className="text-sm text-muted-foreground">
-                  Mon - Sat: 8:00 AM - 8:00 PM
+                  {t("footer.workingHours")}
                 </span>
               </li>
             </ul>
@@ -112,10 +117,10 @@ const Footer = () => {
       <div className="border-t border-border">
         <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} First Option UAE. All rights reserved.
+            © {new Date().getFullYear()} First Option UAE. {t("footer.rights")}
           </p>
           <p className="text-xs text-muted-foreground">
-            Premium Auto Care Services
+            {t("footer.premiumService")}
           </p>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { Award, Users, Target, Heart, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import { useLanguage } from "@/i18n/LanguageContext";
 import aboutStory from "@/assets/about-story.jpg";
 
 const fadeInUp = {
@@ -14,26 +15,33 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
-const values = [
-  { title: "Quality First", description: "We never compromise on the quality of our work", icon: Award },
-  { title: "Customer Focus", description: "Your satisfaction is our top priority", icon: Users },
-  { title: "Innovation", description: "Using the latest technology and techniques", icon: Target },
-  { title: "Passion", description: "We love what we do and it shows in our results", icon: Heart },
-];
-
 const About = () => {
+  const { t } = useLanguage();
+
+  const values = [
+    { title: t("about.qualityFirst"), description: t("about.qualityFirstDesc"), icon: Award },
+    { title: t("about.customerFocus"), description: t("about.customerFocusDesc"), icon: Users },
+    { title: t("about.innovation"), description: t("about.innovationDesc"), icon: Target },
+    { title: t("about.passion"), description: t("about.passionDesc"), icon: Heart },
+  ];
+
+  const whyItems = [
+    t("about.why1"), t("about.why2"), t("about.why3"),
+    t("about.why4"), t("about.why5"), t("about.why6"),
+  ];
+
   return (
     <Layout>
       {/* Hero */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl mx-auto text-center">
-            <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">About Us</motion.p>
+            <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">{t("about.subtitle")}</motion.p>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Your Trusted <span className="text-primary">Auto Care</span> Partner
+              {t("about.title1")} <span className="text-primary">{t("about.title2")}</span> {t("about.title3")}
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg text-muted-foreground">
-              First Option UAE has been delivering premium auto care services, earning the trust of hundreds of satisfied customers across the UAE.
+              {t("about.intro")}
             </motion.p>
           </motion.div>
         </div>
@@ -44,12 +52,12 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <ScrollReveal variant="fadeLeft">
-              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Our Story</p>
-              <h2 className="font-heading text-4xl font-bold text-foreground mb-6">A Legacy of <span className="text-primary">Excellence</span></h2>
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("about.storySubtitle")}</p>
+              <h2 className="font-heading text-4xl font-bold text-foreground mb-6">{t("about.storyTitle1")} <span className="text-primary">{t("about.storyTitle2")}</span></h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>Founded with a vision to redefine auto care standards in the UAE, First Option UAE has grown from a small workshop into one of the most trusted names in the industry.</p>
-                <p>Our team of skilled professionals brings years of expertise and a genuine passion for automobiles. We treat every vehicle as if it were our own, ensuring meticulous attention to detail.</p>
-                <p>From basic maintenance to complete vehicle transformation, we offer a comprehensive range of services designed to keep your car in pristine condition.</p>
+                <p>{t("about.storyP1")}</p>
+                <p>{t("about.storyP2")}</p>
+                <p>{t("about.storyP3")}</p>
               </div>
             </ScrollReveal>
             <ScrollReveal variant="fadeRight" delay={0.2}>
@@ -66,16 +74,14 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <ScrollReveal variant="blur">
-              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Our Mission</p>
-              <h2 className="font-heading text-4xl font-bold text-foreground mb-6">Driven by <span className="text-primary">Passion</span></h2>
-              <p className="text-lg text-muted-foreground mb-12">
-                To provide world-class auto care services that exceed expectations, combining cutting-edge technology with skilled craftsmanship to deliver outstanding results every time.
-              </p>
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("about.missionSubtitle")}</p>
+              <h2 className="font-heading text-4xl font-bold text-foreground mb-6">{t("about.missionTitle1")} <span className="text-primary">{t("about.missionTitle2")}</span></h2>
+              <p className="text-lg text-muted-foreground mb-12">{t("about.missionDesc")}</p>
             </ScrollReveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {values.map((v, i) => (
                 <ScrollReveal key={v.title} variant="scaleIn" delay={i * 0.1}>
-                  <Card className="bg-card border-border text-left">
+                  <Card className="bg-card border-border text-start">
                     <CardContent className="p-6 flex items-start gap-4">
                       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                         <v.icon className="h-6 w-6 text-primary" />
@@ -99,19 +105,12 @@ const About = () => {
           <div className="max-w-3xl mx-auto">
             <ScrollReveal variant="fadeUp">
               <div className="text-center mb-12">
-                <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Why First Option</p>
-                <h2 className="font-heading text-4xl font-bold text-foreground">The <span className="text-primary">Difference</span></h2>
+                <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("about.whySubtitle")}</p>
+                <h2 className="font-heading text-4xl font-bold text-foreground">{t("about.whyTitle1")} <span className="text-primary">{t("about.whyTitle2")}</span></h2>
               </div>
             </ScrollReveal>
             <div className="space-y-4">
-              {[
-                "Certified and experienced technicians",
-                "State-of-the-art equipment and facilities",
-                "Genuine parts and premium materials",
-                "Transparent pricing with no hidden costs",
-                "Customer satisfaction guarantee",
-                "Convenient location in Al Quoz, Dubai",
-              ].map((item, i) => (
+              {whyItems.map((item, i) => (
                 <ScrollReveal key={item} variant="fadeLeft" delay={i * 0.08}>
                   <div className="flex items-center gap-3 p-4 rounded-lg bg-card border border-border">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0" />

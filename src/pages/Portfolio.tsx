@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import { useLanguage } from "@/i18n/LanguageContext";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
 import portfolio3 from "@/assets/portfolio-3.jpg";
@@ -21,54 +22,61 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.08 } },
 };
 
-const categories = ["All", "Auto Care", "Painting", "Leather", "Accessories"];
-
-const portfolioItems = Array.from({ length: 12 }, (_, i) => ({
-  id: i + 1,
-  title: `Project ${i + 1}`,
-  category: categories[1 + (i % 4)],
-  image: portfolioImages[i % 6],
-}));
-
 const Portfolio = () => {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState("All");
   const [lightbox, setLightbox] = useState<number | null>(null);
 
-  const filtered = filter === "All" ? portfolioItems : portfolioItems.filter((p) => p.category === filter);
+  const categories = [
+    { key: "All", label: t("portfolioPage.all") },
+    { key: "Auto Care", label: t("service.autoCare") },
+    { key: "Painting", label: t("service.painting") },
+    { key: "Leather", label: t("service.leather") },
+    { key: "Accessories", label: t("service.accessories") },
+  ];
+
+  const portfolioItems = Array.from({ length: 12 }, (_, i) => ({
+    id: i + 1,
+    title: `${t("portfolioPage.project")} ${i + 1}`,
+    categoryKey: ["Auto Care", "Painting", "Leather", "Accessories"][i % 4],
+    image: portfolioImages[i % 6],
+  }));
+
+  const filtered = filter === "All" ? portfolioItems : portfolioItems.filter((p) => p.categoryKey === filter);
+
+  const getCategoryLabel = (key: string) => categories.find(c => c.key === key)?.label || key;
 
   return (
     <Layout>
-      {/* Hero */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 text-center">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
-            <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">Portfolio</motion.p>
+            <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">{t("portfolioPage.subtitle")}</motion.p>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Our <span className="text-primary">Work</span>
+              {t("portfolioPage.title1")} <span className="text-primary">{t("portfolioPage.title2")}</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Browse through our completed projects and see the quality we deliver.
+              {t("portfolioPage.description")}
             </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* Filter + Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <ScrollReveal variant="fadeUp">
             <div className="flex flex-wrap gap-2 justify-center mb-12">
               {categories.map((cat) => (
                 <button
-                  key={cat}
-                  onClick={() => setFilter(cat)}
+                  key={cat.key}
+                  onClick={() => setFilter(cat.key)}
                   className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
-                    filter === cat
+                    filter === cat.key
                       ? "bg-primary text-primary-foreground"
                       : "bg-secondary text-secondary-foreground hover:bg-primary/10"
                   }`}
                 >
-                  {cat}
+                  {cat.label}
                 </button>
               ))}
             </div>
@@ -87,7 +95,7 @@ const Portfolio = () => {
                       {item.title}
                     </span>
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity text-primary text-sm">
-                      {item.category}
+                      {getCategoryLabel(item.categoryKey)}
                     </span>
                   </div>
                 </div>
@@ -97,7 +105,6 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {lightbox !== null && (
           <motion.div
@@ -109,7 +116,7 @@ const Portfolio = () => {
           >
             <button
               onClick={() => setLightbox(null)}
-              className="absolute top-6 right-6 w-10 h-10 rounded-full bg-card flex items-center justify-center"
+              className="absolute top-6 end-6 w-10 h-10 rounded-full bg-card flex items-center justify-center"
             >
               <X className="h-5 w-5 text-foreground" />
             </button>
