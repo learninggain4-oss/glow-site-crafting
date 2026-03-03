@@ -6,6 +6,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
 import heroBg from "@/assets/hero-bg.jpg";
+import avatarAhmed from "@/assets/avatar-ahmed.jpg";
+import avatarSarah from "@/assets/avatar-sarah.jpg";
+import avatarMohammed from "@/assets/avatar-mohammed.jpg";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
 import portfolio3 from "@/assets/portfolio-3.jpg";
@@ -47,9 +50,9 @@ const services = [
 ];
 
 const testimonials = [
-  { name: "Ahmed K.", text: "Outstanding service! My car looks brand new after their detailing work. Highly recommended!", rating: 5 },
-  { name: "Sarah M.", text: "Best auto care center in Dubai. Professional team and excellent results every time.", rating: 5 },
-  { name: "Mohammed R.", text: "The leather restoration work was incredible. They truly care about quality.", rating: 5 },
+  { name: "Ahmed K.", text: "Outstanding service! My car looks brand new after their detailing work. Highly recommended!", rating: 5, avatar: avatarAhmed },
+  { name: "Sarah M.", text: "Best auto care center in Dubai. Professional team and excellent results every time.", rating: 5, avatar: avatarSarah },
+  { name: "Mohammed R.", text: "The leather restoration work was incredible. They truly care about quality.", rating: 5, avatar: avatarMohammed },
 ];
 
 const Index = () => {
@@ -298,7 +301,10 @@ const Index = () => {
                         <Star key={j} className="h-4 w-4 fill-primary text-primary" />
                       ))}
                     </div>
-                    <p className="font-heading font-semibold text-foreground">{t.name}</p>
+                    <div className="flex items-center gap-3">
+                      <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                      <p className="font-heading font-semibold text-foreground">{t.name}</p>
+                    </div>
                   </CardContent>
                 </Card>
               </ScrollReveal>
