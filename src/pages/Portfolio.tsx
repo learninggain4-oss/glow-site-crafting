@@ -1,7 +1,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Car, X } from "lucide-react";
+import { X } from "lucide-react";
 import Layout from "@/components/Layout";
+import portfolio1 from "@/assets/portfolio-1.jpg";
+import portfolio2 from "@/assets/portfolio-2.jpg";
+import portfolio3 from "@/assets/portfolio-3.jpg";
+import portfolio4 from "@/assets/portfolio-4.jpg";
+import portfolio5 from "@/assets/portfolio-5.jpg";
+import portfolio6 from "@/assets/portfolio-6.jpg";
+
+const portfolioImages = [portfolio1, portfolio2, portfolio3, portfolio4, portfolio5, portfolio6];
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -18,6 +26,7 @@ const portfolioItems = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
   title: `Project ${i + 1}`,
   category: categories[1 + (i % 4)],
+  image: portfolioImages[i % 6],
 }));
 
 const Portfolio = () => {
@@ -71,9 +80,7 @@ const Portfolio = () => {
                 onClick={() => setLightbox(item.id)}
                 className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative"
               >
-                <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary flex items-center justify-center">
-                  <Car className="h-10 w-10 text-muted-foreground/40" />
-                </div>
+                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-background/0 group-hover:bg-background/60 transition-colors flex flex-col items-center justify-center">
                   <span className="opacity-0 group-hover:opacity-100 transition-opacity text-foreground font-heading font-semibold">
                     {item.title}
@@ -111,9 +118,13 @@ const Portfolio = () => {
               className="max-w-3xl w-full aspect-video bg-muted rounded-2xl overflow-hidden flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary flex items-center justify-center">
-                <Car className="h-20 w-20 text-muted-foreground/40" />
-              </div>
+              {lightbox !== null && (
+                <img
+                  src={portfolioItems.find(p => p.id === lightbox)?.image}
+                  alt="Portfolio project"
+                  className="w-full h-full object-cover"
+                />
+              )}
             </motion.div>
           </motion.div>
         )}
