@@ -351,8 +351,8 @@ const Index = () => {
                 ))}
               </CarouselContent>
               <div className="flex justify-center gap-2 mt-8">
-                <CarouselPrevious className="static translate-y-0 bg-white/20 border-white/30 text-white hover:bg-white/40 hover:text-white" />
-                <CarouselNext className="static translate-y-0 bg-white/20 border-white/30 text-white hover:bg-white/40 hover:text-white" />
+                <CarouselPrevious className="static translate-y-0 bg-white border-white text-black hover:bg-white/80 hover:text-black" />
+                <CarouselNext className="static translate-y-0 bg-white border-white text-black hover:bg-white/80 hover:text-black" />
               </div>
             </Carousel>
           </ScrollReveal>
