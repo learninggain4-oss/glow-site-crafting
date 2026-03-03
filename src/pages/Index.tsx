@@ -115,10 +115,10 @@ const Index = () => {
             </motion.p>
             <motion.h1
               variants={fadeInUp}
-              className="font-heading text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight"
+              className="font-heading text-5xl md:text-7xl font-extrabold mb-6 leading-tight"
             >
-              {t("hero.title1")}{" "}
-              <span className="text-primary">{t("hero.title2")}</span>
+              <span className="text-foreground drop-shadow-lg">{t("hero.title1")}</span>{" "}
+              <span className="text-primary drop-shadow-lg">{t("hero.title2")}</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               {t("hero.subtitle")}
@@ -168,8 +168,8 @@ const Index = () => {
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("features.subtitle")}</p>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-                {t("features.title1")} <span className="text-primary">{t("features.title2")}</span>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
+                <span className="text-foreground">{t("features.title1")}</span> <span className="text-primary">{t("features.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -224,8 +224,8 @@ const Index = () => {
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("services.subtitle")}</p>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-                {t("services.title1")} <span className="text-primary">{t("services.title2")}</span>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
+                <span className="text-foreground">{t("services.title1")}</span> <span className="text-primary">{t("services.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -257,8 +257,8 @@ const Index = () => {
         <div className="container mx-auto px-4 text-center">
           <ScrollReveal variant="blur">
             <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("flawless.subtitle")}</p>
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
-              {t("flawless.title1")} <span className="text-primary">{t("flawless.title2")}</span>
+            <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-4">
+              <span className="text-foreground">{t("flawless.title1")}</span> <span className="text-primary">{t("flawless.title2")}</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
               {t("flawless.description")}
@@ -285,8 +285,8 @@ const Index = () => {
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("portfolio.subtitle")}</p>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-                {t("portfolio.title1")} <span className="text-primary">{t("portfolio.title2")}</span>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
+                <span className="text-foreground">{t("portfolio.title1")}</span> <span className="text-primary">{t("portfolio.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -322,8 +322,8 @@ const Index = () => {
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("testimonials.subtitle")}</p>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-                {t("testimonials.title1")} <span className="text-primary">{t("testimonials.title2")}</span>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
+                <span className="text-foreground">{t("testimonials.title1")}</span> <span className="text-primary">{t("testimonials.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -364,8 +364,8 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <ScrollReveal variant="blur">
             <div className="text-center max-w-3xl mx-auto">
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-                {t("cta.title1")} <span className="text-primary">{t("cta.title2")}</span>?
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-6">
+                <span className="text-foreground">{t("cta.title1")}</span> <span className="text-primary">{t("cta.title2")}</span>?
               </h2>
               <p className="text-muted-foreground text-lg mb-8">
                 {t("cta.description")}
