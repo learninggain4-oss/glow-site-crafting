@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import Layout from "@/components/Layout";
+import ScrollReveal from "@/components/ScrollReveal";
 import { z } from "zod";
 
 const fadeInUp = {
@@ -106,7 +107,7 @@ const Booking = () => {
 
       <section className="py-16">
         <div className="container mx-auto px-4 max-w-3xl">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+          <ScrollReveal variant="fadeUp">
             <Card className="bg-card border-border">
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -209,7 +210,7 @@ const Booking = () => {
                 </form>
               </CardContent>
             </Card>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </section>
     </Layout>
