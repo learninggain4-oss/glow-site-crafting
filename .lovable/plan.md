@@ -1,51 +1,21 @@
 
 
-## First Option UAE – Redesigned Website
+## Add Trusted Companies Logo Marquee
 
-A modern, attractive auto care website for First Option UAE with a dark theme, smooth animations, and all key pages. Here's what we'll build:
+Add an infinite-scrolling logo marquee section on the homepage between the "Features" and "Services" sections (before the services section at the `bg-secondary/30` block).
 
-### 🏠 Homepage
-- **Hero section** with bold "Best Auto Care Service Centre" headline, description, and "Learn More" CTA button against a dark background
-- **Stats bar** showing Google Rating (4.9+), Years Experience (4+), and Happy Customer (100%)
-- **Quick action cards** – "Get Free Consultation" and "Explore Our Services"
-- **Feature highlights** – Best in UAE, 24-Hour Service, Free Assessment, Precision Care with icons
-- **Services overview** – Cards for Auto Care, Accessories, Leather, Electrical, and Painting
-- **"Flawless Finish" section** with social links and trust points (Trusted Auto Care, Top Car Service, Expert Vehicle Care)
-- **Trusted Companies** logo carousel
-- **Work Portfolio** image gallery grid with "Explore More" link
-- **Testimonials** carousel with client reviews
-- **Blog preview** – Latest 3 articles with thumbnails
-- **Footer** with quick links, services, contact info, location, and social media icons
+### Implementation
 
-### 📄 About Us Page
-- Company story, mission, and values
-- Team highlights section
+1. **Create placeholder company logos** — Since we don't have real client logos, use text-based logo placeholders (company names styled as logos) for companies like Mercedes, BMW, Toyota, Porsche, Land Rover, Audi, etc. These can be swapped for real images later.
 
-### 🔧 Services Pages
-- Individual pages for: Auto Care, Accessories, Leather, Electrical, Painting
-- Each with service description, features, and a CTA to book
+2. **Build the marquee in `Index.tsx`** — Add a new section with:
+   - Section header ("Trusted By" / "Our Clients")
+   - A horizontally scrolling container using the existing `animate-marquee` keyframe from `tailwind.config.ts`
+   - Duplicate the logo set twice inside a flex row so the scroll loops seamlessly
+   - `overflow-hidden` on the wrapper to clip content
 
-### 🖼️ Work Portfolio Page
-- Full image gallery grid showcasing completed projects
-- Lightbox-style image viewing
+3. **No new components needed** — The marquee is simple enough to inline. Uses the already-defined `marquee` animation (`translateX(0%) → translateX(-50%)` over 30s).
 
-### 📞 Contact Us Page
-- Contact form (name, email, phone, message, preferred service, date picker)
-- Business info: phone, WhatsApp, email, location with embedded Google Maps link
-- Social media links
-
-### 📅 Online Booking
-- Booking form with service selection, preferred date/time, vehicle details, and contact info
-- Form validation and success confirmation toast
-
-### 🎨 Design & UX
-- Dark theme matching the original site (dark backgrounds, red/white accents)
-- Smooth scroll animations and hover effects
-- Fully responsive for mobile and desktop
-- Floating WhatsApp and phone buttons
-- Sticky navigation bar with dropdown for services
-
-### 🔗 Navigation
-- Header: Home, About Us, Our Services (dropdown), Work Portfolio, Online Booking, Contact Us
-- Mobile hamburger menu
+### Placement
+Between the "Why Choose Us" features grid and the "Our Services" section.
 
