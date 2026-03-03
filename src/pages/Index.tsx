@@ -147,6 +147,33 @@ const Index = () => {
               </ScrollReveal>
             ))}
           </div>
+      </div>
+      </section>
+
+      {/* Trusted Companies Marquee */}
+      <section className="py-16 border-y border-border/50">
+        <div className="container mx-auto px-4">
+          <ScrollReveal variant="fadeUp">
+            <p className="text-center text-muted-foreground font-medium tracking-widest uppercase text-sm mb-10">
+              Trusted By Leading Brands
+            </p>
+          </ScrollReveal>
+          <div className="overflow-hidden">
+            <div className="flex animate-marquee whitespace-nowrap">
+              {[...Array(2)].map((_, setIndex) => (
+                <div key={setIndex} className="flex items-center gap-16 px-8 shrink-0">
+                  {["Mercedes-Benz", "BMW", "Porsche", "Land Rover", "Audi", "Toyota", "Lexus", "Nissan"].map((brand) => (
+                    <span
+                      key={`${setIndex}-${brand}`}
+                      className="font-heading text-2xl font-bold text-muted-foreground/40 hover:text-primary/60 transition-colors select-none"
+                    >
+                      {brand}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
