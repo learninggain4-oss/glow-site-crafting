@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { z } from "zod";
 
 const fadeInUp = {
@@ -45,6 +46,7 @@ const timeSlots = [
 
 const Booking = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [date, setDate] = useState<Date>();
   const [formData, setFormData] = useState({
@@ -53,6 +55,14 @@ const Booking = () => {
     time: "", notes: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const serviceOptions = [
+    { label: t("service.autoCare"), value: "auto-care" },
+    { label: t("service.accessories"), value: "accessories" },
+    { label: t("service.leather"), value: "leather" },
+    { label: t("service.electrical"), value: "electrical" },
+    { label: t("service.painting"), value: "painting" },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +77,7 @@ const Booking = () => {
     }
     setErrors({});
     setSubmitted(true);
-    toast({ title: "Booking Confirmed!", description: "We'll contact you shortly to confirm your appointment." });
+    toast({ title: t("booking.confirmed"), description: t("booking.confirmedDesc") });
   };
 
   if (submitted) {
@@ -78,10 +88,10 @@ const Booking = () => {
             <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="h-10 w-10 text-primary" />
             </div>
-            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">Booking Confirmed!</h2>
-            <p className="text-muted-foreground mb-8">Thank you for choosing First Option UAE. We'll contact you shortly to confirm your appointment details.</p>
+            <h2 className="font-heading text-3xl font-bold text-foreground mb-4">{t("booking.confirmed")}</h2>
+            <p className="text-muted-foreground mb-8">{t("booking.confirmedDesc")}</p>
             <Button onClick={() => { setSubmitted(false); setFormData({ name: "", email: "", phone: "", service: "", vehicleMake: "", vehicleModel: "", vehicleYear: "", time: "", notes: "" }); setDate(undefined); }}>
-              Book Another
+              {t("booking.bookAnother")}
             </Button>
           </motion.div>
         </section>
@@ -94,12 +104,12 @@ const Booking = () => {
       <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4 text-center">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
-            <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">Schedule</motion.p>
+            <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">{t("booking.subtitle")}</motion.p>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Online <span className="text-primary">Booking</span>
+              {t("booking.title1")} <span className="text-primary">{t("booking.title2")}</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Book your appointment online and we'll take care of the rest.
+              {t("booking.description")}
             </motion.p>
           </motion.div>
         </div>
@@ -111,36 +121,34 @@ const Booking = () => {
             <Card className="bg-card border-border">
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Contact */}
                   <div>
-                    <h3 className="font-heading font-semibold text-lg text-foreground mb-4">Contact Information</h3>
+                    <h3 className="font-heading font-semibold text-lg text-foreground mb-4">{t("booking.contactInfo")}</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <Input placeholder="Full Name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="bg-secondary border-border" />
+                        <Input placeholder={t("booking.fullName")} value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="bg-secondary border-border" />
                         {errors.name && <p className="text-sm text-destructive mt-1">{errors.name}</p>}
                       </div>
                       <div>
-                        <Input placeholder="Email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="bg-secondary border-border" />
+                        <Input placeholder={t("contact.email")} type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="bg-secondary border-border" />
                         {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
                       </div>
                       <div className="sm:col-span-2">
-                        <Input placeholder="Phone Number" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="bg-secondary border-border" />
+                        <Input placeholder={t("contact.phone")} value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="bg-secondary border-border" />
                         {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone}</p>}
                       </div>
                     </div>
                   </div>
 
-                  {/* Service */}
                   <div>
-                    <h3 className="font-heading font-semibold text-lg text-foreground mb-4">Service Details</h3>
+                    <h3 className="font-heading font-semibold text-lg text-foreground mb-4">{t("booking.serviceDetails")}</h3>
                     <div>
                       <Select value={formData.service} onValueChange={(v) => setFormData({ ...formData, service: v })}>
                         <SelectTrigger className="bg-secondary border-border">
-                          <SelectValue placeholder="Select Service" />
+                          <SelectValue placeholder={t("contact.selectService")} />
                         </SelectTrigger>
                         <SelectContent>
-                          {["Auto Care", "Accessories", "Leather", "Electrical", "Painting"].map((s) => (
-                            <SelectItem key={s} value={s.toLowerCase()}>{s}</SelectItem>
+                          {serviceOptions.map((s) => (
+                            <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
@@ -148,35 +156,33 @@ const Booking = () => {
                     </div>
                   </div>
 
-                  {/* Vehicle */}
                   <div>
-                    <h3 className="font-heading font-semibold text-lg text-foreground mb-4">Vehicle Information</h3>
+                    <h3 className="font-heading font-semibold text-lg text-foreground mb-4">{t("booking.vehicleInfo")}</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div>
-                        <Input placeholder="Make (e.g. Toyota)" value={formData.vehicleMake} onChange={(e) => setFormData({ ...formData, vehicleMake: e.target.value })} className="bg-secondary border-border" />
+                        <Input placeholder={t("booking.make")} value={formData.vehicleMake} onChange={(e) => setFormData({ ...formData, vehicleMake: e.target.value })} className="bg-secondary border-border" />
                         {errors.vehicleMake && <p className="text-sm text-destructive mt-1">{errors.vehicleMake}</p>}
                       </div>
                       <div>
-                        <Input placeholder="Model (e.g. Camry)" value={formData.vehicleModel} onChange={(e) => setFormData({ ...formData, vehicleModel: e.target.value })} className="bg-secondary border-border" />
+                        <Input placeholder={t("booking.model")} value={formData.vehicleModel} onChange={(e) => setFormData({ ...formData, vehicleModel: e.target.value })} className="bg-secondary border-border" />
                         {errors.vehicleModel && <p className="text-sm text-destructive mt-1">{errors.vehicleModel}</p>}
                       </div>
                       <div>
-                        <Input placeholder="Year" value={formData.vehicleYear} onChange={(e) => setFormData({ ...formData, vehicleYear: e.target.value })} className="bg-secondary border-border" />
+                        <Input placeholder={t("booking.year")} value={formData.vehicleYear} onChange={(e) => setFormData({ ...formData, vehicleYear: e.target.value })} className="bg-secondary border-border" />
                         {errors.vehicleYear && <p className="text-sm text-destructive mt-1">{errors.vehicleYear}</p>}
                       </div>
                     </div>
                   </div>
 
-                  {/* Date & Time */}
                   <div>
-                    <h3 className="font-heading font-semibold text-lg text-foreground mb-4">Preferred Date & Time</h3>
+                    <h3 className="font-heading font-semibold text-lg text-foreground mb-4">{t("booking.dateTime")}</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Popover>
                           <PopoverTrigger asChild>
                             <Button variant="outline" className={cn("w-full justify-start text-left font-normal bg-secondary border-border", !date && "text-muted-foreground")}>
-                              <CalendarIcon className="mr-2 h-4 w-4" />
-                              {date ? format(date, "PPP") : "Pick a date"}
+                              <CalendarIcon className="me-2 h-4 w-4" />
+                              {date ? format(date, "PPP") : t("booking.pickDate")}
                             </Button>
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0" align="start">
@@ -188,11 +194,11 @@ const Booking = () => {
                       <div>
                         <Select value={formData.time} onValueChange={(v) => setFormData({ ...formData, time: v })}>
                           <SelectTrigger className="bg-secondary border-border">
-                            <SelectValue placeholder="Select Time" />
+                            <SelectValue placeholder={t("booking.selectTime")} />
                           </SelectTrigger>
                           <SelectContent>
-                            {timeSlots.map((t) => (
-                              <SelectItem key={t} value={t}>{t}</SelectItem>
+                            {timeSlots.map((ts) => (
+                              <SelectItem key={ts} value={ts}>{ts}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -201,12 +207,11 @@ const Booking = () => {
                     </div>
                   </div>
 
-                  {/* Notes */}
                   <div>
-                    <Textarea placeholder="Additional notes (optional)" rows={3} value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })} className="bg-secondary border-border" />
+                    <Textarea placeholder={t("booking.notes")} rows={3} value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })} className="bg-secondary border-border" />
                   </div>
 
-                  <Button type="submit" className="w-full" size="lg">Confirm Booking</Button>
+                  <Button type="submit" className="w-full" size="lg">{t("booking.confirm")}</Button>
                 </form>
               </CardContent>
             </Card>

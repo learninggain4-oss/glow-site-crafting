@@ -7,6 +7,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import { useLanguage } from "@/i18n/LanguageContext";
 import heroBg from "@/assets/hero-bg.jpg";
 import avatarAhmed from "@/assets/avatar-ahmed.jpg";
 import avatarSarah from "@/assets/avatar-sarah.jpg";
@@ -33,37 +34,39 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
-const stats = [
-  { label: "Google Rating", value: "4.9+", icon: Star },
-  { label: "Years Experience", value: "4+", icon: Award },
-  { label: "Happy Customers", value: "100%", icon: Shield },
-];
-
-const features = [
-  { title: "Best in UAE", description: "Top-rated auto care service center", icon: Award },
-  { title: "24-Hour Service", description: "Round the clock availability", icon: Clock },
-  { title: "Free Assessment", description: "Complimentary vehicle inspection", icon: Shield },
-  { title: "Precision Care", description: "Attention to every detail", icon: Wrench },
-];
-
-const services = [
-  { title: "Auto Care", description: "Complete vehicle maintenance and detailing services", icon: Car, path: "/services/auto-care" },
-  { title: "Accessories", description: "Premium vehicle accessories and upgrades", icon: Wrench, path: "/services/accessories" },
-  { title: "Leather", description: "Expert leather restoration and customization", icon: Sofa, path: "/services/leather" },
-  { title: "Electrical", description: "Advanced electrical system diagnostics and repair", icon: Zap, path: "/services/electrical" },
-  { title: "Painting", description: "Professional auto painting and refinishing", icon: Palette, path: "/services/painting" },
-];
-
-const testimonials = [
-  { name: "Ahmed K.", text: "Outstanding service! My car looks brand new after their detailing work. Highly recommended!", rating: 5, avatar: avatarAhmed },
-  { name: "Sarah M.", text: "Best auto care center in Dubai. Professional team and excellent results every time.", rating: 5, avatar: avatarSarah },
-  { name: "Mohammed R.", text: "The leather restoration work was incredible. They truly care about quality.", rating: 5, avatar: avatarMohammed },
-  { name: "Fatima A.", text: "Amazing paint correction on my SUV. The team is super knowledgeable and friendly. Will definitely come back!", rating: 5, avatar: avatarFatima },
-  { name: "Raj P.", text: "They upgraded the entire electrical system in my vehicle flawlessly. Excellent craftsmanship and fair pricing.", rating: 5, avatar: avatarRaj },
-  { name: "James W.", text: "From PPF installation to interior detailing, everything was top-notch. A truly premium experience.", rating: 5, avatar: avatarJames },
-];
-
 const Index = () => {
+  const { t } = useLanguage();
+
+  const stats = [
+    { label: t("stats.googleRating"), value: "4.9+", icon: Star },
+    { label: t("stats.yearsExperience"), value: "4+", icon: Award },
+    { label: t("stats.happyCustomers"), value: "100%", icon: Shield },
+  ];
+
+  const features = [
+    { title: t("features.bestUae"), description: t("features.bestUaeDesc"), icon: Award },
+    { title: t("features.24hour"), description: t("features.24hourDesc"), icon: Clock },
+    { title: t("features.freeAssessment"), description: t("features.freeAssessmentDesc"), icon: Shield },
+    { title: t("features.precisionCare"), description: t("features.precisionCareDesc"), icon: Wrench },
+  ];
+
+  const services = [
+    { title: t("service.autoCare"), description: t("service.autoCareDesc"), icon: Car, path: "/services/auto-care" },
+    { title: t("service.accessories"), description: t("service.accessoriesDesc"), icon: Wrench, path: "/services/accessories" },
+    { title: t("service.leather"), description: t("service.leatherDesc"), icon: Sofa, path: "/services/leather" },
+    { title: t("service.electrical"), description: t("service.electricalDesc"), icon: Zap, path: "/services/electrical" },
+    { title: t("service.painting"), description: t("service.paintingDesc"), icon: Palette, path: "/services/painting" },
+  ];
+
+  const testimonials = [
+    { name: "Ahmed K.", text: t("testimonial.ahmed"), rating: 5, avatar: avatarAhmed },
+    { name: "Sarah M.", text: t("testimonial.sarah"), rating: 5, avatar: avatarSarah },
+    { name: "Mohammed R.", text: t("testimonial.mohammed"), rating: 5, avatar: avatarMohammed },
+    { name: "Fatima A.", text: t("testimonial.fatima"), rating: 5, avatar: avatarFatima },
+    { name: "Raj P.", text: t("testimonial.raj"), rating: 5, avatar: avatarRaj },
+    { name: "James W.", text: t("testimonial.james"), rating: 5, avatar: avatarJames },
+  ];
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -81,27 +84,27 @@ const Index = () => {
             className="max-w-4xl mx-auto text-center"
           >
             <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">
-              Welcome to First Option UAE
+              {t("hero.welcome")}
             </motion.p>
             <motion.h1
               variants={fadeInUp}
               className="font-heading text-5xl md:text-7xl font-bold text-foreground mb-6 leading-tight"
             >
-              Best Auto Care{" "}
-              <span className="text-primary">Service Centre</span>
+              {t("hero.title1")}{" "}
+              <span className="text-primary">{t("hero.title2")}</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-              Experience premium auto care services with cutting-edge technology and a passionate team dedicated to perfection.
+              {t("hero.subtitle")}
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/booking">
                 <Button size="lg" className="text-base px-8 py-6 font-semibold">
-                  Book Now
+                  {t("hero.bookNow")}
                 </Button>
               </Link>
               <Link to="/services/auto-care">
                 <Button variant="outline" size="lg" className="text-base px-8 py-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  Explore Services
+                  {t("hero.exploreServices")}
                 </Button>
               </Link>
             </motion.div>
@@ -137,9 +140,9 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
-              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Why Choose Us</p>
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("features.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-                What Makes Us <span className="text-primary">Different</span>
+                {t("features.title1")} <span className="text-primary">{t("features.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -158,7 +161,7 @@ const Index = () => {
               </ScrollReveal>
             ))}
           </div>
-      </div>
+        </div>
       </section>
 
       {/* Trusted Companies Marquee */}
@@ -166,7 +169,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <ScrollReveal variant="fadeUp">
             <p className="text-center text-muted-foreground font-medium tracking-widest uppercase text-sm mb-10">
-              Trusted By Leading Brands
+              {t("marquee.title")}
             </p>
           </ScrollReveal>
           <div className="overflow-hidden">
@@ -193,9 +196,9 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
-              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">What We Offer</p>
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("services.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-                Our <span className="text-primary">Services</span>
+                {t("services.title1")} <span className="text-primary">{t("services.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -211,7 +214,7 @@ const Index = () => {
                       <h3 className="font-heading font-semibold text-xl text-foreground mb-2">{service.title}</h3>
                       <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
                       <span className="inline-flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                        Learn More <ChevronRight className="h-4 w-4" />
+                        {t("services.learnMore")} <ChevronRight className="h-4 w-4 rtl:rotate-180" />
                       </span>
                     </CardContent>
                   </Card>
@@ -222,20 +225,20 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Flawless Finish / Trust Section */}
+      {/* Flawless Finish */}
       <section className="py-24">
         <div className="container mx-auto px-4 text-center">
           <ScrollReveal variant="blur">
-            <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Excellence</p>
+            <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("flawless.subtitle")}</p>
             <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Flawless <span className="text-primary">Finish</span>
+              {t("flawless.title1")} <span className="text-primary">{t("flawless.title2")}</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
-              We take pride in delivering impeccable results that exceed expectations. Every vehicle receives our signature touch of excellence.
+              {t("flawless.description")}
             </p>
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-            {["Trusted Auto Care", "Top Car Service", "Expert Vehicle Care"].map((trust, i) => (
+            {[t("flawless.trust1"), t("flawless.trust2"), t("flawless.trust3")].map((trust, i) => (
               <ScrollReveal key={trust} variant="scaleIn" delay={i * 0.15}>
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
@@ -254,9 +257,9 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
-              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Our Work</p>
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("portfolio.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-                Work <span className="text-primary">Portfolio</span>
+                {t("portfolio.title1")} <span className="text-primary">{t("portfolio.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -267,7 +270,7 @@ const Index = () => {
                   <img src={img} alt={`Portfolio project ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-background/0 group-hover:bg-background/60 transition-colors flex items-center justify-center">
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity text-foreground font-heading font-semibold">
-                      View Project
+                      {t("portfolio.viewProject")}
                     </span>
                   </div>
                 </div>
@@ -278,7 +281,7 @@ const Index = () => {
             <div className="text-center mt-10">
               <Link to="/portfolio">
                 <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  Explore More <ChevronRight className="h-4 w-4 ml-1" />
+                  {t("portfolio.exploreMore")} <ChevronRight className="h-4 w-4 ms-1 rtl:rotate-180" />
                 </Button>
               </Link>
             </div>
@@ -291,29 +294,29 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
-              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">Testimonials</p>
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("testimonials.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground">
-                What Our Clients <span className="text-primary">Say</span>
+                {t("testimonials.title1")} <span className="text-primary">{t("testimonials.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
           <ScrollReveal variant="fadeUp">
             <Carousel opts={{ align: "start", loop: true }} plugins={[Autoplay({ delay: 4000, stopOnInteraction: false })]} className="w-full">
               <CarouselContent className="-ml-4">
-                {testimonials.map((t, i) => (
+                {testimonials.map((t_item, i) => (
                   <CarouselItem key={i} className="pl-4 md:basis-1/2 lg:basis-1/3">
                     <Card className="bg-card border-border h-full">
                       <CardContent className="p-8">
                         <Quote className="h-8 w-8 text-primary/30 mb-4" />
-                        <p className="text-muted-foreground mb-6 leading-relaxed">{t.text}</p>
+                        <p className="text-muted-foreground mb-6 leading-relaxed">{t_item.text}</p>
                         <div className="flex items-center gap-2 mb-2">
-                          {[...Array(t.rating)].map((_, j) => (
+                          {[...Array(t_item.rating)].map((_, j) => (
                             <Star key={j} className="h-4 w-4 fill-primary text-primary" />
                           ))}
                         </div>
                         <div className="flex items-center gap-3">
-                          <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
-                          <p className="font-heading font-semibold text-foreground">{t.name}</p>
+                          <img src={t_item.avatar} alt={t_item.name} className="w-10 h-10 rounded-full object-cover" />
+                          <p className="font-heading font-semibold text-foreground">{t_item.name}</p>
                         </div>
                       </CardContent>
                     </Card>
@@ -335,18 +338,18 @@ const Index = () => {
           <ScrollReveal variant="blur">
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="font-heading text-4xl md:text-5xl font-bold text-foreground mb-6">
-                Ready to Transform Your <span className="text-primary">Vehicle</span>?
+                {t("cta.title1")} <span className="text-primary">{t("cta.title2")}</span>?
               </h2>
               <p className="text-muted-foreground text-lg mb-8">
-                Book a free consultation today and let our experts take care of your car.
+                {t("cta.description")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/booking">
-                  <Button size="lg" className="text-base px-8 py-6">Book Free Consultation</Button>
+                  <Button size="lg" className="text-base px-8 py-6">{t("cta.bookFree")}</Button>
                 </Link>
                 <Link to="/contact">
                   <Button variant="outline" size="lg" className="text-base px-8 py-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                    Contact Us
+                    {t("cta.contactUs")}
                   </Button>
                 </Link>
               </div>
