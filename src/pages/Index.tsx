@@ -208,7 +208,7 @@ const Index = () => {
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("features.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <span className="text-foreground">{t("features.title1")}</span> <span className="text-primary">{t("features.title2")}</span>
+                <span className="text-[#675f5f]">{t("features.title1")}</span> <span className="text-primary">{t("features.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -312,9 +312,9 @@ const Index = () => {
           <ScrollReveal variant="blur">
             <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("flawless.subtitle")}</p>
             <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-sm">
-              <span className="text-foreground">{t("flawless.title1")}</span> <span className="text-primary">{t("flawless.title2")}</span>
+              <span className="text-[#5f5858]">{t("flawless.title1")}</span> <span className="text-primary">{t("flawless.title2")}</span>
             </h2>
-            <p className="text-foreground/70 max-w-2xl mx-auto mb-12">
+            <p className="max-w-2xl mx-auto mb-12 text-[#544a4a]">
               {t("flawless.description")}
             </p>
           </ScrollReveal>
@@ -332,7 +332,7 @@ const Index = () => {
                   >
                     <Shield className="h-8 w-8 text-primary" />
                   </motion.div>
-                  <p className="font-heading font-semibold text-foreground/80 drop-shadow-sm">{trust}</p>
+                  <p className="font-heading font-semibold drop-shadow-sm text-[#6c6060]">{trust}</p>
                 </motion.div>
               </ScrollReveal>
             ))}
@@ -426,9 +426,9 @@ const Index = () => {
           <ScrollReveal variant="blur">
             <div className="text-center max-w-3xl mx-auto">
                <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-sm">
-                 <span className="text-foreground">{t("cta.title1")}</span> <span className="text-primary">{t("cta.title2")}</span>?
+                 <span className="text-[#837272]">{t("cta.title1")}</span> <span className="text-primary">{t("cta.title2")}</span>?
                </h2>
-               <p className="text-foreground/70 text-lg mb-8">
+               <p className="text-lg mb-8 text-[#595454]">
                  {t("cta.description")}
                </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
