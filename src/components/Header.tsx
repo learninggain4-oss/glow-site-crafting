@@ -97,6 +97,7 @@ const Header = () => {
                     transition={{ duration: 0.2 }}
                     className="absolute top-full start-0 pt-2 w-56"
                   >
+                    <div className="bg-card border border-border rounded-lg shadow-xl py-2">
                     {services.map((service, i) => (
                       <motion.div
                         key={service.path}
@@ -112,7 +113,7 @@ const Header = () => {
                         </Link>
                       </motion.div>
                     ))}
-                  </motion.div>
+                    </div>
                 )}
               </div>
             ) : (
