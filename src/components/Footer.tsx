@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter, Youtube, Heart } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 
@@ -23,10 +23,22 @@ const Footer = () => {
     { name: t("service.painting"), path: "/services/painting" },
   ];
 
-  const socialIcons = [Facebook, Instagram, Twitter, Youtube];
+  const socialIcons = [
+    { icon: Facebook, color: "hover:bg-blue-600" },
+    { icon: Instagram, color: "hover:bg-pink-600" },
+    { icon: Twitter, color: "hover:bg-sky-500" },
+    { icon: Youtube, color: "hover:bg-red-600" },
+  ];
 
   return (
-    <footer className="bg-card border-t border-border">
+    <footer className="bg-card border-t border-border relative overflow-hidden">
+      {/* Subtle animated background gradient */}
+      <motion.div
+        className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"
+        animate={{ x: ["-100%", "100%"] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+      />
+
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
@@ -37,6 +49,7 @@ const Footer = () => {
                   className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center"
                   whileHover={{ rotate: 12, scale: 1.1 }}
                   transition={{ type: "spring", stiffness: 300 }}
+                  animate={{ boxShadow: ["0 0 0 0 hsl(var(--primary) / 0.3)", "0 0 0 8px hsl(var(--primary) / 0)", "0 0 0 0 hsl(var(--primary) / 0.3)"] }}
                 >
                   <span className="text-primary-foreground font-heading font-bold text-lg">FO</span>
                 </motion.div>
@@ -49,14 +62,17 @@ const Footer = () => {
                 {t("footer.description")}
               </p>
               <div className="flex gap-3">
-                {socialIcons.map((Icon, i) => (
+                {socialIcons.map(({ icon: Icon, color }, i) => (
                   <motion.a
                     key={i}
                     href="#"
-                    className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
-                    whileHover={{ scale: 1.2, rotate: 10 }}
+                    className={`w-9 h-9 rounded-full bg-secondary flex items-center justify-center text-muted-foreground ${color} hover:text-white transition-all`}
+                    whileHover={{ scale: 1.2, rotate: 10, y: -3 }}
                     whileTap={{ scale: 0.9 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1, type: "spring", stiffness: 300 }}
+                    viewport={{ once: true }}
                   >
                     <Icon className="h-4 w-4" />
                   </motion.a>
@@ -78,7 +94,7 @@ const Footer = () => {
                     transition={{ delay: i * 0.05 }}
                     viewport={{ once: true }}
                   >
-                    <Link to={link.path} className="text-sm text-muted-foreground hover:text-primary hover:translate-x-1 transition-all inline-block">
+                    <Link to={link.path} className="text-sm text-muted-foreground hover:text-primary transition-all inline-block underline-grow magnetic-hover">
                       {link.name}
                     </Link>
                   </motion.li>
@@ -100,7 +116,7 @@ const Footer = () => {
                     transition={{ delay: i * 0.05 }}
                     viewport={{ once: true }}
                   >
-                    <Link to={link.path} className="text-sm text-muted-foreground hover:text-primary hover:translate-x-1 transition-all inline-block">
+                    <Link to={link.path} className="text-sm text-muted-foreground hover:text-primary transition-all inline-block underline-grow magnetic-hover">
                       {link.name}
                     </Link>
                   </motion.li>
@@ -122,12 +138,15 @@ const Footer = () => {
                 ].map((item, i) => (
                   <motion.li
                     key={i}
-                    className="flex items-start gap-3"
+                    className="flex items-start gap-3 group"
                     whileHover={{ x: 4 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <motion.div whileHover={{ rotate: 20 }}>
-                      <item.icon className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                    <motion.div
+                      whileHover={{ rotate: 20, scale: 1.2 }}
+                      className="transition-colors"
+                    >
+                      <item.icon className="h-4 w-4 text-primary mt-0.5 shrink-0 group-hover:text-primary" />
                     </motion.div>
                     {item.href ? (
                       <a href={item.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -147,12 +166,28 @@ const Footer = () => {
       {/* Bottom Bar */}
       <div className="border-t border-border">
         <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-muted-foreground">
+          <motion.p
+            className="text-xs text-muted-foreground"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
             © {new Date().getFullYear()} First Option UAE. {t("footer.rights")}
-          </p>
-          <p className="text-xs text-muted-foreground">
+          </motion.p>
+          <motion.p
+            className="text-xs text-muted-foreground flex items-center gap-1"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
             {t("footer.premiumService")}
-          </p>
+            <motion.span
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Heart className="h-3 w-3 text-primary inline fill-primary" />
+            </motion.span>
+          </motion.p>
         </div>
       </div>
     </footer>
