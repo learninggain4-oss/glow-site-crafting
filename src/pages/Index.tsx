@@ -317,11 +317,8 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-gradient-to-br from-primary/10 via-background to-primary/5 relative overflow-hidden">
-        {/* Decorative blurred circles */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("testimonials.subtitle")}</p>
@@ -335,9 +332,9 @@ const Index = () => {
               <CarouselContent className="-ml-4">
                 {testimonials.map((t_item, i) => (
                   <CarouselItem key={i} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <Card className="bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 shadow-xl h-full hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
+                    <Card className="bg-secondary border-border/50 h-full">
                       <CardContent className="p-8">
-                        <Quote className="h-8 w-8 text-primary/40 mb-4" />
+                        <Quote className="h-8 w-8 text-primary/30 mb-4" />
                         <p className="text-muted-foreground mb-6 leading-relaxed">{t_item.text}</p>
                         <div className="flex items-center gap-2 mb-2">
                           {[...Array(t_item.rating)].map((_, j) => (
@@ -345,7 +342,7 @@ const Index = () => {
                           ))}
                         </div>
                         <div className="flex items-center gap-3">
-                          <img src={t_item.avatar} alt={t_item.name} className="w-10 h-10 rounded-full object-cover ring-2 ring-primary/30" />
+                          <img src={t_item.avatar} alt={t_item.name} className="w-10 h-10 rounded-full object-cover" />
                           <p className="font-heading font-semibold text-foreground">{t_item.name}</p>
                         </div>
                       </CardContent>
@@ -354,8 +351,8 @@ const Index = () => {
                 ))}
               </CarouselContent>
               <div className="flex justify-center gap-2 mt-8">
-                <CarouselPrevious className="static translate-y-0 bg-white/20 backdrop-blur-md border-white/30 text-foreground hover:bg-white/40" />
-                <CarouselNext className="static translate-y-0 bg-white/20 backdrop-blur-md border-white/30 text-foreground hover:bg-white/40" />
+                <CarouselPrevious className="static translate-y-0 bg-white border-white text-black hover:bg-white/80 hover:text-black" />
+                <CarouselNext className="static translate-y-0 bg-white border-white text-black hover:bg-white/80 hover:text-black" />
               </div>
             </Carousel>
           </ScrollReveal>
