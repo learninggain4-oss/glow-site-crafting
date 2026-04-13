@@ -140,7 +140,7 @@ const ServicePage = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-16 items-start">
             <ScrollReveal variant="fadeLeft">
-              <h2 className="font-heading text-3xl font-bold text-foreground mb-6">{t("servicePage.aboutService")} <span className="text-primary">{t("servicePage.service")}</span></h2>
+              <h2 className="font-heading text-3xl font-bold mb-6 text-[#837777]">{t("servicePage.aboutService")} <span className="text-primary">{t("servicePage.service")}</span></h2>
               <motion.p
                 className="text-muted-foreground leading-relaxed mb-8"
                 initial={{ opacity: 0 }}
@@ -223,7 +223,7 @@ const ServicePage = () => {
         <div className="container mx-auto px-4 text-center relative">
           <ScrollReveal variant="blur">
             <motion.h2
-              className="font-heading text-4xl font-bold text-foreground mb-6"
+              className="font-heading text-4xl font-bold mb-6 text-[#5d5151]"
               whileInView={{ scale: [0.95, 1] }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
