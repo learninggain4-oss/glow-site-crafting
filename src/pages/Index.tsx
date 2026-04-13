@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Star, Clock, Shield, Award, Car, Wrench, Palette, Zap, Sofa, ChevronRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -37,7 +37,37 @@ const fadeInUp = {
 
 const staggerContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.15 } },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
+};
+
+// Counter animation hook
+const useCountUp = (end: string, duration: number = 2000, inView: boolean = false) => {
+  const [count, setCount] = useState("0");
+  useEffect(() => {
+    if (!inView) return;
+    const numericMatch = end.match(/[\d.]+/);
+    if (!numericMatch) { setCount(end); return; }
+    const target = parseFloat(numericMatch[0]);
+    const prefix = end.slice(0, end.indexOf(numericMatch[0]));
+    const suffix = end.slice(end.indexOf(numericMatch[0]) + numericMatch[0].length);
+    const isDecimal = numericMatch[0].includes(".");
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = eased * target;
+      setCount(prefix + (isDecimal ? current.toFixed(1) : Math.floor(current).toString()) + suffix);
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [end, duration, inView]);
+  return count;
 };
 
 const Index = () => {
@@ -118,14 +148,14 @@ const Index = () => {
               className="font-heading text-5xl md:text-7xl font-extrabold mb-6 leading-tight"
             >
               <span className="text-foreground drop-shadow-lg">{t("hero.title1")}</span>{" "}
-              <span className="text-primary drop-shadow-lg">{t("hero.title2")}</span>
+              <span className="animate-gradient-text drop-shadow-lg">{t("hero.title2")}</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               {t("hero.subtitle")}
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/booking">
-                <Button size="lg" className="text-base px-8 py-6 font-semibold">
+                <Button size="lg" className="text-base px-8 py-6 font-semibold animate-pulse-glow shine-effect">
                   {t("hero.bookNow")}
                 </Button>
               </Link>
@@ -143,21 +173,30 @@ const Index = () => {
       <section className="relative z-10 -mt-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {stats.map((stat, i) => (
-              <ScrollReveal key={stat.label} variant="fadeUp" delay={i * 0.15}>
-                <Card className="bg-card border-border hover:border-primary/50 transition-colors">
-                  <CardContent className="flex items-center gap-4 p-6">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <stat.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-heading text-3xl font-bold text-foreground">{stat.value}</p>
-                      <p className="text-sm text-muted-foreground">{stat.label}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-            ))}
+            {stats.map((stat, i) => {
+              const statRef = useRef(null);
+              const statInView = useInView(statRef, { once: true });
+              const animatedValue = useCountUp(stat.value, 2000, statInView);
+              return (
+                <ScrollReveal key={stat.label} variant="fadeUp" delay={i * 0.15}>
+                  <Card ref={statRef} className="bg-card border-border card-hover-glow">
+                    <CardContent className="flex items-center gap-4 p-6">
+                      <motion.div
+                        className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <stat.icon className="h-6 w-6 text-primary" />
+                      </motion.div>
+                      <div>
+                        <p className="font-heading text-3xl font-bold text-foreground">{animatedValue}</p>
+                        <p className="text-sm text-muted-foreground">{stat.label}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -176,15 +215,21 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, i) => (
               <ScrollReveal key={feature.title} variant="scaleIn" delay={i * 0.1}>
-                <Card className="bg-card border-border hover:border-primary/50 transition-all hover:-translate-y-1 h-full">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                      <feature.icon className="h-7 w-7 text-primary" />
-                    </div>
-                    <h3 className="font-heading font-semibold text-lg text-foreground mb-2">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground">{feature.description}</p>
-                  </CardContent>
-                </Card>
+                <motion.div whileHover={{ y: -8, scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+                  <Card className="bg-card border-border card-hover-glow h-full">
+                    <CardContent className="p-6 text-center">
+                      <motion.div
+                        className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4"
+                        whileHover={{ rotate: 15, scale: 1.15 }}
+                        transition={{ type: "spring", stiffness: 200 }}
+                      >
+                        <feature.icon className="h-7 w-7 text-primary" />
+                      </motion.div>
+                      <h3 className="font-heading font-semibold text-lg text-foreground mb-2">{feature.title}</h3>
+                      <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               </ScrollReveal>
             ))}
           </div>
@@ -199,7 +244,7 @@ const Index = () => {
               {t("marquee.title")}
             </p>
           </ScrollReveal>
-          <div className="overflow-hidden">
+          <div className="overflow-hidden marquee-fade">
             <div className="flex animate-marquee whitespace-nowrap">
               {[...Array(2)].map((_, setIndex) => (
                 <div key={setIndex} className="flex items-center gap-16 px-8 shrink-0">
@@ -233,18 +278,27 @@ const Index = () => {
             {services.map((service, i) => (
               <ScrollReveal key={service.title} variant={i % 2 === 0 ? "fadeLeft" : "fadeRight"} delay={i * 0.1}>
                 <Link to={service.path}>
-                  <Card className="bg-card border-border hover:border-primary transition-all hover:-translate-y-2 group h-full cursor-pointer">
-                    <CardContent className="p-8">
-                      <div className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-5 transition-colors">
-                        <service.icon className="h-7 w-7 text-primary" />
-                      </div>
-                      <h3 className="font-heading font-semibold text-xl text-foreground mb-2">{service.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
-                      <span className="inline-flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                        {t("services.learnMore")} <ChevronRight className="h-4 w-4 rtl:rotate-180" />
-                      </span>
-                    </CardContent>
-                  </Card>
+                  <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
+                    <Card className="bg-card border-border card-hover-glow group h-full cursor-pointer">
+                      <CardContent className="p-8">
+                        <motion.div
+                          className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-5 transition-colors"
+                          whileHover={{ rotate: 360 }}
+                          transition={{ duration: 0.6 }}
+                        >
+                          <service.icon className="h-7 w-7 text-primary" />
+                        </motion.div>
+                        <h3 className="font-heading font-semibold text-xl text-foreground mb-2">{service.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
+                        <motion.span
+                          className="inline-flex items-center gap-1 text-primary text-sm font-medium"
+                          whileHover={{ x: 5 }}
+                        >
+                          {t("services.learnMore")} <ChevronRight className="h-4 w-4 rtl:rotate-180" />
+                        </motion.span>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 </Link>
               </ScrollReveal>
             ))}
@@ -267,12 +321,19 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
             {[t("flawless.trust1"), t("flawless.trust2"), t("flawless.trust3")].map((trust, i) => (
               <ScrollReveal key={trust} variant="scaleIn" delay={i * 0.15}>
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                <motion.div
+                  className="flex flex-col items-center gap-3"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <motion.div
+                    className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center animate-float"
+                    style={{ animationDelay: `${i * 0.5}s` }}
+                  >
                     <Shield className="h-8 w-8 text-primary" />
-                  </div>
+                  </motion.div>
                   <p className="font-heading font-semibold text-foreground">{trust}</p>
-                </div>
+                </motion.div>
               </ScrollReveal>
             ))}
           </div>
