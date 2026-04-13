@@ -37,7 +37,37 @@ const fadeInUp = {
 
 const staggerContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.15 } },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
+};
+
+// Counter animation hook
+const useCountUp = (end: string, duration: number = 2000, inView: boolean = false) => {
+  const [count, setCount] = useState("0");
+  useEffect(() => {
+    if (!inView) return;
+    const numericMatch = end.match(/[\d.]+/);
+    if (!numericMatch) { setCount(end); return; }
+    const target = parseFloat(numericMatch[0]);
+    const prefix = end.slice(0, end.indexOf(numericMatch[0]));
+    const suffix = end.slice(end.indexOf(numericMatch[0]) + numericMatch[0].length);
+    const isDecimal = numericMatch[0].includes(".");
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = eased * target;
+      setCount(prefix + (isDecimal ? current.toFixed(1) : Math.floor(current).toString()) + suffix);
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [end, duration, inView]);
+  return count;
 };
 
 const Index = () => {
