@@ -321,12 +321,19 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
             {[t("flawless.trust1"), t("flawless.trust2"), t("flawless.trust3")].map((trust, i) => (
               <ScrollReveal key={trust} variant="scaleIn" delay={i * 0.15}>
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                <motion.div
+                  className="flex flex-col items-center gap-3"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <motion.div
+                    className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center animate-float"
+                    style={{ animationDelay: `${i * 0.5}s` }}
+                  >
                     <Shield className="h-8 w-8 text-primary" />
-                  </div>
+                  </motion.div>
                   <p className="font-heading font-semibold text-foreground">{trust}</p>
-                </div>
+                </motion.div>
               </ScrollReveal>
             ))}
           </div>
