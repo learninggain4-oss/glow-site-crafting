@@ -38,7 +38,7 @@ const About = () => {
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl mx-auto text-center">
             <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">{t("about.subtitle")}</motion.p>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
-              {t("about.title1")} <span className="text-primary">{t("about.title2")}</span> {t("about.title3")}
+              {t("about.title1")} <span className="animate-gradient-text">{t("about.title2")}</span> {t("about.title3")}
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg text-muted-foreground">
               {t("about.intro")}
@@ -61,9 +61,13 @@ const About = () => {
               </div>
             </ScrollReveal>
             <ScrollReveal variant="fadeRight" delay={0.2}>
-              <div className="aspect-square bg-muted rounded-2xl overflow-hidden">
-                <img src={aboutStory} alt="First Option UAE workshop" className="w-full h-full object-cover" />
-              </div>
+              <motion.div
+                className="aspect-square bg-muted rounded-2xl overflow-hidden"
+                whileHover={{ scale: 1.03, rotate: 1 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
+                <img src={aboutStory} alt="First Option UAE workshop" className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
+              </motion.div>
             </ScrollReveal>
           </div>
         </div>
@@ -81,17 +85,23 @@ const About = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {values.map((v, i) => (
                 <ScrollReveal key={v.title} variant="scaleIn" delay={i * 0.1}>
-                  <Card className="bg-card border-border text-start">
-                    <CardContent className="p-6 flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                        <v.icon className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-heading font-semibold text-foreground mb-1">{v.title}</h3>
-                        <p className="text-sm text-muted-foreground">{v.description}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <motion.div whileHover={{ y: -8, scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+                    <Card className="bg-card border-border text-start card-hover-glow">
+                      <CardContent className="p-6 flex items-start gap-4">
+                        <motion.div
+                          className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0"
+                          whileHover={{ rotate: 360, scale: 1.2 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <v.icon className="h-6 w-6 text-primary" />
+                        </motion.div>
+                        <div>
+                          <h3 className="font-heading font-semibold text-foreground mb-1">{v.title}</h3>
+                          <p className="text-sm text-muted-foreground">{v.description}</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 </ScrollReveal>
               ))}
             </div>
@@ -112,10 +122,16 @@ const About = () => {
             <div className="space-y-4">
               {whyItems.map((item, i) => (
                 <ScrollReveal key={item} variant="fadeLeft" delay={i * 0.08}>
-                  <div className="flex items-center gap-3 p-4 rounded-lg bg-card border border-border">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0" />
+                  <motion.div
+                    className="flex items-center gap-3 p-4 rounded-lg bg-card border border-border"
+                    whileHover={{ x: 10, scale: 1.02, borderColor: "hsl(var(--primary) / 0.5)" }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <motion.div whileHover={{ rotate: 360 }} transition={{ duration: 0.4 }}>
+                      <CheckCircle className="h-5 w-5 text-primary shrink-0" />
+                    </motion.div>
                     <span className="text-foreground">{item}</span>
-                  </div>
+                  </motion.div>
                 </ScrollReveal>
               ))}
             </div>

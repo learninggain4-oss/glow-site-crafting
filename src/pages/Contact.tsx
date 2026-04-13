@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -75,7 +75,7 @@ const Contact = () => {
           <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
             <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">{t("contact.subtitle")}</motion.p>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
-              {t("contact.title1")} <span className="text-primary">{t("contact.title2")}</span>
+              {t("contact.title1")} <span className="animate-gradient-text">{t("contact.title2")}</span>
             </motion.h1>
           </motion.div>
         </div>
@@ -85,66 +85,93 @@ const Contact = () => {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             <ScrollReveal variant="fadeLeft">
-              <Card className="bg-card border-border">
-                <CardContent className="p-8">
-                  <h2 className="font-heading text-2xl font-bold text-foreground mb-6">{t("contact.sendMessage")}</h2>
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div>
-                      <Input placeholder={t("contact.name")} value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="bg-secondary border-border" />
-                      {errors.name && <p className="text-sm text-destructive mt-1">{errors.name}</p>}
-                    </div>
-                    <div>
-                      <Input placeholder={t("contact.email")} type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="bg-secondary border-border" />
-                      {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
-                    </div>
-                    <div>
-                      <Input placeholder={t("contact.phone")} value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="bg-secondary border-border" />
-                      {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone}</p>}
-                    </div>
-                    <div>
-                      <Select value={formData.service} onValueChange={(v) => setFormData({ ...formData, service: v })}>
-                        <SelectTrigger className="bg-secondary border-border">
-                          <SelectValue placeholder={t("contact.selectService")} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {serviceOptions.map((s) => (
-                            <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {errors.service && <p className="text-sm text-destructive mt-1">{errors.service}</p>}
-                    </div>
-                    <div>
-                      <Textarea placeholder={t("contact.message")} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="bg-secondary border-border" />
-                      {errors.message && <p className="text-sm text-destructive mt-1">{errors.message}</p>}
-                    </div>
-                    <Button type="submit" className="w-full" size="lg">{t("contact.send")}</Button>
-                  </form>
-                </CardContent>
-              </Card>
+              <motion.div whileHover={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 200 }}>
+                <Card className="bg-card border-border card-hover-glow">
+                  <CardContent className="p-8">
+                    <h2 className="font-heading text-2xl font-bold text-foreground mb-6">{t("contact.sendMessage")}</h2>
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
+                        <Input placeholder={t("contact.name")} value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg" />
+                        {errors.name && <p className="text-sm text-destructive mt-1">{errors.name}</p>}
+                      </motion.div>
+                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                        <Input placeholder={t("contact.email")} type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg" />
+                        {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
+                      </motion.div>
+                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+                        <Input placeholder={t("contact.phone")} value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg" />
+                        {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone}</p>}
+                      </motion.div>
+                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
+                        <Select value={formData.service} onValueChange={(v) => setFormData({ ...formData, service: v })}>
+                          <SelectTrigger className="bg-secondary border-border">
+                            <SelectValue placeholder={t("contact.selectService")} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {serviceOptions.map((s) => (
+                              <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {errors.service && <p className="text-sm text-destructive mt-1">{errors.service}</p>}
+                      </motion.div>
+                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
+                        <Textarea placeholder={t("contact.message")} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg" />
+                        {errors.message && <p className="text-sm text-destructive mt-1">{errors.message}</p>}
+                      </motion.div>
+                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <Button type="submit" className="w-full gap-2 shine-effect" size="lg">
+                          <Send className="h-4 w-4" />
+                          {t("contact.send")}
+                        </Button>
+                      </motion.div>
+                    </form>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </ScrollReveal>
 
             <ScrollReveal variant="fadeRight" delay={0.2}>
               <div className="space-y-6">
                 <h2 className="font-heading text-2xl font-bold text-foreground mb-2">{t("contact.infoTitle")}</h2>
                 <p className="text-muted-foreground mb-6">{t("contact.infoDesc")}</p>
-                {contactInfo.map((item) => (
-                  <a key={item.label} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-colors">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                {contactInfo.map((item, i) => (
+                  <motion.a
+                    key={item.label}
+                    href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-all"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 + i * 0.1 }}
+                    whileHover={{ x: 8, scale: 1.02 }}
+                  >
+                    <motion.div
+                      className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0"
+                      whileHover={{ rotate: 360, scale: 1.2 }}
+                      transition={{ duration: 0.5 }}
+                    >
                       <item.icon className="h-5 w-5 text-primary" />
-                    </div>
+                    </motion.div>
                     <div>
                       <p className="text-sm text-muted-foreground">{item.label}</p>
                       <p className="text-foreground font-medium">{item.value}</p>
                     </div>
-                  </a>
+                  </motion.a>
                 ))}
-                <div className="aspect-video bg-muted rounded-lg overflow-hidden flex items-center justify-center mt-6">
-                  <div className="text-center text-muted-foreground">
-                    <MapPin className="h-10 w-10 mx-auto mb-2" />
-                    <p className="text-sm">Google Maps – Al Quoz, Dubai</p>
+                <ScrollReveal variant="scaleIn" delay={0.5}>
+                  <div className="aspect-video bg-muted rounded-lg overflow-hidden flex items-center justify-center mt-6 card-hover-glow">
+                    <motion.div
+                      className="text-center text-muted-foreground"
+                      animate={{ y: [0, -5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <MapPin className="h-10 w-10 mx-auto mb-2" />
+                      <p className="text-sm">Google Maps – Al Quoz, Dubai</p>
+                    </motion.div>
                   </div>
-                </div>
+                </ScrollReveal>
               </div>
             </ScrollReveal>
           </div>

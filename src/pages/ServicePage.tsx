@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Car, Wrench, Sofa, Zap, Palette, CheckCircle, ChevronRight } from "lucide-react";
+import { Car, Wrench, Sofa, Zap, Palette, CheckCircle, ChevronRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
@@ -70,10 +70,14 @@ const ServicePage = () => {
     return (
       <Layout>
         <div className="min-h-screen flex items-center justify-center pt-20">
-          <div className="text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center"
+          >
             <h1 className="font-heading text-4xl font-bold text-foreground mb-4">{t("servicePage.notFound")}</h1>
             <Link to="/"><Button>{t("servicePage.goHome")}</Button></Link>
-          </div>
+          </motion.div>
         </div>
       </Layout>
     );
@@ -86,11 +90,16 @@ const ServicePage = () => {
       <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-4">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl mx-auto text-center">
-            <motion.div variants={fadeInUp} className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
+            <motion.div
+              variants={fadeInUp}
+              className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6"
+              whileHover={{ rotate: 360, scale: 1.1 }}
+              transition={{ duration: 0.6 }}
+            >
               <Icon className="h-10 w-10 text-primary" />
             </motion.div>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-4">
-              {t(config.titleKey)}
+              <span className="animate-gradient-text">{t(config.titleKey)}</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg text-muted-foreground">{t(config.descKey)}</motion.p>
           </motion.div>
@@ -105,31 +114,52 @@ const ServicePage = () => {
               <p className="text-muted-foreground leading-relaxed mb-8">{t(config.longDescKey)}</p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/booking">
-                  <Button size="lg" className="gap-2">
-                    {t("servicePage.bookThis")} <ChevronRight className="h-4 w-4 rtl:rotate-180" />
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button size="lg" className="gap-2 shine-effect animate-pulse-glow">
+                      {t("servicePage.bookThis")} <ChevronRight className="h-4 w-4 rtl:rotate-180" />
+                    </Button>
+                  </motion.div>
                 </Link>
                 <Link to="/contact">
-                  <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                    {t("servicePage.getQuote")}
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                      {t("servicePage.getQuote")}
+                    </Button>
+                  </motion.div>
                 </Link>
               </div>
             </ScrollReveal>
             <ScrollReveal variant="fadeRight" delay={0.2}>
-              <Card className="bg-card border-border">
-                <CardContent className="p-8">
-                  <h3 className="font-heading font-semibold text-xl text-foreground mb-6">{t("servicePage.whatsIncluded")}</h3>
-                  <div className="space-y-4">
-                    {config.featureKeys.map((key) => (
-                      <div key={key} className="flex items-center gap-3">
-                        <CheckCircle className="h-5 w-5 text-primary shrink-0" />
-                        <span className="text-foreground">{t(key)}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+              <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 200 }}>
+                <Card className="bg-card border-border card-hover-glow">
+                  <CardContent className="p-8">
+                    <h3 className="font-heading font-semibold text-xl text-foreground mb-6 flex items-center gap-2">
+                      <Sparkles className="h-5 w-5 text-primary" />
+                      {t("servicePage.whatsIncluded")}
+                    </h3>
+                    <div className="space-y-4">
+                      {config.featureKeys.map((key, i) => (
+                        <motion.div
+                          key={key}
+                          className="flex items-center gap-3"
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.4 + i * 0.1 }}
+                          whileHover={{ x: 8 }}
+                        >
+                          <motion.div
+                            whileHover={{ rotate: 360, scale: 1.2 }}
+                            transition={{ duration: 0.4 }}
+                          >
+                            <CheckCircle className="h-5 w-5 text-primary shrink-0" />
+                          </motion.div>
+                          <span className="text-foreground">{t(key)}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </ScrollReveal>
           </div>
         </div>
@@ -145,7 +175,9 @@ const ServicePage = () => {
               {t("servicePage.readyDesc")}
             </p>
             <Link to="/booking">
-              <Button size="lg" className="text-base px-8 py-6">{t("hero.bookNow")}</Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
+                <Button size="lg" className="text-base px-8 py-6 shine-effect animate-pulse-glow">{t("hero.bookNow")}</Button>
+              </motion.div>
             </Link>
           </ScrollReveal>
         </div>
