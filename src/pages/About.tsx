@@ -53,8 +53,8 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <ScrollReveal variant="fadeLeft">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("about.storySubtitle")}</p>
-              <h2 className="font-heading text-4xl font-bold text-foreground mb-6">{t("about.storyTitle1")} <span className="text-primary">{t("about.storyTitle2")}</span></h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <h2 className="font-heading text-4xl font-bold text-foreground mb-6 drop-shadow-sm">{t("about.storyTitle1")} <span className="text-primary">{t("about.storyTitle2")}</span></h2>
+              <div className="space-y-4 text-foreground/70 leading-relaxed">
                 <p>{t("about.storyP1")}</p>
                 <p>{t("about.storyP2")}</p>
                 <p>{t("about.storyP3")}</p>
@@ -79,8 +79,8 @@ const About = () => {
           <div className="max-w-3xl mx-auto text-center">
             <ScrollReveal variant="blur">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("about.missionSubtitle")}</p>
-              <h2 className="font-heading text-4xl font-bold text-foreground mb-6">{t("about.missionTitle1")} <span className="text-primary">{t("about.missionTitle2")}</span></h2>
-              <p className="text-lg text-muted-foreground mb-12">{t("about.missionDesc")}</p>
+              <h2 className="font-heading text-4xl font-bold text-foreground mb-6 drop-shadow-sm">{t("about.missionTitle1")} <span className="text-primary">{t("about.missionTitle2")}</span></h2>
+              <p className="text-lg text-foreground/70 mb-12">{t("about.missionDesc")}</p>
             </ScrollReveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {values.map((v, i) => (
@@ -116,7 +116,7 @@ const About = () => {
             <ScrollReveal variant="fadeUp">
               <div className="text-center mb-12">
                 <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("about.whySubtitle")}</p>
-                <h2 className="font-heading text-4xl font-bold text-foreground">{t("about.whyTitle1")} <span className="text-primary">{t("about.whyTitle2")}</span></h2>
+                <h2 className="font-heading text-4xl font-bold text-foreground drop-shadow-sm">{t("about.whyTitle1")} <span className="text-primary">{t("about.whyTitle2")}</span></h2>
               </div>
             </ScrollReveal>
             <div className="space-y-4">

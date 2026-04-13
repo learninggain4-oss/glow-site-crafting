@@ -311,10 +311,10 @@ const Index = () => {
         <div className="container mx-auto px-4 text-center">
           <ScrollReveal variant="blur">
             <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("flawless.subtitle")}</p>
-            <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-4">
+            <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-sm">
               <span className="text-foreground">{t("flawless.title1")}</span> <span className="text-primary">{t("flawless.title2")}</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-12">
+            <p className="text-foreground/70 max-w-2xl mx-auto mb-12">
               {t("flawless.description")}
             </p>
           </ScrollReveal>
@@ -332,7 +332,7 @@ const Index = () => {
                   >
                     <Shield className="h-8 w-8 text-primary" />
                   </motion.div>
-                  <p className="font-heading font-semibold text-foreground">{trust}</p>
+                  <p className="font-heading font-semibold text-foreground/80 drop-shadow-sm">{trust}</p>
                 </motion.div>
               </ScrollReveal>
             ))}
@@ -425,12 +425,12 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <ScrollReveal variant="blur">
             <div className="text-center max-w-3xl mx-auto">
-              <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-6">
-                <span className="text-foreground">{t("cta.title1")}</span> <span className="text-primary">{t("cta.title2")}</span>?
-              </h2>
-              <p className="text-muted-foreground text-lg mb-8">
-                {t("cta.description")}
-              </p>
+               <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-sm">
+                 <span className="text-foreground">{t("cta.title1")}</span> <span className="text-primary">{t("cta.title2")}</span>?
+               </h2>
+               <p className="text-foreground/70 text-lg mb-8">
+                 {t("cta.description")}
+               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/booking">
                   <Button size="lg" className="text-base px-8 py-6">{t("cta.bookFree")}</Button>
