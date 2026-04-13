@@ -148,7 +148,7 @@ const Index = () => {
               className="font-heading text-5xl md:text-7xl font-extrabold mb-6 leading-tight"
             >
               <span className="text-foreground drop-shadow-lg">{t("hero.title1")}</span>{" "}
-              <span className="text-primary drop-shadow-lg">{t("hero.title2")}</span>
+              <span className="animate-gradient-text drop-shadow-lg">{t("hero.title2")}</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               {t("hero.subtitle")}
