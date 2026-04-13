@@ -173,21 +173,30 @@ const Index = () => {
       <section className="relative z-10 -mt-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {stats.map((stat, i) => (
-              <ScrollReveal key={stat.label} variant="fadeUp" delay={i * 0.15}>
-                <Card className="bg-card border-border hover:border-primary/50 transition-colors">
-                  <CardContent className="flex items-center gap-4 p-6">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <stat.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-heading text-3xl font-bold text-foreground">{stat.value}</p>
-                      <p className="text-sm text-muted-foreground">{stat.label}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-            ))}
+            {stats.map((stat, i) => {
+              const statRef = useRef(null);
+              const statInView = useInView(statRef, { once: true });
+              const animatedValue = useCountUp(stat.value, 2000, statInView);
+              return (
+                <ScrollReveal key={stat.label} variant="fadeUp" delay={i * 0.15}>
+                  <Card ref={statRef} className="bg-card border-border card-hover-glow">
+                    <CardContent className="flex items-center gap-4 p-6">
+                      <motion.div
+                        className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <stat.icon className="h-6 w-6 text-primary" />
+                      </motion.div>
+                      <div>
+                        <p className="font-heading text-3xl font-bold text-foreground">{animatedValue}</p>
+                        <p className="text-sm text-muted-foreground">{stat.label}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>
