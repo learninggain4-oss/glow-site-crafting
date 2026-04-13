@@ -215,15 +215,21 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, i) => (
               <ScrollReveal key={feature.title} variant="scaleIn" delay={i * 0.1}>
-                <Card className="bg-card border-border hover:border-primary/50 transition-all hover:-translate-y-1 h-full">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                      <feature.icon className="h-7 w-7 text-primary" />
-                    </div>
-                    <h3 className="font-heading font-semibold text-lg text-foreground mb-2">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground">{feature.description}</p>
-                  </CardContent>
-                </Card>
+                <motion.div whileHover={{ y: -8, scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+                  <Card className="bg-card border-border card-hover-glow h-full">
+                    <CardContent className="p-6 text-center">
+                      <motion.div
+                        className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4"
+                        whileHover={{ rotate: 15, scale: 1.15 }}
+                        transition={{ type: "spring", stiffness: 200 }}
+                      >
+                        <feature.icon className="h-7 w-7 text-primary" />
+                      </motion.div>
+                      <h3 className="font-heading font-semibold text-lg text-foreground mb-2">{feature.title}</h3>
+                      <p className="text-sm text-muted-foreground">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               </ScrollReveal>
             ))}
           </div>
@@ -238,7 +244,7 @@ const Index = () => {
               {t("marquee.title")}
             </p>
           </ScrollReveal>
-          <div className="overflow-hidden">
+          <div className="overflow-hidden marquee-fade">
             <div className="flex animate-marquee whitespace-nowrap">
               {[...Array(2)].map((_, setIndex) => (
                 <div key={setIndex} className="flex items-center gap-16 px-8 shrink-0">
@@ -272,18 +278,27 @@ const Index = () => {
             {services.map((service, i) => (
               <ScrollReveal key={service.title} variant={i % 2 === 0 ? "fadeLeft" : "fadeRight"} delay={i * 0.1}>
                 <Link to={service.path}>
-                  <Card className="bg-card border-border hover:border-primary transition-all hover:-translate-y-2 group h-full cursor-pointer">
-                    <CardContent className="p-8">
-                      <div className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-5 transition-colors">
-                        <service.icon className="h-7 w-7 text-primary" />
-                      </div>
-                      <h3 className="font-heading font-semibold text-xl text-foreground mb-2">{service.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
-                      <span className="inline-flex items-center gap-1 text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                        {t("services.learnMore")} <ChevronRight className="h-4 w-4 rtl:rotate-180" />
-                      </span>
-                    </CardContent>
-                  </Card>
+                  <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
+                    <Card className="bg-card border-border card-hover-glow group h-full cursor-pointer">
+                      <CardContent className="p-8">
+                        <motion.div
+                          className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-5 transition-colors"
+                          whileHover={{ rotate: 360 }}
+                          transition={{ duration: 0.6 }}
+                        >
+                          <service.icon className="h-7 w-7 text-primary" />
+                        </motion.div>
+                        <h3 className="font-heading font-semibold text-xl text-foreground mb-2">{service.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
+                        <motion.span
+                          className="inline-flex items-center gap-1 text-primary text-sm font-medium"
+                          whileHover={{ x: 5 }}
+                        >
+                          {t("services.learnMore")} <ChevronRight className="h-4 w-4 rtl:rotate-180" />
+                        </motion.span>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 </Link>
               </ScrollReveal>
             ))}
