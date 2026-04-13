@@ -95,8 +95,9 @@ const Header = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full start-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-xl py-2"
+                    className="absolute top-full start-0 pt-2 w-56"
                   >
+                    <div className="bg-card border border-border rounded-lg shadow-xl py-2">
                     {services.map((service, i) => (
                       <motion.div
                         key={service.path}
@@ -112,6 +113,7 @@ const Header = () => {
                         </Link>
                       </motion.div>
                     ))}
+                    </div>
                   </motion.div>
                 )}
               </div>
