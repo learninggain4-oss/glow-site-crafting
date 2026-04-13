@@ -53,70 +53,17 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <ScrollReveal variant="fadeLeft">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("about.storySubtitle")}</p>
-              <h2 className="font-heading text-4xl font-bold text-foreground mb-6 drop-shadow-sm">{t("about.storyTitle1")} <span className="text-primary">{t("about.storyTitle2")}</span></h2>
+              <h2 className="font-heading text-4xl font-bold mb-6 drop-shadow-sm text-[#5e5555]">{t("about.storyTitle1")} <span className="text-primary">{t("about.storyTitle2")}</span></h2>
               <div className="space-y-4 text-foreground/70 leading-relaxed">
-                <p>{t("about.storyP1")}</p>
-                <p>{t("about.storyP2")}</p>
-                <p>{t("about.storyP3")}</p>
+                <p className="text-[#4f4a4a]">{t("about.storyP1")}</p>
+                <p className="text-[#675f5f]">{t("about.storyP2")}</p>
+                <p className="text-[#6a5858]">{t("about.storyP3")}</p>
               </div>
-            </ScrollReveal>
-            <ScrollReveal variant="fadeRight" delay={0.2}>
-              <motion.div
-                className="aspect-square bg-muted rounded-2xl overflow-hidden"
-                whileHover={{ scale: 1.03, rotate: 1 }}
-                transition={{ type: "spring", stiffness: 200 }}
-              >
-                <img src={aboutStory} alt="First Option UAE workshop" className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
-              </motion.div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission */}
-      <section className="py-24 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <ScrollReveal variant="blur">
-              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("about.missionSubtitle")}</p>
-              <h2 className="font-heading text-4xl font-bold text-foreground mb-6 drop-shadow-sm">{t("about.missionTitle1")} <span className="text-primary">{t("about.missionTitle2")}</span></h2>
-              <p className="text-lg text-foreground/70 mb-12">{t("about.missionDesc")}</p>
-            </ScrollReveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {values.map((v, i) => (
-                <ScrollReveal key={v.title} variant="scaleIn" delay={i * 0.1}>
-                  <motion.div whileHover={{ y: -8, scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-                    <Card className="bg-card border-border text-start card-hover-glow">
-                      <CardContent className="p-6 flex items-start gap-4">
-                        <motion.div
-                          className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0"
-                          whileHover={{ rotate: 360, scale: 1.2 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <v.icon className="h-6 w-6 text-primary" />
-                        </motion.div>
-                        <div>
-                          <h3 className="font-heading font-semibold text-foreground mb-1">{v.title}</h3>
-                          <p className="text-sm text-muted-foreground">{v.description}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Us */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
+...
             <ScrollReveal variant="fadeUp">
               <div className="text-center mb-12">
                 <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("about.whySubtitle")}</p>
-                <h2 className="font-heading text-4xl font-bold text-foreground drop-shadow-sm">{t("about.whyTitle1")} <span className="text-primary">{t("about.whyTitle2")}</span></h2>
+                <h2 className="font-heading text-4xl font-bold drop-shadow-sm border-[#524747] text-[#7c6e6e]">{t("about.whyTitle1")} <span className="text-primary">{t("about.whyTitle2")}</span></h2>
               </div>
             </ScrollReveal>
             <div className="space-y-4">
