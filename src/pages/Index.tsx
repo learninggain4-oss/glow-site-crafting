@@ -155,7 +155,7 @@ const Index = () => {
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/booking">
-                <Button size="lg" className="text-base px-8 py-6 font-semibold">
+                <Button size="lg" className="text-base px-8 py-6 font-semibold animate-pulse-glow shine-effect">
                   {t("hero.bookNow")}
                 </Button>
               </Link>
