@@ -133,8 +133,8 @@ const Contact = () => {
 
             <ScrollReveal variant="fadeRight" delay={0.2}>
               <div className="space-y-6">
-                <h2 className="font-heading text-2xl font-bold text-foreground mb-2 drop-shadow-sm">{t("contact.infoTitle")}</h2>
-                <p className="text-foreground/70 mb-6">{t("contact.infoDesc")}</p>
+                <h2 className="font-heading text-2xl font-bold mb-2 drop-shadow-sm text-secondary">{t("contact.infoTitle")}</h2>
+                <p className="mb-6 text-[#635454]">{t("contact.infoDesc")}</p>
                 {contactInfo.map((item, i) => (
                   <motion.a
                     key={item.label}

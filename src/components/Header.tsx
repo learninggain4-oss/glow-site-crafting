@@ -66,7 +66,7 @@ const Header = () => {
             <span className="text-primary-foreground font-heading font-bold text-lg">FO</span>
           </motion.div>
           <div>
-            <span className="font-heading font-bold text-lg text-foreground leading-tight block">
+            <span className="font-heading font-bold text-lg leading-tight block text-[#5a3030]">
               First Option
             </span>
             <span className="text-xs text-muted-foreground tracking-widest uppercase">UAE</span>
@@ -83,7 +83,7 @@ const Header = () => {
                 onMouseEnter={() => setServicesOpen(true)}
                 onMouseLeave={() => setServicesOpen(false)}
               >
-                <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors text-[#725f5f]">
                   {link.name}
                   <motion.div animate={{ rotate: servicesOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
                     <ChevronDown className="h-4 w-4" />
@@ -123,7 +123,7 @@ const Header = () => {
                   "relative px-4 py-2 text-sm font-medium transition-colors group",
                   location.pathname === link.path
                     ? "text-primary"
-                    : "text-foreground hover:text-primary"
+                    : "text-[#877373]"
                 )}
               >
                 {link.name}
