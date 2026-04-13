@@ -4,7 +4,7 @@ import { motion, useInView, useAnimation, Variant } from "framer-motion";
 interface ScrollRevealProps {
   children: ReactNode;
   className?: string;
-  variant?: "fadeUp" | "fadeDown" | "fadeLeft" | "fadeRight" | "scaleIn" | "blur";
+  variant?: "fadeUp" | "fadeDown" | "fadeLeft" | "fadeRight" | "scaleIn" | "blur" | "rotateIn" | "flipUp" | "slideUp" | "zoomIn";
   delay?: number;
   duration?: number;
   once?: boolean;
@@ -34,6 +34,22 @@ const variants: Record<string, { hidden: Variant; visible: Variant }> = {
   blur: {
     hidden: { opacity: 0, filter: "blur(10px)" },
     visible: { opacity: 1, filter: "blur(0px)" },
+  },
+  rotateIn: {
+    hidden: { opacity: 0, rotate: -8, scale: 0.9 },
+    visible: { opacity: 1, rotate: 0, scale: 1 },
+  },
+  flipUp: {
+    hidden: { opacity: 0, rotateX: 30, y: 30 },
+    visible: { opacity: 1, rotateX: 0, y: 0 },
+  },
+  slideUp: {
+    hidden: { opacity: 0, y: 60, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1 },
+  },
+  zoomIn: {
+    hidden: { opacity: 0, scale: 0.5 },
+    visible: { opacity: 1, scale: 1 },
   },
 };
 

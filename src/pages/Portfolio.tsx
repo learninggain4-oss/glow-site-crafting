@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ZoomIn } from "lucide-react";
+import { X, ZoomIn, Sparkles } from "lucide-react";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -48,10 +48,27 @@ const Portfolio = () => {
 
   return (
     <Layout>
-      <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background">
+      <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
+        {/* Animated background elements */}
+        <motion.div
+          className="absolute top-24 right-20 w-28 h-28 rounded-full bg-primary/5"
+          animate={{ scale: [1, 1.3, 1], rotate: [0, 90, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-5 left-16 w-16 h-16 rounded-full bg-primary/5"
+          animate={{ y: [0, -20, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        />
+
         <div className="container mx-auto px-4 text-center">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
-            <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">{t("portfolioPage.subtitle")}</motion.p>
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 mb-4">
+              <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
+                <Sparkles className="h-4 w-4 text-primary" />
+              </motion.div>
+              <span className="text-primary font-medium tracking-widest uppercase text-sm">{t("portfolioPage.subtitle")}</span>
+            </motion.div>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
               {t("portfolioPage.title1")} <span className="animate-gradient-text">{t("portfolioPage.title2")}</span>
             </motion.h1>
@@ -64,18 +81,21 @@ const Portfolio = () => {
 
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <ScrollReveal variant="fadeUp">
+          <ScrollReveal variant="slideUp">
             <div className="flex flex-wrap gap-2 justify-center mb-12">
-              {categories.map((cat) => (
+              {categories.map((cat, i) => (
                 <motion.button
                   key={cat.key}
                   onClick={() => setFilter(cat.key)}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.08, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 }}
+                  className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ripple-effect ${
                     filter === cat.key
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-secondary text-secondary-foreground hover:bg-primary/10"
+                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30"
+                      : "bg-secondary text-secondary-foreground hover:bg-primary/10 hover:shadow-md"
                   }`}
                 >
                   {cat.label}
@@ -93,29 +113,36 @@ const Portfolio = () => {
                 <motion.div
                   key={item.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.4, delay: i * 0.04 }}
+                  initial={{ opacity: 0, scale: 0.8, rotateY: -10 }}
+                  animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, rotateY: 10 }}
+                  transition={{ duration: 0.4, delay: i * 0.04, type: "spring", stiffness: 200 }}
                 >
                   <motion.div
                     onClick={() => setLightbox(item.id)}
-                    className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative"
+                    className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative floating-shadow"
                     whileHover={{ y: -8 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-background/0 group-hover:bg-background/70 transition-all duration-300 flex flex-col items-center justify-center gap-2">
                       <motion.div
-                        initial={{ scale: 0, opacity: 0 }}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="opacity-0 group-hover:opacity-100 transition-all duration-300"
+                        initial={{ scale: 0 }}
+                        whileHover={{ scale: 1 }}
                       >
-                        <ZoomIn className="h-8 w-8 text-primary mb-2" />
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <ZoomIn className="h-8 w-8 text-primary mb-2" />
+                        </motion.div>
                       </motion.div>
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity text-foreground font-heading font-semibold translate-y-2 group-hover:translate-y-0 duration-300">
+                      <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-foreground font-heading font-semibold translate-y-2 group-hover:translate-y-0">
                         {item.title}
                       </span>
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity text-primary text-sm translate-y-2 group-hover:translate-y-0 duration-500">
+                      <span className="opacity-0 group-hover:opacity-100 transition-all duration-500 text-primary text-sm translate-y-2 group-hover:translate-y-0">
                         {getCategoryLabel(item.categoryKey)}
                       </span>
                     </div>
@@ -133,7 +160,7 @@ const Portfolio = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-background/90 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-[60] bg-background/90 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setLightbox(null)}
           >
             <motion.button
@@ -145,11 +172,11 @@ const Portfolio = () => {
               <X className="h-5 w-5 text-foreground" />
             </motion.button>
             <motion.div
-              initial={{ scale: 0.5, opacity: 0, rotateY: -15 }}
+              initial={{ scale: 0.3, opacity: 0, rotateY: -30 }}
               animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-              exit={{ scale: 0.5, opacity: 0, rotateY: 15 }}
+              exit={{ scale: 0.3, opacity: 0, rotateY: 30 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="max-w-3xl w-full aspect-video bg-muted rounded-2xl overflow-hidden flex items-center justify-center"
+              className="max-w-3xl w-full aspect-video bg-muted rounded-2xl overflow-hidden flex items-center justify-center shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {lightbox !== null && (

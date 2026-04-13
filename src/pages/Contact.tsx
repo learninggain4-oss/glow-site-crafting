@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -68,12 +68,34 @@ const Contact = () => {
     setFormData({ name: "", email: "", phone: "", service: "", message: "" });
   };
 
+  const formFields = [
+    { key: "name", placeholder: t("contact.name"), type: "text", delay: 0.1 },
+    { key: "email", placeholder: t("contact.email"), type: "email", delay: 0.15 },
+    { key: "phone", placeholder: t("contact.phone"), type: "text", delay: 0.2 },
+  ];
+
   return (
     <Layout>
-      <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background">
+      <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
+        <motion.div
+          className="absolute top-16 left-10 w-24 h-24 rounded-full bg-primary/5"
+          animate={{ scale: [1, 1.3, 1], y: [0, -15, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-10 right-16 w-16 h-16 rounded-full bg-primary/5"
+          animate={{ scale: [1.2, 1, 1.2], rotate: [0, 180, 360] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+
         <div className="container mx-auto px-4 text-center">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
-            <motion.p variants={fadeInUp} className="text-primary font-medium tracking-widest uppercase text-sm mb-4">{t("contact.subtitle")}</motion.p>
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 mb-4">
+              <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
+                <Sparkles className="h-4 w-4 text-primary" />
+              </motion.div>
+              <span className="text-primary font-medium tracking-widest uppercase text-sm">{t("contact.subtitle")}</span>
+            </motion.div>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
               {t("contact.title1")} <span className="animate-gradient-text">{t("contact.title2")}</span>
             </motion.h1>
@@ -85,24 +107,29 @@ const Contact = () => {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             <ScrollReveal variant="fadeLeft">
-              <motion.div whileHover={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 200 }}>
-                <Card className="bg-card border-border card-hover-glow">
+              <motion.div whileHover={{ scale: 1.005 }} transition={{ type: "spring", stiffness: 200 }}>
+                <Card className="bg-card border-border card-hover-glow gradient-border">
                   <CardContent className="p-8">
                     <h2 className="font-heading text-2xl font-bold text-foreground mb-6">{t("contact.sendMessage")}</h2>
                     <form onSubmit={handleSubmit} className="space-y-5">
-                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
-                        <Input placeholder={t("contact.name")} value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg" />
-                        {errors.name && <p className="text-sm text-destructive mt-1">{errors.name}</p>}
-                      </motion.div>
-                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
-                        <Input placeholder={t("contact.email")} type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg" />
-                        {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
-                      </motion.div>
-                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
-                        <Input placeholder={t("contact.phone")} value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg" />
-                        {errors.phone && <p className="text-sm text-destructive mt-1">{errors.phone}</p>}
-                      </motion.div>
-                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
+                      {formFields.map((field) => (
+                        <motion.div
+                          key={field.key}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: field.delay }}
+                        >
+                          <Input
+                            placeholder={field.placeholder}
+                            type={field.type}
+                            value={formData[field.key as keyof typeof formData]}
+                            onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                            className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg focus:border-primary"
+                          />
+                          {errors[field.key] && <p className="text-sm text-destructive mt-1">{errors[field.key]}</p>}
+                        </motion.div>
+                      ))}
+                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.25 }}>
                         <Select value={formData.service} onValueChange={(v) => setFormData({ ...formData, service: v })}>
                           <SelectTrigger className="bg-secondary border-border">
                             <SelectValue placeholder={t("contact.selectService")} />
@@ -115,12 +142,12 @@ const Contact = () => {
                         </Select>
                         {errors.service && <p className="text-sm text-destructive mt-1">{errors.service}</p>}
                       </motion.div>
-                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
-                        <Textarea placeholder={t("contact.message")} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg" />
+                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+                        <Textarea placeholder={t("contact.message")} rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.02] focus:shadow-lg focus:border-primary" />
                         {errors.message && <p className="text-sm text-destructive mt-1">{errors.message}</p>}
                       </motion.div>
                       <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                        <Button type="submit" className="w-full gap-2 shine-effect" size="lg">
+                        <Button type="submit" className="w-full gap-2 shine-effect ripple-effect" size="lg">
                           <Send className="h-4 w-4" />
                           {t("contact.send")}
                         </Button>
@@ -141,7 +168,7 @@ const Contact = () => {
                     href={item.href}
                     target={item.href.startsWith("http") ? "_blank" : undefined}
                     rel="noopener noreferrer"
-                    className="flex items-start gap-4 p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-all"
+                    className="flex items-start gap-4 p-4 rounded-lg bg-card border border-border hover:border-primary/50 transition-all floating-shadow"
                     initial={{ opacity: 0, x: 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 + i * 0.1 }}
@@ -160,14 +187,19 @@ const Contact = () => {
                     </div>
                   </motion.a>
                 ))}
-                <ScrollReveal variant="scaleIn" delay={0.5}>
+                <ScrollReveal variant="zoomIn" delay={0.5}>
                   <div className="aspect-video bg-muted rounded-lg overflow-hidden flex items-center justify-center mt-6 card-hover-glow">
                     <motion.div
                       className="text-center text-muted-foreground"
-                      animate={{ y: [0, -5, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      animate={{ y: [0, -8, 0] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <MapPin className="h-10 w-10 mx-auto mb-2" />
+                      <motion.div
+                        animate={{ scale: [1, 1.15, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        <MapPin className="h-10 w-10 mx-auto mb-2 text-primary/60" />
+                      </motion.div>
                       <p className="text-sm">Google Maps – Al Quoz, Dubai</p>
                     </motion.div>
                   </div>
