@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Car, Wrench, Sofa, Zap, Palette, CheckCircle, ChevronRight, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Car, Wrench, Sofa, Zap, Palette, CheckCircle, ChevronRight, Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
@@ -87,7 +87,31 @@ const ServicePage = () => {
 
   return (
     <Layout>
-      <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background">
+      <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
+        {/* Animated background particles */}
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-3 h-3 rounded-full bg-primary/10"
+            style={{
+              top: `${20 + i * 20}%`,
+              left: `${10 + i * 25}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              x: [0, 15, 0],
+              opacity: [0.3, 0.7, 0.3],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 4 + i,
+              repeat: Infinity,
+              delay: i * 0.8,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+
         <div className="container mx-auto px-4">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl mx-auto text-center">
             <motion.div
@@ -95,6 +119,12 @@ const ServicePage = () => {
               className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6"
               whileHover={{ rotate: 360, scale: 1.1 }}
               transition={{ duration: 0.6 }}
+              animate={{
+                boxShadow: [
+                  "0 0 0 0 hsl(var(--primary) / 0.2)",
+                  "0 0 0 20px hsl(var(--primary) / 0)",
+                ],
+              }}
             >
               <Icon className="h-10 w-10 text-primary" />
             </motion.div>
@@ -111,11 +141,19 @@ const ServicePage = () => {
           <div className="grid md:grid-cols-2 gap-16 items-start">
             <ScrollReveal variant="fadeLeft">
               <h2 className="font-heading text-3xl font-bold text-foreground mb-6">{t("servicePage.aboutService")} <span className="text-primary">{t("servicePage.service")}</span></h2>
-              <p className="text-muted-foreground leading-relaxed mb-8">{t(config.longDescKey)}</p>
+              <motion.p
+                className="text-muted-foreground leading-relaxed mb-8"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+              >
+                {t(config.longDescKey)}
+              </motion.p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/booking">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button size="lg" className="gap-2 shine-effect animate-pulse-glow">
+                  <motion.div whileHover={{ scale: 1.05, x: 5 }} whileTap={{ scale: 0.95 }}>
+                    <Button size="lg" className="gap-2 shine-effect animate-pulse-glow ripple-effect">
                       {t("servicePage.bookThis")} <ChevronRight className="h-4 w-4 rtl:rotate-180" />
                     </Button>
                   </motion.div>
@@ -129,23 +167,28 @@ const ServicePage = () => {
                 </Link>
               </div>
             </ScrollReveal>
-            <ScrollReveal variant="fadeRight" delay={0.2}>
+            <ScrollReveal variant="flipUp" delay={0.2}>
               <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 200 }}>
-                <Card className="bg-card border-border card-hover-glow">
+                <Card className="bg-card border-border card-hover-glow gradient-border">
                   <CardContent className="p-8">
                     <h3 className="font-heading font-semibold text-xl text-foreground mb-6 flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-primary" />
+                      <motion.div
+                        animate={{ rotate: [0, 360] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                      >
+                        <Sparkles className="h-5 w-5 text-primary" />
+                      </motion.div>
                       {t("servicePage.whatsIncluded")}
                     </h3>
                     <div className="space-y-4">
                       {config.featureKeys.map((key, i) => (
                         <motion.div
                           key={key}
-                          className="flex items-center gap-3"
+                          className="flex items-center gap-3 p-2 rounded-lg hover:bg-primary/5 transition-colors"
                           initial={{ opacity: 0, x: 20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.4 + i * 0.1 }}
-                          whileHover={{ x: 8 }}
+                          whileHover={{ x: 8, backgroundColor: "hsl(var(--primary) / 0.05)" }}
                         >
                           <motion.div
                             whileHover={{ rotate: 360, scale: 1.2 }}
@@ -154,6 +197,12 @@ const ServicePage = () => {
                             <CheckCircle className="h-5 w-5 text-primary shrink-0" />
                           </motion.div>
                           <span className="text-foreground">{t(key)}</span>
+                          <motion.div
+                            className="ml-auto opacity-0"
+                            whileHover={{ opacity: 1 }}
+                          >
+                            <ArrowRight className="h-3 w-3 text-primary" />
+                          </motion.div>
                         </motion.div>
                       ))}
                     </div>
@@ -165,17 +214,31 @@ const ServicePage = () => {
         </div>
       </section>
 
-      <section className="py-24 bg-primary/5">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-24 bg-primary/5 relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5"
+          animate={{ x: ["-100%", "100%"] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+        />
+        <div className="container mx-auto px-4 text-center relative">
           <ScrollReveal variant="blur">
-            <h2 className="font-heading text-4xl font-bold text-foreground mb-6">
+            <motion.h2
+              className="font-heading text-4xl font-bold text-foreground mb-6"
+              whileInView={{ scale: [0.95, 1] }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               {t("servicePage.readyTitle")}
-            </h2>
+            </motion.h2>
             <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
               {t("servicePage.readyDesc")}
             </p>
             <Link to="/booking">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-block"
+              >
                 <Button size="lg" className="text-base px-8 py-6 shine-effect animate-pulse-glow">{t("hero.bookNow")}</Button>
               </motion.div>
             </Link>
