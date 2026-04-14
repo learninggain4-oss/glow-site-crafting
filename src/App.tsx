@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { AnimatePresence } from "framer-motion";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -23,6 +24,23 @@ const ScrollToTop = () => {
   return null;
 };
 
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Index />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services/:slug" element={<ServicePage />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <LanguageProvider>
@@ -31,15 +49,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services/:slug" element={<ServicePage />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AnimatedRoutes />
         </BrowserRouter>
       </TooltipProvider>
     </LanguageProvider>
