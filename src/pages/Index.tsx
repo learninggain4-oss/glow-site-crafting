@@ -12,6 +12,7 @@ import ParticleField from "@/components/ParticleField";
 import TypewriterText from "@/components/TypewriterText";
 import TextReveal from "@/components/TextReveal";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { TranslationKey } from "@/i18n/translations";
 import { useLanguage } from "@/i18n/LanguageContext";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
@@ -391,6 +392,36 @@ const Index = () => {
                           {t("packages.learnMore")}
                         </Button>
                       </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted Partners */}
+      <section className="py-20 bg-background relative overflow-hidden">
+        <ParticleField count={5} className="opacity-20" />
+        <div className="container mx-auto px-4 relative z-10">
+          <ScrollReveal variant="fadeUp">
+            <div className="text-center mb-14">
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("trust.subtitle")}</p>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
+                <TextReveal text={t("trust.title1")} className="text-foreground" /> <span className="text-primary">{t("trust.title2")}</span>
+              </h2>
+              <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{t("trust.note")}</p>
+            </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {["trust.partner1", "trust.partner2", "trust.partner3"].map((key, idx) => (
+              <ScrollReveal key={key} variant="fadeUp" delay={idx * 0.1}>
+                <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 280 }}>
+                  <Card className="bg-card border-border card-hover-glow h-full">
+                    <CardContent className="p-8 text-center">
+                      <Award className="mx-auto mb-4 h-12 w-12 text-primary" />
+                      <p className="font-heading text-2xl font-semibold text-foreground">{t(key as any)}</p>
                     </CardContent>
                   </Card>
                 </motion.div>

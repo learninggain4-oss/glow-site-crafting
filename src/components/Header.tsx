@@ -28,6 +28,7 @@ const Header = () => {
     { name: t("nav.services"), path: "#", hasDropdown: true },
     { name: t("nav.portfolio"), path: "/portfolio" },
     { name: t("nav.booking"), path: "/booking" },
+    { name: t("nav.account"), path: "/account" },
     { name: t("nav.contact"), path: "/contact" },
   ];
 

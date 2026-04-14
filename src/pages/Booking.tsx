@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
 import { CalendarIcon, CheckCircle, Sparkles, PartyPopper } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -39,6 +40,8 @@ const bookingSchema = z.object({
   time: z.string().min(1, "Please select a time"),
   paymentMethod: z.string().min(1, "Please select a payment method"),
   pickupService: z.enum(["yes", "no"]),
+  couponCode: z.string().trim().optional(),
+  addOns: z.array(z.string()).optional(),
   notes: z.string().max(500).optional(),
 });
 
@@ -48,15 +51,47 @@ const timeSlots = [
   "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM",
 ];
 
+const servicePrices: Record<string, number> = {
+  "auto-care": 450,
+  accessories: 220,
+  leather: 260,
+  electrical: 280,
+  painting: 340,
+};
+
+const addOnOptions = [
+  { id: "express", labelKey: "booking.addOn.express", price: 50 },
+  { id: "interiorProtection", labelKey: "booking.addOn.interiorProtection", price: 80 },
+  { id: "engineDetail", labelKey: "booking.addOn.engineDetail", price: 90 },
+];
+
+const validateCoupon = (code: string) => {
+  if (!code) return { valid: false, amount: 0 };
+  const normalized = code.trim().toUpperCase();
+  if (normalized === "FIRST10") return { valid: true, amount: 0.1 };
+  if (normalized === "LOYALTY15") return { valid: true, amount: 0.15 };
+  return { valid: false, amount: 0 };
+};
+
+const loadAccount = () => {
+  const raw = localStorage.getItem("firstOptionAccount");
+  return raw ? JSON.parse(raw) as { profile: { name: string; email: string; phone: string; loyaltyPoints: number }; bookings: any[] } : null;
+};
+
+const saveAccount = (account: { profile: { name: string; email: string; phone: string; loyaltyPoints: number }; bookings: any[] }) => {
+  localStorage.setItem("firstOptionAccount", JSON.stringify(account));
+};
+
 const Booking = () => {
   const { toast } = useToast();
   const { t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [date, setDate] = useState<Date>();
+  const [couponTouched, setCouponTouched] = useState(false);
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", service: "",
     vehicleMake: "", vehicleModel: "", vehicleYear: "",
-    time: "", paymentMethod: "", pickupService: "no", notes: "",
+    time: "", paymentMethod: "", pickupService: "no", notes: "", couponCode: "", addOns: [] as string[],
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -82,6 +117,12 @@ const Booking = () => {
   const selectedPaymentLabel = paymentOptions.find((option) => option.value === formData.paymentMethod)?.label || t("booking.paymentMethod");
   const selectedServiceLabel = serviceOptions.find((option) => option.value === formData.service)?.label || t("booking.summaryNone");
   const selectedPickupLabel = formData.pickupService === "yes" ? t("booking.pickupYes") : t("booking.pickupNo");
+  const pickupCharge = formData.pickupService === "yes" ? 100 : 0;
+  const addOnTotal = formData.addOns.reduce((sum, id) => sum + (addOnOptions.find((item) => item.id === id)?.price || 0), 0);
+  const coupon = validateCoupon(formData.couponCode);
+  const discountAmount = coupon.valid ? Math.round(((servicePrices[formData.service] ?? 0) + addOnTotal + pickupCharge) * coupon.amount) : 0;
+  const totalEstimate = (servicePrices[formData.service] ?? 0) + addOnTotal + pickupCharge - discountAmount;
+  const couponMessage = couponTouched && formData.couponCode ? (coupon.valid ? t("booking.couponApplied") : t("booking.couponInvalid")) : "";
 
   const bookingProgress = [
     t("booking.progress.step1"),
@@ -100,6 +141,46 @@ const Booking = () => {
       setErrors(fieldErrors);
       return;
     }
+
+    const account = loadAccount();
+    const profileData = account?.profile ?? {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      loyaltyPoints: 0,
+    };
+
+    const bookingEntry = {
+      id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+      invoiceNumber: `INV-${Date.now().toString().slice(-6)}`,
+      createdAt: Date.now(),
+      service: selectedServiceLabel,
+      date: date?.toISOString() || "",
+      time: formData.time,
+      paymentMethod: selectedPaymentLabel,
+      pickupService: selectedPickupLabel,
+      status: "Confirmed" as const,
+      total: totalEstimate,
+      couponCode: formData.couponCode.trim() || undefined,
+      addOns: formData.addOns,
+      vehicleMake: formData.vehicleMake,
+      vehicleModel: formData.vehicleModel,
+      vehicleYear: formData.vehicleYear,
+      notes: formData.notes,
+    };
+
+    const updatedAccount = {
+      profile: {
+        ...profileData,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        loyaltyPoints: profileData.loyaltyPoints + 10,
+      },
+      bookings: [bookingEntry, ...(account?.bookings ?? [])],
+    };
+
+    saveAccount(updatedAccount);
     setErrors({});
     setSubmitted(true);
     toast({ title: t("booking.confirmed"), description: t("booking.confirmedDesc") });
@@ -322,6 +403,58 @@ const Booking = () => {
         </div>
       ),
     },
+    {
+      title: t("booking.addOnsTitle"),
+      delay: 0.5,
+      fields: (
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {addOnOptions.map((option) => (
+              <label key={option.id} className="flex items-center gap-3 rounded-3xl border border-border bg-secondary/70 p-4 cursor-pointer transition-all hover:border-primary">
+                <Checkbox
+                  checked={formData.addOns.includes(option.id)}
+                  onCheckedChange={(checked) => {
+                    const active = Boolean(checked);
+                    setFormData((prev) => ({
+                      ...prev,
+                      addOns: active ? [...prev.addOns, option.id] : prev.addOns.filter((id) => id !== option.id),
+                    }));
+                  }}
+                />
+                <div>
+                  <p className="font-medium text-foreground">{t(option.labelKey as any)}</p>
+                  <p className="text-sm text-muted-foreground">AED {option.price}</p>
+                </div>
+              </label>
+            ))}
+          </div>
+          <p className="text-sm text-muted-foreground">{t("booking.addOnsHelp")}</p>
+        </div>
+      ),
+    },
+    {
+      title: t("booking.couponCode"),
+      delay: 0.6,
+      fields: (
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-4 items-end">
+          <div>
+            <Input
+              placeholder={t("booking.couponPlaceholder")}
+              value={formData.couponCode}
+              onChange={(e) => {
+                setFormData({ ...formData, couponCode: e.target.value });
+                setCouponTouched(false);
+              }}
+              className="bg-secondary border-border"
+            />
+          </div>
+          <Button type="button" onClick={() => setCouponTouched(true)}>
+            {t("booking.applyCoupon")}
+          </Button>
+          {couponMessage && <p className="text-sm text-primary col-span-full">{couponMessage}</p>}
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -411,7 +544,25 @@ const Booking = () => {
                           <span>{t("booking.summaryPickup")}</span>
                           <span className="text-foreground">{selectedPickupLabel}</span>
                         </div>
-                        <p className="text-xs text-muted-foreground mt-4">{t("booking.summaryNote")}</p>
+                        {formData.addOns.length > 0 && (
+                          <div className="flex justify-between gap-4">
+                            <span>{t("booking.addOnsTitle")}</span>
+                            <span className="text-foreground">{formData.addOns.length} {t("booking.addOns")}</span>
+                          </div>
+                        )}
+                        <div className="flex justify-between gap-4">
+                          <span>{t("booking.pickupCharge")}</span>
+                          <span className="text-foreground">{pickupCharge ? `AED ${pickupCharge}` : t("booking.summaryNone")}</span>
+                        </div>
+                        <div className="flex justify-between gap-4">
+                          <span>{t("booking.discount")}</span>
+                          <span className="text-foreground">{discountAmount ? `- AED ${discountAmount}` : t("booking.summaryNone")}</span>
+                        </div>
+                        <div className="flex justify-between gap-4 pt-4 border-t border-border text-base font-semibold">
+                          <span>{t("booking.totalEstimate")}</span>
+                          <span className="text-foreground">AED {totalEstimate}</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-4">{t("booking.deliveryEstimate")}</p>
                       </div>
                     </motion.div>
 
