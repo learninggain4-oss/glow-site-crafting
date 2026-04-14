@@ -112,6 +112,21 @@ export const translations = {
   "footer.newsletterErrorTitle": { en: "Invalid Email", ar: "بريد إلكتروني غير صالح" },
   "footer.newsletterErrorDesc": { en: "Please enter a valid email address.", ar: "يرجى إدخال بريد إلكتروني صالح." },
 
+  // Packages
+  "packages.subtitle": { en: "Premium Packages", ar: "حزم العناية المميزة" },
+  "packages.title1": { en: "Choose the best", ar: "اختر الأفضل" },
+  "packages.title2": { en: "protection package", ar: "حزمة الحماية" },
+  "packages.premium": { en: "Premium Care Package", ar: "حزمة العناية المميزة" },
+  "packages.premiumDesc": { en: "Full exterior wash, interior detailing, polish, and ceramic protection for lasting shine.", ar: "غسيل كامل من الخارج، وتلميع داخلي، وصقل، وحماية سيراميكية لمظهر يدوم." },
+  "packages.bestValue": { en: "Best Value", ar: "أفضل قيمة" },
+  "packages.paintPerfection": { en: "Paint Perfection Package", ar: "حزمة إتقان الطلاء" },
+  "packages.paintPerfectionDesc": { en: "Complete paint correction plus gloss sealant to keep your finish flawless.", ar: "تصحيح طلاء كامل بالإضافة إلى ختم لامع للحفاظ على المظهر الخالي من العيوب." },
+  "packages.mostPopular": { en: "Most Popular", ar: "الأكثر شعبية" },
+  "packages.interiorWellness": { en: "Interior Wellness Package", ar: "حزمة صحة المقصورة" },
+  "packages.interiorWellnessDesc": { en: "Deep interior sanitization, leather conditioning, and premium fabric protection.", ar: "تنظيف عميق للمقصورة، وتغذية الجلود، وحماية الأقمشة المميزة." },
+  "packages.vip": { en: "VIP", ar: "VIP" },
+  "packages.learnMore": { en: "Learn More", ar: "اعرف المزيد" },
+
   // About Page
   "about.subtitle": { en: "About Us", ar: "من نحن" },
   "about.title1": { en: "Your Trusted", ar: "شريكك الموثوق في" },
