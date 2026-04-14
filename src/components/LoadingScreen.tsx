@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Car } from "lucide-react";
 
 const LoadingScreen = () => {
   return (
@@ -12,16 +11,36 @@ const LoadingScreen = () => {
         >
           <div className="absolute inset-4 rounded-full border-2 border-primary/30 bg-background/80 shadow-[0_0_30px_rgba(34,197,94,0.1)] wheel-glow" />
           <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-slate-950/95 border border-primary/20 shadow-[0_0_18px_rgba(34,197,94,0.18)]">
-            <div className="absolute inset-4 rounded-full bg-slate-950/90" />
-            {Array.from({ length: 6 }).map((_, index) => (
-              <span
-                key={index}
-                className="absolute left-1/2 top-1/2 h-10 w-[2px] rounded-full bg-primary/80"
-                style={{ transform: `translate(-50%, -100%) rotate(${index * 60}deg)` }}
-              />
-            ))}
-            <span className="absolute inset-0 rounded-full border border-primary/30" />
-            <Car className="relative h-10 w-10 text-primary/80 drop-shadow-[0_0_20px_rgba(34,197,94,0.2)]" />
+            <svg viewBox="0 0 120 120" className="h-24 w-24 text-primary/80">
+              <circle cx="60" cy="60" r="54" className="fill-none stroke-current/20" strokeWidth="8" />
+              <circle cx="60" cy="60" r="42" className="fill-none stroke-current/30" strokeWidth="10" />
+              <circle cx="60" cy="60" r="16" className="fill-current text-primary/80" />
+              {new Array(8).fill(null).map((_, index) => (
+                <rect
+                  key={index}
+                  x="58"
+                  y="14"
+                  width="4"
+                  height="20"
+                  rx="2"
+                  className="fill-current text-primary/80"
+                  transform={`rotate(${index * 45} 60 60)`}
+                />
+              ))}
+              {new Array(16).fill(null).map((_, index) => (
+                <rect
+                  key={`tread-${index}`}
+                  x="56"
+                  y="4"
+                  width="8"
+                  height="12"
+                  rx="4"
+                  className="fill-current text-primary/70"
+                  transform={`rotate(${index * 22.5} 60 60)`}
+                />
+              ))}
+              <circle cx="60" cy="60" r="6" className="fill-current text-primary/90" />
+            </svg>
           </div>
           <span className="absolute -right-2 top-1/2 inline-block h-4 w-4 -translate-y-1/2 rounded-full bg-primary shadow-[0_0_20px_rgba(34,197,94,0.35)] animate-pulse" />
         </motion.div>
