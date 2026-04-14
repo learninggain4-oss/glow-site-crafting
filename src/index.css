@@ -217,6 +217,19 @@ html {
 .animate-bounce-slow {
   animation: bounce-slow 1.4s ease-in-out infinite;
 }
+
+@keyframes wheel-glow {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(34,197,94,0.18), 0 0 40px rgba(34,197,94,0.08);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(34,197,94,0.3), 0 0 60px rgba(34,197,94,0.14);
+  }
+}
+.wheel-glow {
+  animation: wheel-glow 2.4s ease-in-out infinite;
+}
+
 .ripple-effect:active::before {
   animation: ripple 0.6s ease-out;
 }
