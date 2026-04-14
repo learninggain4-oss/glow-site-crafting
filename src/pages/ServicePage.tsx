@@ -1,10 +1,12 @@
 import { useParams, Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Car, Wrench, Sofa, Zap, Palette, CheckCircle, ChevronRight, Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import TextReveal from "@/components/TextReveal";
+import ParticleField from "@/components/ParticleField";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { TranslationKey } from "@/i18n/translations";
 
@@ -88,31 +90,9 @@ const ServicePage = () => {
   return (
     <Layout>
       <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
-        {/* Animated background particles */}
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-3 h-3 rounded-full bg-primary/10"
-            style={{
-              top: `${20 + i * 20}%`,
-              left: `${10 + i * 25}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 15, 0],
-              opacity: [0.3, 0.7, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-              delay: i * 0.8,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+        <ParticleField count={12} className="opacity-30" />
 
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-3xl mx-auto text-center">
             <motion.div
               variants={fadeInUp}
@@ -136,11 +116,14 @@ const ServicePage = () => {
         </div>
       </section>
 
-      <section className="py-24">
-        <div className="container mx-auto px-4">
+      <section className="py-24 relative overflow-hidden">
+        <ParticleField count={5} className="opacity-15" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid md:grid-cols-2 gap-16 items-start">
             <ScrollReveal variant="fadeLeft">
-              <h2 className="font-heading text-3xl font-bold mb-6 text-[#837777]">{t("servicePage.aboutService")} <span className="text-primary">{t("servicePage.service")}</span></h2>
+              <h2 className="font-heading text-3xl font-bold mb-6 text-[#837777]">
+                <TextReveal text={t("servicePage.aboutService")} /> <span className="text-primary">{t("servicePage.service")}</span>
+              </h2>
               <motion.p
                 className="text-muted-foreground leading-relaxed mb-8"
                 initial={{ opacity: 0 }}
@@ -220,7 +203,8 @@ const ServicePage = () => {
           animate={{ x: ["-100%", "100%"] }}
           transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
         />
-        <div className="container mx-auto px-4 text-center relative">
+        <ParticleField count={8} className="opacity-20" />
+        <div className="container mx-auto px-4 text-center relative z-10">
           <ScrollReveal variant="blur">
             <motion.h2
               className="font-heading text-4xl font-bold mb-6 text-[#5d5151]"
@@ -228,14 +212,14 @@ const ServicePage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              {t("servicePage.readyTitle")}
+              <TextReveal text={t("servicePage.readyTitle")} />
             </motion.h2>
             <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
               {t("servicePage.readyDesc")}
             </p>
             <Link to="/booking">
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-block"
               >

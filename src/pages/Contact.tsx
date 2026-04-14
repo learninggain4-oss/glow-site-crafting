@@ -8,6 +8,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import TextReveal from "@/components/TextReveal";
+import ParticleField from "@/components/ParticleField";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useState } from "react";
 import { z } from "zod";
@@ -77,6 +79,7 @@ const Contact = () => {
   return (
     <Layout>
       <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
+        <ParticleField count={10} className="opacity-30" />
         <motion.div
           className="absolute top-16 left-10 w-24 h-24 rounded-full bg-primary/5"
           animate={{ scale: [1, 1.3, 1], y: [0, -15, 0] }}
@@ -97,7 +100,7 @@ const Contact = () => {
               <span className="text-primary font-medium tracking-widest uppercase text-sm">{t("contact.subtitle")}</span>
             </motion.div>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
-              {t("contact.title1")} <span className="animate-gradient-text">{t("contact.title2")}</span>
+              <TextReveal text={t("contact.title1")} /> <span className="animate-gradient-text">{t("contact.title2")}</span>
             </motion.h1>
           </motion.div>
         </div>
