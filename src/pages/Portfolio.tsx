@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn, Sparkles } from "lucide-react";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import TextReveal from "@/components/TextReveal";
+import ParticleField from "@/components/ParticleField";
 import { useLanguage } from "@/i18n/LanguageContext";
 import portfolio1 from "@/assets/portfolio-1.jpg";
 import portfolio2 from "@/assets/portfolio-2.jpg";
@@ -49,7 +51,7 @@ const Portfolio = () => {
   return (
     <Layout>
       <section className="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-background relative overflow-hidden">
-        {/* Animated background elements */}
+        <ParticleField count={10} className="opacity-30" />
         <motion.div
           className="absolute top-24 right-20 w-28 h-28 rounded-full bg-primary/5"
           animate={{ scale: [1, 1.3, 1], rotate: [0, 90, 0] }}
@@ -61,7 +63,7 @@ const Portfolio = () => {
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center relative z-10">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
             <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 mb-4">
               <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }}>
@@ -70,7 +72,7 @@ const Portfolio = () => {
               <span className="text-primary font-medium tracking-widest uppercase text-sm">{t("portfolioPage.subtitle")}</span>
             </motion.div>
             <motion.h1 variants={fadeInUp} className="font-heading text-5xl md:text-6xl font-bold text-foreground mb-6">
-              {t("portfolioPage.title1")} <span className="animate-gradient-text">{t("portfolioPage.title2")}</span>
+              <TextReveal text={t("portfolioPage.title1")} /> <span className="animate-gradient-text">{t("portfolioPage.title2")}</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg text-muted-foreground max-w-2xl mx-auto">
               {t("portfolioPage.description")}
@@ -79,8 +81,9 @@ const Portfolio = () => {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="container mx-auto px-4">
+      <section className="py-16 relative overflow-hidden">
+        <ParticleField count={5} className="opacity-15" />
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="slideUp">
             <div className="flex flex-wrap gap-2 justify-center mb-12">
               {categories.map((cat, i) => (
@@ -120,29 +123,29 @@ const Portfolio = () => {
                 >
                   <motion.div
                     onClick={() => setLightbox(item.id)}
-                    className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative floating-shadow"
+                    className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative floating-shadow tilt-card"
                     whileHover={{ y: -8 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-background/0 group-hover:bg-background/70 transition-all duration-300 flex flex-col items-center justify-center gap-2">
+                    <motion.img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.7 }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-end pb-4 gap-2">
                       <motion.div
-                        className="opacity-0 group-hover:opacity-100 transition-all duration-300"
-                        initial={{ scale: 0 }}
-                        whileHover={{ scale: 1 }}
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
-                        <motion.div
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          <ZoomIn className="h-8 w-8 text-primary mb-2" />
-                        </motion.div>
+                        <ZoomIn className="h-8 w-8 text-primary mb-2" />
                       </motion.div>
-                      <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-foreground font-heading font-semibold translate-y-2 group-hover:translate-y-0">
+                      <span className="text-foreground font-heading font-semibold translate-y-2 group-hover:translate-y-0 transition-transform">
                         {item.title}
                       </span>
-                      <span className="opacity-0 group-hover:opacity-100 transition-all duration-500 text-primary text-sm translate-y-2 group-hover:translate-y-0">
+                      <span className="text-primary text-sm translate-y-2 group-hover:translate-y-0 transition-transform delay-75">
                         {getCategoryLabel(item.categoryKey)}
                       </span>
                     </div>
