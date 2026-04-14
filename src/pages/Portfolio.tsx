@@ -44,6 +44,12 @@ const Portfolio = () => {
     image: portfolioImages[i % 6],
   }));
 
+  const beforeAfterItems = [
+    { title: t("portfolioPage.beforeAfterCase1"), before: portfolio1, after: portfolio2 },
+    { title: t("portfolioPage.beforeAfterCase2"), before: portfolio3, after: portfolio4 },
+    { title: t("portfolioPage.beforeAfterCase3"), before: portfolio5, after: portfolio6 },
+  ];
+
   const filtered = filter === "All" ? portfolioItems : portfolioItems.filter((p) => p.categoryKey === filter);
 
   const getCategoryLabel = (key: string) => categories.find(c => c.key === key)?.label || key;
@@ -154,6 +160,42 @@ const Portfolio = () => {
               ))}
             </AnimatePresence>
           </motion.div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-background/90 relative overflow-hidden">
+        <ParticleField count={6} className="opacity-20" />
+        <div className="container mx-auto px-4 relative z-10">
+          <ScrollReveal variant="fadeUp">
+            <div className="text-center mb-16">
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("portfolioPage.beforeAfterSubtitle")}</p>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">{t("portfolioPage.beforeAfterTitle")}</h2>
+              <p className="mt-4 text-muted-foreground max-w-3xl mx-auto">{t("portfolioPage.beforeAfterDesc")}</p>
+            </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {beforeAfterItems.map((item, i) => (
+              <ScrollReveal key={item.title} variant="fadeUp" delay={i * 0.1}>
+                <div className="rounded-3xl overflow-hidden border border-border bg-card shadow-sm">
+                  <div className="grid grid-cols-1 gap-3 p-6">
+                    <div>
+                      <p className="text-sm text-primary uppercase tracking-[0.2em] mb-2">{item.title}</p>
+                      <div className="relative overflow-hidden rounded-3xl">
+                        <img src={item.before} alt={`${item.title} before`} className="w-full h-56 object-cover" />
+                        <span className="absolute top-4 left-4 rounded-full bg-background/90 px-3 py-1 text-xs font-semibold text-foreground">{t("portfolioPage.beforeText")}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="relative overflow-hidden rounded-3xl">
+                        <img src={item.after} alt={`${item.title} after`} className="w-full h-56 object-cover" />
+                        <span className="absolute top-4 left-4 rounded-full bg-primary/90 px-3 py-1 text-xs font-semibold text-primary-foreground">{t("portfolioPage.afterText")}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 

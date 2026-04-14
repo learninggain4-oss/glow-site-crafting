@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
-import { Star, Clock, Shield, Award, Car, Wrench, Palette, Zap, Sofa, ChevronRight, Quote } from "lucide-react";
+import { Star, Clock, Shield, Award, Car, Wrench, Palette, Zap, Sofa, ChevronRight, Quote, CreditCard, Bell, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -101,6 +101,24 @@ const Index = () => {
       title: t("packages.interiorWellness"),
       description: t("packages.interiorWellnessDesc"),
       badge: t("packages.vip"),
+    },
+  ];
+
+  const homeBenefits = [
+    {
+      title: t("homeFeatures.securePayment"),
+      description: t("homeFeatures.securePaymentDesc"),
+      icon: CreditCard,
+    },
+    {
+      title: t("homeFeatures.remindersTitle"),
+      description: t("homeFeatures.remindersDesc"),
+      icon: Bell,
+    },
+    {
+      title: t("homeFeatures.loyaltyTitle"),
+      description: t("homeFeatures.loyaltyDesc"),
+      icon: Gift,
     },
   ];
 
@@ -375,6 +393,39 @@ const Index = () => {
                       </div>
                     </CardContent>
                   </Card>
+                </motion.div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Smart Service Benefits */}
+      <section className="py-24 bg-secondary/10 relative overflow-hidden">
+        <ParticleField count={6} className="opacity-15" />
+        <div className="container mx-auto px-4 relative z-10">
+          <ScrollReveal variant="fadeUp">
+            <div className="text-center mb-16">
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("homeFeatures.subtitle")}</p>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
+                <TextReveal text={t("homeFeatures.title1")} className="text-foreground" />
+                {" "}
+                <span className="text-primary">{t("homeFeatures.title2")}</span>
+              </h2>
+              <p className="mt-4 text-muted-foreground max-w-3xl mx-auto">{t("homeFeatures.description")}</p>
+            </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {homeBenefits.map((benefit, i) => (
+              <ScrollReveal key={benefit.title} variant="fadeUp" delay={i * 0.1}>
+                <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 280 }}>
+                  <div className="rounded-3xl border border-border bg-card p-8 h-full">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/10 text-primary mb-6">
+                      <benefit.icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="font-heading text-xl font-semibold text-foreground mb-3">{benefit.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{benefit.description}</p>
+                  </div>
                 </motion.div>
               </ScrollReveal>
             ))}

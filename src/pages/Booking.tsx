@@ -37,6 +37,8 @@ const bookingSchema = z.object({
   vehicleYear: z.string().trim().min(1, "Vehicle year is required").max(4),
   date: z.date({ required_error: "Please select a date" }),
   time: z.string().min(1, "Please select a time"),
+  paymentMethod: z.string().min(1, "Please select a payment method"),
+  pickupService: z.enum(["yes", "no"]),
   notes: z.string().max(500).optional(),
 });
 
@@ -54,7 +56,7 @@ const Booking = () => {
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", service: "",
     vehicleMake: "", vehicleModel: "", vehicleYear: "",
-    time: "", notes: "",
+    time: "", paymentMethod: "", pickupService: "no", notes: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -64,6 +66,27 @@ const Booking = () => {
     { label: t("service.leather"), value: "leather" },
     { label: t("service.electrical"), value: "electrical" },
     { label: t("service.painting"), value: "painting" },
+  ];
+
+  const paymentOptions = [
+    { label: t("booking.paymentCredit"), value: "credit" },
+    { label: t("booking.paymentPaypal"), value: "paypal" },
+    { label: t("booking.paymentCash"), value: "cash" },
+  ];
+
+  const pickupOptions = [
+    { label: t("booking.pickupYes"), value: "yes" },
+    { label: t("booking.pickupNo"), value: "no" },
+  ];
+
+  const selectedPaymentLabel = paymentOptions.find((option) => option.value === formData.paymentMethod)?.label || t("booking.paymentMethod");
+  const selectedServiceLabel = serviceOptions.find((option) => option.value === formData.service)?.label || t("booking.summaryNone");
+  const selectedPickupLabel = formData.pickupService === "yes" ? t("booking.pickupYes") : t("booking.pickupNo");
+
+  const bookingProgress = [
+    t("booking.progress.step1"),
+    t("booking.progress.step2"),
+    t("booking.progress.step3"),
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -136,6 +159,20 @@ const Booking = () => {
               <h2 className="font-heading text-3xl font-bold text-foreground mb-4">{t("booking.confirmed")}</h2>
               <p className="text-muted-foreground mb-8">{t("booking.confirmedDesc")}</p>
             </motion.div>
+            <div className="grid gap-4 mt-10">
+              {bookingProgress.map((step, index) => (
+                <motion.div
+                  key={step}
+                  className="rounded-3xl border border-border bg-background/80 p-5"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 + index * 0.1 }}
+                >
+                  <div className="text-sm text-muted-foreground uppercase tracking-widest mb-2">{t("booking.progressTitle")}</div>
+                  <p className="text-foreground font-medium">{step}</p>
+                </motion.div>
+              ))}
+            </div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -190,6 +227,43 @@ const Booking = () => {
             </SelectContent>
           </Select>
           {errors.service && <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="text-sm text-destructive mt-1">{errors.service}</motion.p>}
+        </div>
+      ),
+    },
+    {
+      title: t("booking.paymentDetails"),
+      delay: 0.5,
+      fields: (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <Select value={formData.paymentMethod} onValueChange={(v) => setFormData({ ...formData, paymentMethod: v })}>
+              <SelectTrigger className="bg-secondary border-border">
+                <SelectValue placeholder={t("booking.paymentMethod")} />
+              </SelectTrigger>
+              <SelectContent>
+                {paymentOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>{option.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {errors.paymentMethod && <motion.p initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="text-sm text-destructive mt-1">{errors.paymentMethod}</motion.p>}
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground mb-2">{t("booking.pickupService")}</p>
+            <div className="grid grid-cols-2 gap-2">
+              {pickupOptions.map((option) => (
+                <Button
+                  key={option.value}
+                  type="button"
+                  variant={formData.pickupService === option.value ? "secondary" : "outline"}
+                  onClick={() => setFormData({ ...formData, pickupService: option.value })}
+                  className="text-sm"
+                >
+                  {option.label}
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
       ),
     },
@@ -316,6 +390,29 @@ const Booking = () => {
                       transition={{ delay: 0.5 }}
                     >
                       <Textarea placeholder={t("booking.notes")} rows={3} value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })} className="bg-secondary border-border transition-all focus:scale-[1.01] focus:border-primary" />
+                    </motion.div>
+
+                    <motion.div className="rounded-[2rem] border border-border bg-background p-6 mt-6">
+                      <p className="text-sm text-primary font-semibold mb-3">{t("booking.summaryTitle")}</p>
+                      <div className="space-y-3 text-sm text-muted-foreground">
+                        <div className="flex justify-between gap-4">
+                          <span>{t("booking.summaryService")}</span>
+                          <span className="text-foreground">{selectedServiceLabel}</span>
+                        </div>
+                        <div className="flex justify-between gap-4">
+                          <span>{t("booking.summaryDate")}</span>
+                          <span className="text-foreground">{date ? format(date, "PPP") : t("booking.summaryNone")}, {formData.time || t("booking.summaryNone")}</span>
+                        </div>
+                        <div className="flex justify-between gap-4">
+                          <span>{t("booking.summaryPayment")}</span>
+                          <span className="text-foreground">{selectedPaymentLabel}</span>
+                        </div>
+                        <div className="flex justify-between gap-4">
+                          <span>{t("booking.summaryPickup")}</span>
+                          <span className="text-foreground">{selectedPickupLabel}</span>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-4">{t("booking.summaryNote")}</p>
+                      </div>
                     </motion.div>
 
                     <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
