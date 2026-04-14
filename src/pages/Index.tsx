@@ -12,6 +12,7 @@ import ParticleField from "@/components/ParticleField";
 import TypewriterText from "@/components/TypewriterText";
 import TextReveal from "@/components/TextReveal";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import TrustedBrands from "@/components/TrustedBrands";
 import { TranslationKey } from "@/i18n/translations";
 import { useLanguage } from "@/i18n/LanguageContext";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -288,33 +289,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Trusted Companies Marquee */}
-      <section className="py-16 border-y border-border/50">
-        <div className="container mx-auto px-4">
-          <ScrollReveal variant="fadeUp">
-            <p className="text-center text-muted-foreground font-medium tracking-widest uppercase text-sm mb-10">
-              {t("marquee.title")}
-            </p>
-          </ScrollReveal>
-          <div className="overflow-hidden marquee-fade">
-            <div className="flex animate-marquee whitespace-nowrap">
-              {[...Array(2)].map((_, setIndex) => (
-                <div key={setIndex} className="flex items-center gap-16 px-8 shrink-0">
-                  {["Mercedes-Benz", "BMW", "Porsche", "Land Rover", "Audi", "Toyota", "Lexus", "Nissan"].map((brand) => (
-                    <motion.span
-                      key={`${setIndex}-${brand}`}
-                      className="font-heading text-2xl font-bold text-muted-foreground/40 hover:text-primary/60 transition-colors select-none"
-                      whileHover={{ scale: 1.15, y: -3 }}
-                    >
-                      {brand}
-                    </motion.span>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <TrustedBrands />
 
       {/* Services */}
       <section className="py-24 bg-secondary/30 relative overflow-hidden">
@@ -516,35 +491,30 @@ const Index = () => {
               </h2>
             </div>
           </ScrollReveal>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {portfolioImages.map((img, i) => (
-              <ScrollReveal key={i} variant="scaleIn" delay={i * 0.08}>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {[
+              { title: "Ceramic Paint Renewal", image: portfolio1, category: t("service.painting"), featured: true },
+              { title: "Luxury Interior Detail", image: portfolio2, category: t("service.leather") },
+              { title: "Engine Bay Refresh", image: portfolio3, category: t("service.autoCare") },
+              { title: "Custom Accessories Fit", image: portfolio4, category: t("service.accessories") },
+            ].map((item, i) => (
+              <ScrollReveal key={item.title} variant="scaleIn" delay={i * 0.08}>
                 <motion.div
-                  className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative"
+                  className={`group relative overflow-hidden rounded-[32px] shadow-2xl shadow-slate-950/10 ${item.featured ? "md:col-span-2 md:row-span-2" : ""}`}
                   whileHover={{ y: -8 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <motion.img
-                    src={img}
-                    alt={`Portfolio project ${i + 1}`}
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.7 }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent flex items-end justify-center pb-6"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.span
-                      className="text-foreground font-heading font-semibold"
-                      initial={{ y: 20 }}
-                      whileHover={{ y: 0 }}
-                    >
+                  <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent p-6 flex flex-col justify-end">
+                    <span className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">{item.category}</span>
+                    <h3 className="mt-4 text-2xl font-heading font-semibold text-foreground">{item.title}</h3>
+                    {item.featured ? (
+                      <p className="mt-3 max-w-xl text-sm text-muted-foreground">Real project photography from our workshop, showing premium restoration and detailing work.</p>
+                    ) : null}
+                    <span className="mt-5 inline-flex items-center rounded-full border border-primary/25 bg-white/10 px-3 py-2 text-sm text-primary font-semibold backdrop-blur-sm">
                       {t("portfolio.viewProject")}
-                    </motion.span>
-                  </motion.div>
+                    </span>
+                  </div>
                 </motion.div>
               </ScrollReveal>
             ))}

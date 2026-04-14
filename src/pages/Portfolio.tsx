@@ -37,12 +37,16 @@ const Portfolio = () => {
     { key: "Accessories", label: t("service.accessories") },
   ];
 
-  const portfolioItems = Array.from({ length: 12 }, (_, i) => ({
-    id: i + 1,
-    title: `${t("portfolioPage.project")} ${i + 1}`,
-    categoryKey: ["Auto Care", "Painting", "Leather", "Accessories"][i % 4],
-    image: portfolioImages[i % 6],
-  }));
+  const portfolioItems = [
+    { id: 1, title: "Ceramic Paint Renewal", categoryKey: "Painting", image: portfolio1 },
+    { id: 2, title: "Luxury Interior Revival", categoryKey: "Leather", image: portfolio2 },
+    { id: 3, title: "Full Detailing Service", categoryKey: "Auto Care", image: portfolio3 },
+    { id: 4, title: "Premium Accessories Upgrade", categoryKey: "Accessories", image: portfolio4 },
+    { id: 5, title: "Engine Bay Restoration", categoryKey: "Auto Care", image: portfolio5 },
+    { id: 6, title: "Wheel & Trim Reconditioning", categoryKey: "Accessories", image: portfolio6 },
+    { id: 7, title: "Leather Seat Renewal", categoryKey: "Leather", image: portfolio2 },
+    { id: 8, title: "Showroom Finish Detail", categoryKey: "Painting", image: portfolio1 },
+  ];
 
   const beforeAfterItems = [
     { title: t("portfolioPage.beforeAfterCase1"), before: portfolio1, after: portfolio2 },
