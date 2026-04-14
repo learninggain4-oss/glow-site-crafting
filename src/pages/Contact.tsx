@@ -54,6 +54,21 @@ const Contact = () => {
     { label: t("contact.other"), value: "other" },
   ];
 
+  const faqItems = [
+    {
+      question: t("contact.faq.q1"),
+      answer: t("contact.faq.a1"),
+    },
+    {
+      question: t("contact.faq.q2"),
+      answer: t("contact.faq.a2"),
+    },
+    {
+      question: t("contact.faq.q3"),
+      answer: t("contact.faq.a3"),
+    },
+  ];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = contactSchema.safeParse(formData);
@@ -207,6 +222,47 @@ const Contact = () => {
                     </motion.div>
                   </div>
                 </ScrollReveal>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-secondary/10">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-8">
+            <ScrollReveal variant="fadeUp">
+              <Card className="bg-card border-border card-hover-glow">
+                <CardContent className="p-8">
+                  <h3 className="font-heading text-2xl font-bold mb-6">{t("contact.faqTitle")}</h3>
+                  <div className="space-y-4">
+                    {faqItems.map((item, index) => (
+                      <motion.div
+                        key={index}
+                        className="rounded-3xl border border-border bg-background/80 p-5 shadow-sm"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 + index * 0.1 }}
+                        viewport={{ once: true }}
+                      >
+                        <h4 className="font-semibold text-lg text-foreground mb-2">{item.question}</h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{item.answer}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </ScrollReveal>
+
+            <ScrollReveal variant="fadeUp" delay={0.2}>
+              <div className="rounded-[2rem] overflow-hidden shadow-xl ring-1 ring-border">
+                <iframe
+                  src="https://maps.google.com/maps?q=Al%20Quoz%20Industrial%20Area%20Dubai&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  title="First Option UAE Location"
+                  className="w-full h-96"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </ScrollReveal>
           </div>

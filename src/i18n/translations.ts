@@ -103,6 +103,14 @@ export const translations = {
   "footer.rights": { en: "All rights reserved.", ar: "جميع الحقوق محفوظة." },
   "footer.premiumService": { en: "Premium Auto Care Services", ar: "خدمات عناية فاخرة بالسيارات" },
   "footer.workingHours": { en: "Mon - Sat: 8:00 AM - 8:00 PM", ar: "الاثنين - السبت: 8:00 صباحًا - 8:00 مساءً" },
+  "footer.newsletterTitle": { en: "Stay Updated", ar: "ابقَ على اطلاع" },
+  "footer.newsletterDesc": { en: "Subscribe for service updates, offers, and premium care tips.", ar: "اشترك للحصول على تحديثات الخدمة والعروض ونصائح العناية الفاخرة." },
+  "footer.newsletterPlaceholder": { en: "Enter your email address", ar: "أدخل بريدك الإلكتروني" },
+  "footer.subscribe": { en: "Subscribe", ar: "اشترك" },
+  "footer.newsletterSubscribed": { en: "You’re subscribed!", ar: "تم الاشتراك بنجاح!" },
+  "footer.newsletterSubscribedDesc": { en: "We will keep you informed about new offers and updates.", ar: "سنوافيك بالعروض والتحديثات الجديدة." },
+  "footer.newsletterErrorTitle": { en: "Invalid Email", ar: "بريد إلكتروني غير صالح" },
+  "footer.newsletterErrorDesc": { en: "Please enter a valid email address.", ar: "يرجى إدخال بريد إلكتروني صالح." },
 
   // About Page
   "about.subtitle": { en: "About Us", ar: "من نحن" },
@@ -182,6 +190,13 @@ export const translations = {
   "contact.workingHours": { en: "Working Hours", ar: "ساعات العمل" },
   "contact.messageSent": { en: "Message Sent!", ar: "تم إرسال الرسالة!" },
   "contact.messageDesc": { en: "We'll get back to you as soon as possible.", ar: "سنعود إليك في أقرب وقت ممكن." },
+  "contact.faqTitle": { en: "Frequently Asked Questions", ar: "الأسئلة الشائعة" },
+  "contact.faq.q1": { en: "How soon can I get an appointment?", ar: "كم من الوقت يستغرق الحصول على موعد؟" },
+  "contact.faq.a1": { en: "Most appointments are available within 24 hours. Choose a convenient slot on our booking page.", ar: "تتوفر معظم المواعيد خلال 24 ساعة. اختر الوقت المناسب من صفحة الحجز." },
+  "contact.faq.q2": { en: "Do you offer pick-up and delivery?", ar: "هل تقدمون خدمة الاستلام والتوصيل؟" },
+  "contact.faq.a2": { en: "Yes, we provide UAE-wide pick-up and delivery for premium care packages.", ar: "نعم، نقدم خدمة الاستلام والتوصيل في جميع أنحاء الإمارات لحزم العناية الفاخرة." },
+  "contact.faq.q3": { en: "Can I pay online?", ar: "هل يمكنني الدفع عبر الإنترنت؟" },
+  "contact.faq.a3": { en: "Yes, secure advance payment and invoice options are available for all bookings.", ar: "نعم، تتوفر خيارات الدفع المسبق الآمن والفواتير لجميع الحجوزات." },
 
   // Booking Page
   "booking.subtitle": { en: "Schedule", ar: "جدولة" },

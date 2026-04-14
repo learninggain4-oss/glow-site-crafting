@@ -86,6 +86,24 @@ const Index = () => {
     { title: t("service.painting"), description: t("service.paintingDesc"), icon: Palette, path: "/services/painting" },
   ];
 
+  const promotions = [
+    {
+      title: t("packages.premium"),
+      description: t("packages.premiumDesc"),
+      badge: t("packages.bestValue"),
+    },
+    {
+      title: t("packages.paintPerfection"),
+      description: t("packages.paintPerfectionDesc"),
+      badge: t("packages.mostPopular"),
+    },
+    {
+      title: t("packages.interiorWellness"),
+      description: t("packages.interiorWellnessDesc"),
+      badge: t("packages.vip"),
+    },
+  ];
+
   const testimonials = [
     { name: "Ahmed K.", text: t("testimonial.ahmed"), rating: 5, avatar: avatarAhmed },
     { name: "Sarah M.", text: t("testimonial.sarah"), rating: 5, avatar: avatarSarah },
@@ -319,6 +337,45 @@ const Index = () => {
                     </Card>
                   </motion.div>
                 </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Premium Packages */}
+      <section className="py-24 bg-background/80 relative overflow-hidden">
+        <ParticleField count={6} className="opacity-15" />
+        <div className="container mx-auto px-4 relative z-10">
+          <ScrollReveal variant="fadeUp">
+            <div className="text-center mb-16">
+              <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("packages.subtitle")}</p>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
+                <TextReveal text={t("packages.title1")} className="text-foreground" />
+                {" "}
+                <span className="text-primary">{t("packages.title2")}</span>
+              </h2>
+            </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {promotions.map((promo, i) => (
+              <ScrollReveal key={promo.title} variant="fadeUp" delay={i * 0.1}>
+                <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 280 }}>
+                  <Card className="bg-card border-border card-hover-glow h-full">
+                    <CardContent className="p-8">
+                      <div className="inline-flex items-center rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-semibold mb-4">
+                        {promo.badge}
+                      </div>
+                      <h3 className="font-heading text-2xl font-semibold text-foreground mb-4">{promo.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-8">{promo.description}</p>
+                      <div className="flex items-center gap-2">
+                        <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                          {t("packages.learnMore")}
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               </ScrollReveal>
             ))}
           </div>

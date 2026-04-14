@@ -1,4 +1,4 @@
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone, MessageCircle, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
 
 const FloatingButtons = () => {
@@ -40,6 +40,21 @@ const FloatingButtons = () => {
         }}
       >
         <Phone className="h-6 w-6 text-primary-foreground" />
+      </motion.a>
+      <motion.a
+        href="/contact"
+        className="w-14 h-14 rounded-full bg-secondary flex items-center justify-center shadow-lg animate-pulse-glow ripple-effect"
+        aria-label="Live chat"
+        whileHover={{ scale: 1.2, rotate: 10 }}
+        whileTap={{ scale: 0.9 }}
+        animate={{
+          y: [0, -6, 0],
+        }}
+        transition={{
+          y: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 },
+        }}
+      >
+        <MessageSquare className="h-6 w-6 text-foreground" />
       </motion.a>
     </motion.div>
   );

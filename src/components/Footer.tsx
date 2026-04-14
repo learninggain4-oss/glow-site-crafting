@@ -1,11 +1,27 @@
+import { useState, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter, Youtube, Heart } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/i18n/LanguageContext";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const Footer = () => {
   const { t } = useLanguage();
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const { toast } = useToast();
+
+  const handleSubscribe = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!newsletterEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsletterEmail)) {
+      toast({ title: t("footer.newsletterErrorTitle"), description: t("footer.newsletterErrorDesc"), variant: "destructive" });
+      return;
+    }
+    setNewsletterEmail("");
+    toast({ title: t("footer.newsletterSubscribed"), description: t("footer.newsletterSubscribedDesc") });
+  };
 
   const quickLinks = [
     { name: t("nav.home"), path: "/" },
@@ -158,6 +174,21 @@ const Footer = () => {
                   </motion.li>
                 ))}
               </ul>
+              <form onSubmit={handleSubscribe} className="mt-6 space-y-3">
+                <h4 className="font-heading font-semibold text-foreground mb-3">{t("footer.newsletterTitle")}</h4>
+                <p className="text-sm text-muted-foreground">{t("footer.newsletterDesc")}</p>
+                <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                  <Input
+                    placeholder={t("footer.newsletterPlaceholder")}
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
+                    className="bg-secondary border-border"
+                  />
+                  <Button type="submit" className="w-full sm:w-auto">
+                    {t("footer.subscribe")}
+                  </Button>
+                </div>
+              </form>
             </div>
           </ScrollReveal>
         </div>
