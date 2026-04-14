@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { Star, Clock, Shield, Award, Car, Wrench, Palette, Zap, Sofa, ChevronRight, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,6 +8,10 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import ParticleField from "@/components/ParticleField";
+import TypewriterText from "@/components/TypewriterText";
+import TextReveal from "@/components/TextReveal";
+import AnimatedCounter from "@/components/AnimatedCounter";
 import { useLanguage } from "@/i18n/LanguageContext";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroSlide1 from "@/assets/hero-slide-1.jpg";
@@ -40,39 +44,17 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.15 } },
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, type: "spring", stiffness: 100 } },
-};
-
-// Counter animation hook
-const useCountUp = (end: string, duration: number = 2000, inView: boolean = false) => {
-  const [count, setCount] = useState("0");
-  useEffect(() => {
-    if (!inView) return;
-    const numericMatch = end.match(/[\d.]+/);
-    if (!numericMatch) { setCount(end); return; }
-    const target = parseFloat(numericMatch[0]);
-    const prefix = end.slice(0, end.indexOf(numericMatch[0]));
-    const suffix = end.slice(end.indexOf(numericMatch[0]) + numericMatch[0].length);
-    const isDecimal = numericMatch[0].includes(".");
-    const startTime = performance.now();
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = eased * target;
-      setCount(prefix + (isDecimal ? current.toFixed(1) : Math.floor(current).toString()) + suffix);
-      if (progress < 1) requestAnimationFrame(animate);
-    };
-    requestAnimationFrame(animate);
-  }, [end, duration, inView]);
-  return count;
-};
-
 const Index = () => {
   const { t } = useLanguage();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const heroRef = useRef(null);
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(heroScroll, [0, 1], [0, 150]);
+  const heroScale = useTransform(heroScroll, [0, 1], [1, 1.15]);
+  const heroOpacity = useTransform(heroScroll, [0, 0.8], [1, 0]);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
@@ -113,27 +95,37 @@ const Index = () => {
     { name: "James W.", text: t("testimonial.james"), rating: 5, avatar: avatarJames },
   ];
 
+  const typewriterTexts = [
+    t("hero.title2"),
+    "Auto Detailing",
+    "Paint Protection",
+    "Interior Care",
+  ];
+
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <div className="absolute inset-0">
+      {/* Hero Section with Parallax */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <motion.div className="absolute inset-0" style={{ y: heroY, scale: heroScale }}>
           <AnimatePresence mode="wait">
             <motion.img
               key={currentSlide}
               src={heroSlides[currentSlide]}
               alt="Auto care service center"
               className="w-full h-full object-cover absolute inset-0"
-              initial={{ opacity: 0, scale: 1.08 }}
+              initial={{ opacity: 0, scale: 1.15 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1.2, ease: "easeInOut" }}
             />
           </AnimatePresence>
           <div className="absolute inset-0 bg-background/70" />
-        </div>
+        </motion.div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        {/* Floating particles */}
+        <ParticleField count={15} />
+
+        <motion.div className="container mx-auto px-4 relative z-10" style={{ opacity: heroOpacity }}>
           <motion.div
             initial="hidden"
             animate="visible"
@@ -148,67 +140,89 @@ const Index = () => {
               className="font-heading text-5xl md:text-7xl font-extrabold mb-6 leading-tight"
             >
               <span className="text-foreground drop-shadow-lg">{t("hero.title1")}</span>{" "}
-              <span className="animate-gradient-text drop-shadow-lg">{t("hero.title2")}</span>
+              <span className="animate-gradient-text drop-shadow-lg">
+                <TypewriterText texts={typewriterTexts} speed={100} deleteSpeed={50} pauseDuration={2500} />
+              </span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
               {t("hero.subtitle")}
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/booking">
-                <Button size="lg" className="text-base px-8 py-6 font-semibold animate-pulse-glow shine-effect">
-                  {t("hero.bookNow")}
-                </Button>
+                <motion.div whileHover={{ scale: 1.05, y: -3 }} whileTap={{ scale: 0.95 }}>
+                  <Button size="lg" className="text-base px-8 py-6 font-semibold animate-pulse-glow shine-effect">
+                    {t("hero.bookNow")}
+                  </Button>
+                </motion.div>
               </Link>
               <Link to="/services/auto-care">
-                <Button variant="outline" size="lg" className="text-base px-8 py-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  {t("hero.exploreServices")}
-                </Button>
+                <motion.div whileHover={{ scale: 1.05, y: -3 }} whileTap={{ scale: 0.95 }}>
+                  <Button variant="outline" size="lg" className="text-base px-8 py-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                    {t("hero.exploreServices")}
+                  </Button>
+                </motion.div>
               </Link>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <span className="text-xs text-muted-foreground uppercase tracking-widest">Scroll</span>
+          <motion.div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-2">
+            <motion.div
+              className="w-1.5 h-1.5 rounded-full bg-primary"
+              animate={{ y: [0, 16, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Stats Bar */}
       <section className="relative z-10 -mt-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {stats.map((stat, i) => {
-              const statRef = useRef(null);
-              const statInView = useInView(statRef, { once: true });
-              const animatedValue = useCountUp(stat.value, 2000, statInView);
-              return (
-                <ScrollReveal key={stat.label} variant="fadeUp" delay={i * 0.15}>
-                  <Card ref={statRef} className="bg-card border-border card-hover-glow">
-                    <CardContent className="flex items-center gap-4 p-6">
-                      <motion.div
-                        className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0"
-                        whileHover={{ rotate: 360, scale: 1.1 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <stat.icon className="h-6 w-6 text-primary" />
-                      </motion.div>
-                      <div>
-                        <p className="font-heading text-3xl font-bold text-foreground">{animatedValue}</p>
-                        <p className="text-sm text-muted-foreground">{stat.label}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </ScrollReveal>
-              );
-            })}
+            {stats.map((stat, i) => (
+              <ScrollReveal key={stat.label} variant="fadeUp" delay={i * 0.15}>
+                <Card className="bg-card border-border card-hover-glow">
+                  <CardContent className="flex items-center gap-4 p-6">
+                    <motion.div
+                      className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0"
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <stat.icon className="h-6 w-6 text-primary" />
+                    </motion.div>
+                    <div>
+                      <p className="font-heading text-3xl font-bold text-foreground">
+                        <AnimatedCounter value={stat.value} />
+                      </p>
+                      <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Features */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
+      <section className="py-24 relative overflow-hidden">
+        <ParticleField count={8} className="opacity-30" />
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("features.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <span className="text-[#675f5f]">{t("features.title1")}</span> <span className="text-primary">{t("features.title2")}</span>
+                <TextReveal text={t("features.title1")} className="text-[#675f5f]" />
+                {" "}
+                <span className="text-primary">{t("features.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -216,12 +230,13 @@ const Index = () => {
             {features.map((feature, i) => (
               <ScrollReveal key={feature.title} variant="scaleIn" delay={i * 0.1}>
                 <motion.div whileHover={{ y: -8, scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-                  <Card className="bg-card border-border card-hover-glow h-full">
+                  <Card className="bg-card border-border card-hover-glow h-full tilt-card gradient-border">
                     <CardContent className="p-6 text-center">
                       <motion.div
                         className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4"
                         whileHover={{ rotate: 15, scale: 1.15 }}
                         transition={{ type: "spring", stiffness: 200 }}
+                        animate={{ boxShadow: ["0 0 0 0 hsl(var(--primary) / 0.1)", "0 0 0 12px hsl(var(--primary) / 0)", "0 0 0 0 hsl(var(--primary) / 0.1)"] }}
                       >
                         <feature.icon className="h-7 w-7 text-primary" />
                       </motion.div>
@@ -249,12 +264,13 @@ const Index = () => {
               {[...Array(2)].map((_, setIndex) => (
                 <div key={setIndex} className="flex items-center gap-16 px-8 shrink-0">
                   {["Mercedes-Benz", "BMW", "Porsche", "Land Rover", "Audi", "Toyota", "Lexus", "Nissan"].map((brand) => (
-                    <span
+                    <motion.span
                       key={`${setIndex}-${brand}`}
                       className="font-heading text-2xl font-bold text-muted-foreground/40 hover:text-primary/60 transition-colors select-none"
+                      whileHover={{ scale: 1.15, y: -3 }}
                     >
                       {brand}
-                    </span>
+                    </motion.span>
                   ))}
                 </div>
               ))}
@@ -264,13 +280,16 @@ const Index = () => {
       </section>
 
       {/* Services */}
-      <section className="py-24 bg-secondary/30">
-        <div className="container mx-auto px-4">
+      <section className="py-24 bg-secondary/30 relative overflow-hidden">
+        <ParticleField count={6} className="opacity-20" />
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("services.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <span className="text-foreground">{t("services.title1")}</span> <span className="text-primary">{t("services.title2")}</span>
+                <TextReveal text={t("services.title1")} className="text-foreground" />
+                {" "}
+                <span className="text-primary">{t("services.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -279,7 +298,7 @@ const Index = () => {
               <ScrollReveal key={service.title} variant={i % 2 === 0 ? "fadeLeft" : "fadeRight"} delay={i * 0.1}>
                 <Link to={service.path}>
                   <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
-                    <Card className="bg-card border-border card-hover-glow group h-full cursor-pointer">
+                    <Card className="bg-card border-border card-hover-glow group h-full cursor-pointer tilt-card gradient-border">
                       <CardContent className="p-8">
                         <motion.div
                           className="w-14 h-14 rounded-xl bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center mb-5 transition-colors"
@@ -307,12 +326,15 @@ const Index = () => {
       </section>
 
       {/* Flawless Finish */}
-      <section className="py-24">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-24 relative overflow-hidden">
+        <ParticleField count={5} className="opacity-20" />
+        <div className="container mx-auto px-4 text-center relative z-10">
           <ScrollReveal variant="blur">
             <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("flawless.subtitle")}</p>
             <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-sm">
-              <span className="text-[#5f5858]">{t("flawless.title1")}</span> <span className="text-primary">{t("flawless.title2")}</span>
+              <TextReveal text={t("flawless.title1")} className="text-[#5f5858]" />
+              {" "}
+              <span className="text-primary">{t("flawless.title2")}</span>
             </h2>
             <p className="max-w-2xl mx-auto mb-12 text-[#544a4a]">
               {t("flawless.description")}
@@ -329,6 +351,8 @@ const Index = () => {
                   <motion.div
                     className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center animate-float"
                     style={{ animationDelay: `${i * 0.5}s` }}
+                    animate={{ boxShadow: ["0 0 0 0 hsl(var(--primary) / 0.15)", "0 0 0 15px hsl(var(--primary) / 0)", "0 0 0 0 hsl(var(--primary) / 0.15)"] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
                   >
                     <Shield className="h-8 w-8 text-primary" />
                   </motion.div>
@@ -347,30 +371,53 @@ const Index = () => {
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("portfolio.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <span className="text-foreground">{t("portfolio.title1")}</span> <span className="text-primary">{t("portfolio.title2")}</span>
+                <TextReveal text={t("portfolio.title1")} className="text-foreground" />
+                {" "}
+                <span className="text-primary">{t("portfolio.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {portfolioImages.map((img, i) => (
               <ScrollReveal key={i} variant="scaleIn" delay={i * 0.08}>
-                <div className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative">
-                  <img src={img} alt={`Portfolio project ${i + 1}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-background/0 group-hover:bg-background/60 transition-colors flex items-center justify-center">
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-foreground font-heading font-semibold">
+                <motion.div
+                  className="aspect-square bg-muted rounded-lg overflow-hidden group cursor-pointer relative"
+                  whileHover={{ y: -8 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <motion.img
+                    src={img}
+                    alt={`Portfolio project ${i + 1}`}
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.7 }}
+                  />
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent flex items-end justify-center pb-6"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.span
+                      className="text-foreground font-heading font-semibold"
+                      initial={{ y: 20 }}
+                      whileHover={{ y: 0 }}
+                    >
                       {t("portfolio.viewProject")}
-                    </span>
-                  </div>
-                </div>
+                    </motion.span>
+                  </motion.div>
+                </motion.div>
               </ScrollReveal>
             ))}
           </div>
           <ScrollReveal variant="fadeUp" delay={0.3}>
             <div className="text-center mt-10">
               <Link to="/portfolio">
-                <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                  {t("portfolio.exploreMore")} <ChevronRight className="h-4 w-4 ms-1 rtl:rotate-180" />
-                </Button>
+                <motion.div whileHover={{ scale: 1.05, y: -3 }} whileTap={{ scale: 0.95 }} className="inline-block">
+                  <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                    {t("portfolio.exploreMore")} <ChevronRight className="h-4 w-4 ms-1 rtl:rotate-180" />
+                  </Button>
+                </motion.div>
               </Link>
             </div>
           </ScrollReveal>
@@ -378,13 +425,16 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-24 bg-background relative overflow-hidden">
+        <ParticleField count={5} className="opacity-15" />
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("testimonials.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <span className="text-foreground">{t("testimonials.title1")}</span> <span className="text-primary">{t("testimonials.title2")}</span>
+                <TextReveal text={t("testimonials.title1")} className="text-foreground" />
+                {" "}
+                <span className="text-primary">{t("testimonials.title2")}</span>
               </h2>
             </div>
           </ScrollReveal>
@@ -393,21 +443,31 @@ const Index = () => {
               <CarouselContent className="-ml-4">
                 {testimonials.map((t_item, i) => (
                   <CarouselItem key={i} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <Card className="bg-secondary border-border/50 h-full">
-                      <CardContent className="p-8">
-                        <Quote className="h-8 w-8 text-primary/30 mb-4" />
-                        <p className="text-muted-foreground mb-6 leading-relaxed">{t_item.text}</p>
-                        <div className="flex items-center gap-2 mb-2">
-                          {[...Array(t_item.rating)].map((_, j) => (
-                            <Star key={j} className="h-4 w-4 fill-primary text-primary" />
-                          ))}
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <img src={t_item.avatar} alt={t_item.name} className="w-10 h-10 rounded-full object-cover" />
-                          <p className="font-heading font-semibold text-foreground">{t_item.name}</p>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 300 }}>
+                      <Card className="bg-secondary border-border/50 h-full tilt-card">
+                        <CardContent className="p-8">
+                          <Quote className="h-8 w-8 text-primary/30 mb-4" />
+                          <p className="text-muted-foreground mb-6 leading-relaxed">{t_item.text}</p>
+                          <div className="flex items-center gap-2 mb-2">
+                            {[...Array(t_item.rating)].map((_, j) => (
+                              <motion.div
+                                key={j}
+                                initial={{ opacity: 0, scale: 0 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: j * 0.1 }}
+                                viewport={{ once: true }}
+                              >
+                                <Star className="h-4 w-4 fill-primary text-primary" />
+                              </motion.div>
+                            ))}
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <img src={t_item.avatar} alt={t_item.name} className="w-10 h-10 rounded-full object-cover" />
+                            <p className="font-heading font-semibold text-foreground">{t_item.name}</p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -421,24 +481,36 @@ const Index = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-primary/5">
-        <div className="container mx-auto px-4">
+      <section className="py-24 bg-primary/5 relative overflow-hidden">
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5"
+          animate={{ x: ["-100%", "100%"] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        />
+        <ParticleField count={8} className="opacity-20" />
+        <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="blur">
             <div className="text-center max-w-3xl mx-auto">
                <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-sm">
-                 <span className="text-[#837272]">{t("cta.title1")}</span> <span className="text-primary">{t("cta.title2")}</span>?
+                 <TextReveal text={t("cta.title1")} className="text-[#837272]" />
+                 {" "}
+                 <span className="text-primary">{t("cta.title2")}</span>?
                </h2>
                <p className="text-lg mb-8 text-[#595454]">
                  {t("cta.description")}
                </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/booking">
-                  <Button size="lg" className="text-base px-8 py-6">{t("cta.bookFree")}</Button>
+                  <motion.div whileHover={{ scale: 1.05, y: -3 }} whileTap={{ scale: 0.95 }}>
+                    <Button size="lg" className="text-base px-8 py-6 shine-effect animate-pulse-glow">{t("cta.bookFree")}</Button>
+                  </motion.div>
                 </Link>
                 <Link to="/contact">
-                  <Button variant="outline" size="lg" className="text-base px-8 py-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                    {t("cta.contactUs")}
-                  </Button>
+                  <motion.div whileHover={{ scale: 1.05, y: -3 }} whileTap={{ scale: 0.95 }}>
+                    <Button variant="outline" size="lg" className="text-base px-8 py-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                      {t("cta.contactUs")}
+                    </Button>
+                  </motion.div>
                 </Link>
               </div>
             </div>
