@@ -31,6 +31,16 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           animate={{ scale: [0.9, 1.05, 0.9], opacity: [0.35, 0.75, 0.35] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
+        <motion.div
+          className="absolute left-1/2 top-12 h-20 w-20 -translate-x-1/2 rounded-full bg-[#8b5cf6]/15 blur-3xl"
+          animate={{ x: [0, 20, -20, 0], opacity: [0.35, 0.8, 0.35, 0.35] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute right-20 bottom-24 h-32 w-32 rounded-full bg-gradient-to-r from-primary/20 via-secondary/10 to-accent/10 blur-3xl"
+          animate={{ scale: [0.95, 1.1, 0.95], opacity: [0.35, 0.75, 0.35] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        />
       </div>
       <ScrollProgress />
       <Header />

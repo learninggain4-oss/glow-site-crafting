@@ -42,6 +42,16 @@ const PageTransition = ({ children }: PageTransitionProps) => {
         animate={{ rotate: [0, 45, 0], opacity: [0.25, 0.7, 0.25] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
+      <motion.div
+        className="fixed right-1/4 top-32 h-16 w-16 rounded-full bg-secondary/20 blur-2xl pointer-events-none"
+        animate={{ y: [0, 18, -10, 0], opacity: [0.3, 0.8, 0.4, 0.3] }}
+        transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="fixed left-10 bottom-28 h-12 w-12 rounded-full border border-primary/30 pointer-events-none"
+        animate={{ scale: [1, 0.9, 1.05, 1], rotate: [0, 30, -10, 0], opacity: [0.35, 0.75, 0.45, 0.35] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
     </>
   );
 };

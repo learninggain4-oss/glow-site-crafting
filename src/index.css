@@ -238,6 +238,36 @@ html {
   animation: wheel-glow 2.4s ease-in-out infinite;
 }
 
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 24px hsl(var(--primary) / 0.35), 0 0 60px hsl(45 100% 70% / 0.15); }
+  50% { box-shadow: 0 0 36px hsl(var(--primary) / 0.5), 0 0 90px hsl(45 100% 70% / 0.25); }
+}
+.animate-neon-pulse {
+  animation: neon-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes swirl {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-swirl {
+  animation: swirl 18s linear infinite;
+}
+
+@keyframes shimmer-fast {
+  0% { opacity: 0.2; transform: translateX(-100%); }
+  50% { opacity: 1; transform: translateX(100%); }
+  100% { opacity: 0.2; transform: translateX(200%); }
+}
+.shimmer-fast::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: translateX(-100%);
+  animation: shimmer-fast 1.8s ease-in-out infinite;
+}
+
 .ripple-effect:active::before {
   animation: ripple 0.6s ease-out;
 }
