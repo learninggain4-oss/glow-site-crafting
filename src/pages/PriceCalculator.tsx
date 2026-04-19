@@ -237,7 +237,11 @@ const PriceCalculator = () => {
                       <Row label={t("calc.row.addons")} value={addonsTotal} />
                     </div>
 
-                    <Link to="/booking" className="block mt-6 relative z-10">
+                    <Link
+                      to="/booking"
+                      state={{ service, addOns: addons }}
+                      className="block mt-6 relative z-10"
+                    >
                       <Button
                         size="lg"
                         variant="secondary"
