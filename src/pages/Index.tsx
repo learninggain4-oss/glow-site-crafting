@@ -323,17 +323,30 @@ const Index = () => {
             <div className="text-center mb-16">
               <motion.p
                 className="text-primary font-medium tracking-widest uppercase text-sm mb-2"
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: [0.5, 1, 0.5], y: [10, 0, 10] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               >
                 {t("offers.subtitle")}
               </motion.p>
-              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
+              <motion.h2
+                className="font-heading text-4xl md:text-5xl font-extrabold"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
                 <TextReveal text={t("offers.title1")} className="text-foreground" />
                 {" "}
                 <span className="text-primary">{t("offers.title2")}</span>
-              </h2>
-              <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{t("offers.description")}</p>
+              </motion.h2>
+              <motion.p
+                className="mt-4 text-muted-foreground max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2, delay: 0.15 }}
+              >
+                {t("offers.description")}
+              </motion.p>
             </div>
           </ScrollReveal>
 
@@ -349,19 +362,30 @@ const Index = () => {
                 key={offer.code}
                 variants={fadeInUp}
                 whileHover={{
-                  y: -15,
-                  scale: 1.05,
-                  transition: { type: "spring", stiffness: 300, damping: 20 }
+                  y: -18,
+                  scale: 1.06,
+                  rotate: [0, 0.8, -0.8, 0],
+                  transition: { type: "spring", stiffness: 280, damping: 18 }
                 }}
                 className="animate-float"
                 style={{ animationDelay: `${i * 0.5}s` }}
               >
-                <Card className="bg-card border-border card-hover-glow h-full relative overflow-hidden group">
+                <Card className="bg-card border-border card-hover-glow h-full relative overflow-hidden group shadow-[0_20px_80px_-40px_rgba(59,130,246,0.35)]">
                   {/* Animated background gradient */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     initial={{ scale: 0.8 }}
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.12 }}
+                  />
+                  <motion.div
+                    className="absolute -right-8 -top-8 w-24 h-24 rounded-full bg-primary/10 blur-3xl opacity-80"
+                    animate={{ x: [0, 8, -8, 0], y: [0, -6, 6, 0], opacity: [0.7, 0.9, 0.7] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+                  />
+                  <motion.div
+                    className="absolute -left-8 bottom-12 w-16 h-16 rounded-full bg-secondary/10 blur-3xl opacity-70"
+                    animate={{ x: [0, -6, 6, 0], y: [0, 4, -4, 0], opacity: [0.6, 0.9, 0.6] }}
+                    transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: i * 0.25 }}
                   />
 
                   <CardContent className="p-8 relative z-10">
@@ -428,8 +452,11 @@ const Index = () => {
                           {offer.code}
                         </motion.p>
                       </div>
-                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                        <Button size="sm" className="whitespace-nowrap shine-effect">
+                      <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}>
+                        <Button
+                          size="sm"
+                          className="whitespace-nowrap shine-effect bg-gradient-to-r from-primary to-secondary text-primary-foreground"
+                        >
                           {t("offers.bookNow")}
                         </Button>
                       </motion.div>
