@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
 import { CalendarIcon, CheckCircle, Sparkles, PartyPopper } from "lucide-react";
@@ -85,6 +86,7 @@ const saveAccount = (account: { profile: { name: string; email: string; phone: s
 const Booking = () => {
   const { toast } = useToast();
   const { t } = useLanguage();
+  const location = useLocation();
   const [submitted, setSubmitted] = useState(false);
   const [date, setDate] = useState<Date>();
   const [couponTouched, setCouponTouched] = useState(false);
@@ -94,6 +96,40 @@ const Booking = () => {
     time: "", paymentMethod: "", pickupService: "no", notes: "", couponCode: "", addOns: [] as string[],
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  // Pre-fill from Price Calculator (passed via navigation state)
+  useEffect(() => {
+    const state = location.state as { service?: string; addOns?: string[] } | null;
+    if (!state) return;
+    const serviceMap: Record<string, string> = {
+      autoCare: "auto-care",
+      accessories: "accessories",
+      leather: "leather",
+      electrical: "electrical",
+      painting: "painting",
+    };
+    const addOnMap: Record<string, string> = {
+      ceramic: "interiorProtection",
+      interiorDetail: "interiorProtection",
+      engineWash: "engineDetail",
+      ppf: "express",
+    };
+    setFormData((prev) => ({
+      ...prev,
+      service: state.service && serviceMap[state.service] ? serviceMap[state.service] : prev.service,
+      addOns: state.addOns
+        ? Array.from(new Set(state.addOns.map((a) => addOnMap[a]).filter(Boolean)))
+        : prev.addOns,
+    }));
+    if (state.service || state.addOns?.length) {
+      toast({
+        title: t("booking.prefillTitle"),
+        description: t("booking.prefillDesc"),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.state]);
+
 
   const serviceOptions = [
     { label: t("service.autoCare"), value: "auto-care" },
