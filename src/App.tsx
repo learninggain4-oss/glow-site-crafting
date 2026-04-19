@@ -14,6 +14,7 @@ const Portfolio = lazy(() => import("./pages/Portfolio"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Booking = lazy(() => import("./pages/Booking"));
 const Account = lazy(() => import("./pages/Account"));
+const PriceCalculator = lazy(() => import("./pages/PriceCalculator"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const AnimatedRoutes = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/price-calculator" element={<PriceCalculator />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>

@@ -408,6 +408,33 @@ export const translations = {
   "testimonial.fatima": { en: "Amazing paint correction on my SUV. The team is super knowledgeable and friendly. Will definitely come back!", ar: "تصحيح طلاء مذهل لسيارتي. الفريق على دراية كبيرة وودود. سأعود بالتأكيد!" },
   "testimonial.raj": { en: "They upgraded the entire electrical system in my vehicle flawlessly. Excellent craftsmanship and fair pricing.", ar: "قاموا بترقية النظام الكهربائي بالكامل في سيارتي بشكل مثالي. حرفية ممتازة وأسعار عادلة." },
   "testimonial.james": { en: "From PPF installation to interior detailing, everything was top-notch. A truly premium experience.", ar: "من تركيب فيلم الحماية إلى التلميع الداخلي، كل شيء كان من الدرجة الأولى. تجربة فاخرة حقًا." },
+
+  // Price Calculator
+  "nav.priceCalculator": { en: "Price Calculator", ar: "حاسبة الأسعار" },
+  "calc.subtitle": { en: "Instant Quote", ar: "عرض سعر فوري" },
+  "calc.title": { en: "Price Calculator", ar: "حاسبة الأسعار" },
+  "calc.description": {
+    en: "Pick a service and your vehicle type to get an instant estimate. Add extras to customize your quote.",
+    ar: "اختر الخدمة ونوع السيارة للحصول على تقدير فوري. أضف الإضافات لتخصيص العرض.",
+  },
+  "calc.step1": { en: "1. Choose a Service", ar: "١. اختر الخدمة" },
+  "calc.step2": { en: "2. Select Vehicle Type", ar: "٢. اختر نوع السيارة" },
+  "calc.step3": { en: "3. Optional Add-Ons", ar: "٣. إضافات اختيارية" },
+  "calc.vehicle.sedan": { en: "Sedan", ar: "سيدان" },
+  "calc.vehicle.suv": { en: "SUV", ar: "دفع رباعي" },
+  "calc.vehicle.luxury": { en: "Luxury", ar: "فاخرة" },
+  "calc.vehicle.sports": { en: "Sports", ar: "رياضية" },
+  "calc.addon.ceramic": { en: "Ceramic Coating", ar: "طلاء سيراميك" },
+  "calc.addon.interior": { en: "Interior Deep Clean", ar: "تنظيف داخلي عميق" },
+  "calc.addon.engine": { en: "Engine Bay Wash", ar: "غسيل حجرة المحرك" },
+  "calc.addon.ppf": { en: "Paint Protection Film", ar: "فيلم حماية الطلاء" },
+  "calc.estimate": { en: "Estimated Total", ar: "التقدير الإجمالي" },
+  "calc.estimateNote": { en: "Final price confirmed after inspection.", ar: "يتم تأكيد السعر النهائي بعد الفحص." },
+  "calc.row.base": { en: "Base service", ar: "السعر الأساسي" },
+  "calc.row.vehicleAdj": { en: "Vehicle adjustment", ar: "تعديل السيارة" },
+  "calc.row.addons": { en: "Add-ons", ar: "الإضافات" },
+  "calc.bookNow": { en: "Book This Service", ar: "احجز هذه الخدمة" },
+  "calc.selectPrompt": { en: "Select a service and vehicle to continue", ar: "اختر الخدمة ونوع السيارة للمتابعة" },
 } as const;
 
 export type TranslationKey = keyof typeof translations;
