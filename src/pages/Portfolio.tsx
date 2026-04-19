@@ -13,6 +13,12 @@ import portfolio3 from "@/assets/portfolio-3.jpg";
 import portfolio4 from "@/assets/portfolio-4.jpg";
 import portfolio5 from "@/assets/portfolio-5.jpg";
 import portfolio6 from "@/assets/portfolio-6.jpg";
+import ba1Before from "@/assets/before-after-1-before.jpg";
+import ba1After from "@/assets/before-after-1-after.jpg";
+import ba2Before from "@/assets/before-after-2-before.jpg";
+import ba2After from "@/assets/before-after-2-after.jpg";
+import ba3Before from "@/assets/before-after-3-before.jpg";
+import ba3After from "@/assets/before-after-3-after.jpg";
 
 const portfolioImages = [portfolio1, portfolio2, portfolio3, portfolio4, portfolio5, portfolio6];
 
@@ -50,9 +56,9 @@ const Portfolio = () => {
   ];
 
   const beforeAfterItems = [
-    { title: t("portfolioPage.beforeAfterCase1"), before: portfolio1, after: portfolio2 },
-    { title: t("portfolioPage.beforeAfterCase2"), before: portfolio3, after: portfolio4 },
-    { title: t("portfolioPage.beforeAfterCase3"), before: portfolio5, after: portfolio6 },
+    { title: t("portfolioPage.beforeAfterCase1"), before: ba1Before, after: ba1After },
+    { title: t("portfolioPage.beforeAfterCase2"), before: ba2Before, after: ba2After },
+    { title: t("portfolioPage.beforeAfterCase3"), before: ba3Before, after: ba3After },
   ];
 
   const filtered = filter === "All" ? portfolioItems : portfolioItems.filter((p) => p.categoryKey === filter);
