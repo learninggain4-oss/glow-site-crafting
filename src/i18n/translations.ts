@@ -435,6 +435,8 @@ export const translations = {
   "calc.row.addons": { en: "Add-ons", ar: "الإضافات" },
   "calc.bookNow": { en: "Book This Service", ar: "احجز هذه الخدمة" },
   "calc.selectPrompt": { en: "Select a service and vehicle to continue", ar: "اختر الخدمة ونوع السيارة للمتابعة" },
+  "booking.prefillTitle": { en: "Quote applied", ar: "تم تطبيق العرض" },
+  "booking.prefillDesc": { en: "Your selected service and add-ons have been pre-filled.", ar: "تم تعبئة الخدمة والإضافات التي اخترتها." },
 } as const;
 
 export type TranslationKey = keyof typeof translations;
