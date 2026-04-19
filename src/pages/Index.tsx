@@ -88,6 +88,30 @@ const Index = () => {
     { title: t("service.painting"), description: t("service.paintingDesc"), icon: Palette, path: "/services/painting" },
   ];
 
+  const seasonalOffers = [
+    {
+      title: t("offers.springTitle"),
+      description: t("offers.springDesc"),
+      code: "SPRING25",
+      discount: "25%",
+      badge: t("offers.springBadge"),
+    },
+    {
+      title: t("offers.festiveTitle"),
+      description: t("offers.festiveDesc"),
+      code: "FESTIVE20",
+      discount: "20%",
+      badge: t("offers.festiveBadge"),
+    },
+    {
+      title: t("offers.yearEndTitle"),
+      description: t("offers.yearEndDesc"),
+      code: "YEAREND30",
+      discount: "30%",
+      badge: t("offers.yearEndBadge"),
+    },
+  ];
+
   const promotions = [
     {
       title: t("packages.premium"),
@@ -290,6 +314,159 @@ const Index = () => {
       </section>
 
       <TrustedBrands />
+
+      {/* Seasonal Offers */}
+      <section className="py-24 bg-gradient-to-br from-primary/5 via-background to-secondary/10 relative overflow-hidden">
+        <ParticleField count={8} className="opacity-20" />
+        <div className="container mx-auto px-4 relative z-10">
+          <ScrollReveal variant="fadeUp">
+            <div className="text-center mb-16">
+              <motion.p
+                className="text-primary font-medium tracking-widest uppercase text-sm mb-2"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              >
+                {t("offers.subtitle")}
+              </motion.p>
+              <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
+                <TextReveal text={t("offers.title1")} className="text-foreground" />
+                {" "}
+                <span className="text-primary">{t("offers.title2")}</span>
+              </h2>
+              <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{t("offers.description")}</p>
+            </div>
+          </ScrollReveal>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {seasonalOffers.map((offer, i) => (
+              <motion.div
+                key={offer.code}
+                variants={fadeInUp}
+                whileHover={{
+                  y: -15,
+                  scale: 1.05,
+                  transition: { type: "spring", stiffness: 300, damping: 20 }
+                }}
+                className="animate-float"
+                style={{ animationDelay: `${i * 0.5}s` }}
+              >
+                <Card className="bg-card border-border card-hover-glow h-full relative overflow-hidden group">
+                  {/* Animated background gradient */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    initial={{ scale: 0.8 }}
+                    whileHover={{ scale: 1.1 }}
+                  />
+
+                  <CardContent className="p-8 relative z-10">
+                    <motion.div
+                      className="inline-flex items-center rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-semibold mb-4"
+                      animate={{
+                        boxShadow: [
+                          "0 0 0 0 hsl(var(--primary) / 0.2)",
+                          "0 0 0 8px hsl(var(--primary) / 0)",
+                          "0 0 0 0 hsl(var(--primary) / 0.2)"
+                        ]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                    >
+                      {offer.badge}
+                    </motion.div>
+
+                    <motion.h3
+                      className="font-heading text-2xl font-semibold text-foreground mb-4"
+                      whileHover={{ scale: 1.02 }}
+                    >
+                      {offer.title}
+                    </motion.h3>
+
+                    <motion.p
+                      className="text-sm text-muted-foreground leading-relaxed mb-6"
+                      whileHover={{ opacity: 0.8 }}
+                    >
+                      {offer.description}
+                    </motion.p>
+
+                    <motion.div
+                      className="rounded-3xl border border-border bg-background/80 p-4 mb-5"
+                      whileHover={{
+                        scale: 1.02,
+                        boxShadow: "0 10px 25px -5px hsl(var(--primary) / 0.1)"
+                      }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <p className="text-sm text-muted-foreground uppercase tracking-[0.25em] mb-2">{t("offers.discountLabel")}</p>
+                      <motion.p
+                        className="text-3xl font-heading font-bold text-foreground"
+                        animate={{ scale: [1, 1.05, 1] }}
+                        transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+                      >
+                        {offer.discount} {t("offers.off")}
+                      </motion.p>
+                    </motion.div>
+
+                    <motion.div
+                      className="rounded-3xl border border-border bg-background/90 p-4 flex items-center justify-between gap-4"
+                      whileHover={{
+                        scale: 1.02,
+                        backgroundColor: "hsl(var(--primary) / 0.05)"
+                      }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-1">{t("offers.codeLabel")}</p>
+                        <motion.p
+                          className="font-semibold text-foreground"
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          {offer.code}
+                        </motion.p>
+                      </div>
+                      <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+                        <Button size="sm" className="whitespace-nowrap shine-effect">
+                          {t("offers.bookNow")}
+                        </Button>
+                      </motion.div>
+                    </motion.div>
+                  </CardContent>
+
+                  {/* Floating particles effect */}
+                  <motion.div
+                    className="absolute top-4 right-4 w-2 h-2 bg-primary/30 rounded-full"
+                    animate={{
+                      y: [0, -10, 0],
+                      opacity: [0.3, 0.8, 0.3]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: i * 0.2
+                    }}
+                  />
+                  <motion.div
+                    className="absolute bottom-4 left-4 w-1.5 h-1.5 bg-secondary/40 rounded-full"
+                    animate={{
+                      y: [0, 8, 0],
+                      opacity: [0.4, 0.9, 0.4]
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      delay: i * 0.4
+                    }}
+                  />
+                </Card>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
       {/* Services */}
       <section className="py-24 bg-secondary/30 relative overflow-hidden">
