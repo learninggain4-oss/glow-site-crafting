@@ -437,6 +437,9 @@ export const translations = {
   "calc.selectPrompt": { en: "Select a service and vehicle to continue", ar: "اختر الخدمة ونوع السيارة للمتابعة" },
   "booking.prefillTitle": { en: "Quote applied", ar: "تم تطبيق العرض" },
   "booking.prefillDesc": { en: "Your selected service and add-ons have been pre-filled.", ar: "تم تعبئة الخدمة والإضافات التي اخترتها." },
+  "booking.estimateBannerLabel": { en: "Your Estimate", ar: "تقديرك" },
+  "booking.estimateBannerDesc": { en: "Based on your Price Calculator selection.", ar: "بناءً على اختيارك في حاسبة الأسعار." },
+  "booking.estimateBannerNote": { en: "Final price confirmed after inspection.", ar: "يتم تأكيد السعر النهائي بعد الفحص." },
 } as const;
 
 export type TranslationKey = keyof typeof translations;
