@@ -90,6 +90,7 @@ const Booking = () => {
   const [submitted, setSubmitted] = useState(false);
   const [date, setDate] = useState<Date>();
   const [couponTouched, setCouponTouched] = useState(false);
+  const [calcEstimate, setCalcEstimate] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     name: "", email: "", phone: "", service: "",
     vehicleMake: "", vehicleModel: "", vehicleYear: "",
@@ -99,7 +100,7 @@ const Booking = () => {
 
   // Pre-fill from Price Calculator (passed via navigation state)
   useEffect(() => {
-    const state = location.state as { service?: string; addOns?: string[] } | null;
+    const state = location.state as { service?: string; addOns?: string[]; estimate?: number } | null;
     if (!state) return;
     const serviceMap: Record<string, string> = {
       autoCare: "auto-care",
@@ -121,6 +122,7 @@ const Booking = () => {
         ? Array.from(new Set(state.addOns.map((a) => addOnMap[a]).filter(Boolean)))
         : prev.addOns,
     }));
+    if (typeof state.estimate === "number") setCalcEstimate(state.estimate);
     if (state.service || state.addOns?.length) {
       toast({
         title: t("booking.prefillTitle"),
@@ -528,6 +530,35 @@ const Booking = () => {
 
       <section className="py-16">
         <div className="container mx-auto px-4 max-w-3xl">
+          {calcEstimate !== null && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className="mb-8 rounded-2xl overflow-hidden border border-primary/30 bg-gradient-to-br from-primary to-primary/70 text-primary-foreground p-6 shadow-2xl shadow-primary/30 relative"
+            >
+              <motion.div
+                className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-primary-foreground/10 blur-2xl"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.7, 0.4] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 relative z-10">
+                <div>
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-widest opacity-90 mb-1">
+                    <Sparkles className="h-4 w-4" />
+                    {t("booking.estimateBannerLabel")}
+                  </div>
+                  <p className="text-sm opacity-90">{t("booking.estimateBannerDesc")}</p>
+                </div>
+                <div className="text-end">
+                  <div className="font-heading text-4xl font-extrabold leading-none">
+                    {calcEstimate.toLocaleString()} <span className="text-xl font-bold opacity-80">AED</span>
+                  </div>
+                  <div className="text-xs opacity-80 mt-1">{t("booking.estimateBannerNote")}</div>
+                </div>
+              </div>
+            </motion.div>
+          )}
           <ScrollReveal variant="slideUp">
             <motion.div whileHover={{ scale: 1.003 }} transition={{ type: "spring", stiffness: 200 }}>
               <Card className="bg-card border-border card-hover-glow gradient-border">

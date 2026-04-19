@@ -239,7 +239,7 @@ const PriceCalculator = () => {
 
                     <Link
                       to="/booking"
-                      state={{ service, addOns: addons }}
+                      state={{ service, addOns: addons, estimate: total }}
                       className="block mt-6 relative z-10"
                     >
                       <Button
