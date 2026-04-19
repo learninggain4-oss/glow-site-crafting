@@ -261,7 +261,7 @@ const Booking = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button onClick={() => { setSubmitted(false); setFormData({ name: "", email: "", phone: "", service: "", vehicleMake: "", vehicleModel: "", vehicleYear: "", time: "", notes: "" }); setDate(undefined); }} className="shine-effect">
+              <Button onClick={() => { setSubmitted(false); setFormData({ name: "", email: "", phone: "", service: "", vehicleMake: "", vehicleModel: "", vehicleYear: "", time: "", paymentMethod: "", pickupService: "", notes: "", couponCode: "", addOns: [] }); setDate(undefined); }} className="shine-effect">
                 {t("booking.bookAnother")}
               </Button>
             </motion.div>
