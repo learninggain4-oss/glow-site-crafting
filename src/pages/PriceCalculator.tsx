@@ -204,7 +204,7 @@ const PriceCalculator = () => {
             {/* Quote summary */}
             <div className="lg:col-span-1">
               <div className="sticky top-28">
-                <ScrollReveal variant="scale">
+                <ScrollReveal variant="scaleIn">
                   <motion.div
                     className="bg-gradient-to-br from-primary to-primary/70 text-primary-foreground rounded-2xl p-7 shadow-2xl shadow-primary/30 overflow-hidden relative"
                     layout
