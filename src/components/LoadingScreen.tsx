@@ -232,7 +232,7 @@ const LoadingScreen = () => {
                   </linearGradient>
                 </defs>
                 {/* Tire */}
-                <motion.circle
+                <circle
                   cx="60" cy="60" r="54"
                   fill="url(#tireGradient)"
                   stroke="rgba(15,23,42,0.9)"
@@ -240,7 +240,7 @@ const LoadingScreen = () => {
                 />
                 {/* Tread pattern */}
                 {new Array(24).fill(null).map((_, index) => (
-                  <motion.rect
+                  <rect
                     key={`tread-${index}`}
                     x="57"
                     y="4"
@@ -249,26 +249,16 @@ const LoadingScreen = () => {
                     rx="3"
                     fill="rgba(15,23,42,0.85)"
                     transform={`rotate(${index * 15} 60 60)`}
-                    animate={{
-                      opacity: [0.45, 1, 0.45],
-                      scale: [1, 1.15, 1]
-                    }}
-                    transition={{
-                      duration: 2.4,
-                      repeat: Infinity,
-                      delay: index * 0.03,
-                      ease: "easeInOut"
-                    }}
                   />
                 ))}
                 {/* Rim */}
-                <motion.circle
+                <circle
                   cx="60" cy="60" r="42"
                   fill="url(#rimGradient)"
                   stroke="rgba(148,163,184,0.4)"
                   strokeWidth="2"
                 />
-                <motion.circle
+                <circle
                   cx="60" cy="60" r="34"
                   fill="rgba(15,23,42,0.12)"
                   stroke="rgba(148,163,184,0.25)"
@@ -276,57 +266,36 @@ const LoadingScreen = () => {
                 />
                 {/* Spokes */}
                 {new Array(5).fill(null).map((_, index) => (
-                  <motion.path
+                  <path
                     key={`spoke-${index}`}
                     d="M60 60 L60 18 Q62 16 66 18 L66 42 Q64 45 60 45 Q56 45 54 42 L54 18 Q58 16 60 18 Z"
                     fill="url(#spokeGradient)"
                     transform={`rotate(${index * 72} 60 60)`}
-                    animate={{
-                      opacity: [0.9, 1, 0.9],
-                      rotate: [0, 1.5, 0]
-                    }}
-                    transition={{
-                      duration: 2.2,
-                      repeat: Infinity,
-                      delay: index * 0.08,
-                      ease: "easeInOut"
-                    }}
                   />
                 ))}
                 {/* Inner hub ring */}
-                <motion.circle
+                <circle
                   cx="60" cy="60" r="16"
                   fill="rgba(248,250,252,1)"
                   stroke="rgba(148,163,184,0.55)"
                   strokeWidth="3"
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 />
                 {/* Lug nuts */}
                 {new Array(5).fill(null).map((_, index) => (
-                  <motion.circle
+                  <circle
                     key={`lug-${index}`}
                     cx={60 + 18 * Math.cos((index * 72) * Math.PI / 180)}
                     cy={60 + 18 * Math.sin((index * 72) * Math.PI / 180)}
                     r="2.5"
                     fill="rgba(71,85,105,1)"
-                    animate={{ opacity: [0.75, 1, 0.75], scale: [1, 1.2, 1] }}
-                    transition={{
-                      duration: 2.2,
-                      repeat: Infinity,
-                      delay: index * 0.08,
-                      ease: "easeInOut"
-                    }}
                   />
                 ))}
                 {/* Center cap */}
-                <motion.circle
+                <circle
                   cx="60" cy="60" r="6"
                   fill="rgba(248,250,252,0.98)"
                   stroke="rgba(148,163,184,0.55)"
                   strokeWidth="1.5"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                 />
               </motion.svg>
             </motion.div>
