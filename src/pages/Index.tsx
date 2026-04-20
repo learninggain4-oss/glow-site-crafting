@@ -8,6 +8,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import TextReveal from "@/components/TextReveal";
 import TrustedBrands from "@/components/TrustedBrands";
 import { TranslationKey } from "@/i18n/translations";
 import { useLanguage } from "@/i18n/LanguageContext";
