@@ -66,27 +66,26 @@ const LoadingScreen = () => {
         ))}
       </div>
 
-      {/* Refined motion rays for cleaner animation */}
+      {/* Floating sparkles for visual appeal */}
       <div className="absolute inset-0 flex items-center justify-center">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-white/10"
+            className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"
             style={{
-              width: `${80 + i * 20}px`,
-              height: `${80 + i * 20}px`,
-              border: '1px solid rgba(255,255,255,0.08)'
+              top: `${40 + i * 10}%`,
+              left: `${20 + i * 15}%`,
             }}
             animate={{
-              scale: [0.9, 1.04, 0.9],
-              opacity: [0.12, 0.4, 0.12],
-              rotate: [0, 8, 0]
+              y: [0, -20, 0],
+              opacity: [0.3, 1, 0.3],
+              scale: [0.8, 1.2, 0.8],
             }}
             transition={{
-              duration: 4.2 + i * 0.2,
+              duration: 2 + i * 0.5,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: i * 0.1
+              delay: i * 0.3,
             }}
           />
         ))}
@@ -211,7 +210,21 @@ const LoadingScreen = () => {
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               className="relative flex h-24 w-24 items-center justify-center rounded-full bg-slate-950/95 border border-primary/20 shadow-[0_0_18px_rgba(34,197,94,0.18)]"
             >
-            <motion.svg
+            <motion.div
+              animate={{
+                filter: [
+                  "drop-shadow(0 0 10px rgba(59,130,246,0.3))",
+                  "drop-shadow(0 0 20px rgba(147,51,234,0.4))",
+                  "drop-shadow(0 0 10px rgba(34,197,94,0.3))"
+                ]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <motion.svg
                 viewBox="0 0 120 120"
                 className="h-24 w-24"
                 animate={{ rotate: [0, 360] }}
@@ -298,6 +311,7 @@ const LoadingScreen = () => {
                   strokeWidth="1.5"
                 />
               </motion.svg>
+            </motion.div>
             </motion.div>
 
             {/* Enhanced pulsing dots with color cycling */}
