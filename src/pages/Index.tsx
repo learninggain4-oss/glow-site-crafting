@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Layout from "@/components/Layout";
+import { toast } from "sonner";
 import ScrollReveal from "@/components/ScrollReveal";
 import TextReveal from "@/components/TextReveal";
 import TrustedBrands from "@/components/TrustedBrands";
@@ -63,6 +64,18 @@ const Index = () => {
     const interval = setInterval(nextSlide, 4000);
     return () => clearInterval(interval);
   }, [nextSlide]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("welcomeShown")) return;
+    const timer = setTimeout(() => {
+      toast.success("Welcome — site is live and ready", {
+        description: "Explore our services and book your appointment.",
+        duration: 4000,
+      });
+      sessionStorage.setItem("welcomeShown", "1");
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const stats = [
     { label: t("stats.googleRating"), value: "4.9+", icon: Star },
