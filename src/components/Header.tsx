@@ -53,30 +53,30 @@ const Header = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border"
-          : "bg-transparent"
+          ? "bg-slate-950/95 backdrop-blur-xl shadow-2xl border-b border-slate-800"
+          : "bg-slate-950/20 backdrop-blur-xl"
       )}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between h-20">
+      <div className="container mx-auto px-4 flex items-center gap-6 h-20">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
           <motion.div
-            className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center"
-            whileHover={{ rotate: 12, scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 300 }}
+            className="w-10 h-10 rounded-2xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-500/20"
+            whileHover={{ rotate: 8, scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 240 }}
           >
-            <span className="text-primary-foreground font-heading font-bold text-lg">FO</span>
+            <span className="text-white font-heading font-bold text-lg">FO</span>
           </motion.div>
           <div>
-            <span className="font-heading font-bold text-lg leading-tight block text-[#5a3030]">
+            <span className="font-heading font-bold text-lg leading-tight block text-white">
               First Option
             </span>
-            <span className="text-xs text-muted-foreground tracking-widest uppercase">UAE</span>
+            <span className="text-xs text-slate-400 tracking-widest uppercase">UAE</span>
           </div>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex flex-1 items-center justify-center gap-4">
           {navLinks.map((link) =>
             link.hasDropdown ? (
               <div
@@ -85,7 +85,7 @@ const Header = () => {
                 onMouseEnter={() => setServicesOpen(true)}
                 onMouseLeave={() => setServicesOpen(false)}
               >
-                <button className="flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors text-[#725f5f]">
+                <button className="flex items-center gap-1 px-4 py-2 text-sm font-semibold transition-colors text-slate-200 hover:text-red-400">
                   {link.name}
                   <motion.div animate={{ rotate: servicesOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
                     <ChevronDown className="h-4 w-4" />
@@ -126,13 +126,13 @@ const Header = () => {
                 className={cn(
                   "relative px-4 py-2 text-sm font-medium transition-colors group",
                   location.pathname === link.path
-                    ? "text-primary"
-                    : "text-[#877373]"
+                    ? "text-red-500"
+                    : "text-slate-300 hover:text-white"
                 )}
               >
                 {link.name}
                 <span className={cn(
-                  "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-primary rounded-full transition-all duration-300",
+                  "absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-red-500 rounded-full transition-all duration-300",
                   location.pathname === link.path ? "w-3/4" : "w-0 group-hover:w-1/2"
                 )} />
               </Link>
@@ -144,7 +144,7 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <motion.button
             onClick={toggleLanguage}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary text-secondary-foreground text-sm font-medium hover:bg-primary/10 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/95 border border-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -152,9 +152,9 @@ const Header = () => {
             {language === "en" ? "عربي" : "EN"}
           </motion.button>
 
-          <a href="tel:+971505551234" className="hidden md:flex">
+          <a href="tel:+971505551234" className="hidden md:inline-flex">
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="outline" size="sm" className="gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+              <Button size="sm" className="gap-2 bg-red-600 text-white border border-red-600 hover:bg-red-700 hover:text-white shadow-lg shadow-red-600/20">
                 <Phone className="h-4 w-4" />
                 {t("nav.callNow")}
               </Button>
