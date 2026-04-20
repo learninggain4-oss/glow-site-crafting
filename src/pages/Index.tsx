@@ -8,6 +8,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import Layout from "@/components/Layout";
 import { toast } from "sonner";
+import WelcomeToast from "@/components/WelcomeToast";
 import ScrollReveal from "@/components/ScrollReveal";
 import TextReveal from "@/components/TextReveal";
 import TrustedBrands from "@/components/TrustedBrands";
@@ -68,10 +69,16 @@ const Index = () => {
   useEffect(() => {
     if (sessionStorage.getItem("welcomeShown")) return;
     const timer = setTimeout(() => {
-      toast.success("Welcome — site is live and ready", {
-        description: "Explore our services and book your appointment.",
-        duration: 4000,
-      });
+      toast.custom(
+        (id) => (
+          <WelcomeToast
+            title="Welcome to First Option UAE"
+            description="Site is live and ready — explore our premium auto care services."
+            onDismiss={() => toast.dismiss(id)}
+          />
+        ),
+        { duration: 5000, position: "top-center" }
+      );
       sessionStorage.setItem("welcomeShown", "1");
     }, 800);
     return () => clearTimeout(timer);
