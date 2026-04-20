@@ -134,6 +134,35 @@ html {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
+  /* Mobile header improvements */
+  @media (max-width: 1024px) {
+    header {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* Better mobile navigation spacing */
+    .mobile-nav-link {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      margin: 4px 8px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .mobile-nav-link:hover {
+      background-color: hsl(var(--primary) / 0.05);
+      transform: translateX(4px);
+    }
+
+    /* Mobile sheet improvements */
+    [data-radix-popper-content-wrapper] {
+      z-index: 1000;
+    }
+  }
 }
 
 /* Animated gradient text */

@@ -57,18 +57,18 @@ const Header = () => {
           : "bg-slate-950/20 backdrop-blur-xl"
       )}
     >
-      <div className="container mx-auto px-4 flex items-center gap-6 h-20">
+      <div className="container mx-auto px-4 flex items-center gap-4 md:gap-6 h-16 md:h-20">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-2 md:gap-3 flex-shrink-0">
           <motion.div
-            className="w-10 h-10 rounded-2xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-500/20"
+            className="w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-500/20"
             whileHover={{ rotate: 8, scale: 1.05 }}
             transition={{ type: "spring", stiffness: 240 }}
           >
-            <span className="text-white font-heading font-bold text-lg">FO</span>
+            <span className="text-white font-heading font-bold text-sm md:text-lg">FO</span>
           </motion.div>
-          <div>
-            <span className="font-heading font-bold text-lg leading-tight block text-white">
+          <div className="hidden sm:block">
+            <span className="font-heading font-bold text-sm md:text-lg leading-tight block text-white">
               First Option
             </span>
             <span className="text-xs text-slate-400 tracking-widest uppercase">UAE</span>
@@ -141,14 +141,14 @@ const Header = () => {
         </nav>
 
         {/* CTA + Language + Mobile */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3 ml-auto">
           <motion.button
             onClick={toggleLanguage}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/95 border border-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+            className="hidden sm:flex items-center gap-1.5 px-2 md:px-3 py-1 md:py-1.5 rounded-full bg-slate-900/95 border border-slate-700 text-white text-xs md:text-sm font-medium hover:bg-slate-800 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Globe className="h-4 w-4" />
+            <Globe className="h-3 w-3 md:h-4 md:w-4" />
             {language === "en" ? "عربي" : "EN"}
           </motion.button>
 
@@ -161,15 +161,80 @@ const Header = () => {
             </motion.div>
           </a>
 
+          {/* Mobile Quick Call Button */}
+          <a href="tel:+971505551234" className="md:hidden">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button size="sm" variant="outline" className="gap-1.5 bg-red-600/10 border-red-600/30 text-red-400 hover:bg-red-600 hover:text-white">
+                <Phone className="h-4 w-4" />
+              </Button>
+            </motion.div>
+          </a>
+
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="relative w-10 h-10 md:w-11 md:h-11 rounded-xl bg-slate-900/95 border border-slate-700 hover:bg-slate-800 transition-colors p-0"
+                >
+                  <motion.div
+                    animate={mobileOpen ? "open" : "closed"}
+                    className="flex flex-col items-center justify-center w-full h-full"
+                  >
+                    <motion.span
+                      variants={{
+                        closed: { rotate: 0, y: 0 },
+                        open: { rotate: 45, y: 6 }
+                      }}
+                      className="block h-0.5 w-4 bg-white rounded-full mb-1"
+                    />
+                    <motion.span
+                      variants={{
+                        closed: { opacity: 1 },
+                        open: { opacity: 0 }
+                      }}
+                      className="block h-0.5 w-4 bg-white rounded-full mb-1"
+                    />
+                    <motion.span
+                      variants={{
+                        closed: { rotate: 0, y: 0 },
+                        open: { rotate: -45, y: -6 }
+                      }}
+                      className="block h-0.5 w-4 bg-white rounded-full"
+                    />
+                  </motion.div>
+                </Button>
+              </motion.div>
             </SheetTrigger>
-            <SheetContent side={language === "ar" ? "left" : "right"} className="bg-background border-border w-80">
+            <SheetContent side={language === "ar" ? "left" : "right"} className="bg-background border-border w-80 sm:w-96">
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-              <div className="flex flex-col gap-2 mt-8">
+
+              {/* Mobile Header */}
+              <div className="flex items-center justify-between py-4 border-b border-border mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-red-600 flex items-center justify-center shadow-lg shadow-red-500/20">
+                    <span className="text-white font-heading font-bold text-sm">FO</span>
+                  </div>
+                  <div>
+                    <span className="font-heading font-bold text-sm leading-tight block text-foreground">
+                      First Option
+                    </span>
+                    <span className="text-xs text-muted-foreground tracking-widest uppercase">UAE</span>
+                  </div>
+                </div>
+                <motion.button
+                  onClick={toggleLanguage}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/95 border border-slate-700 text-white text-sm font-medium hover:bg-slate-800 transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Globe className="h-4 w-4" />
+                  {language === "en" ? "عربي" : "EN"}
+                </motion.button>
+              </div>
+
+              <div className="flex flex-col gap-1">
                 {navLinks.map((link, i) =>
                   link.hasDropdown ? (
                     <motion.div
@@ -177,25 +242,28 @@ const Header = () => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.05 }}
+                      className="mb-4"
                     >
-                      <p className="px-4 py-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                      <p className="px-4 py-3 text-sm font-semibold text-muted-foreground uppercase tracking-wider border-b border-border mb-2">
                         {t("nav.services_label")}
                       </p>
-                      {services.map((service, j) => (
-                        <motion.div
-                          key={service.path}
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: (i + j) * 0.05 }}
-                        >
-                          <Link
-                            to={service.path}
-                            className="block px-6 py-2.5 text-foreground hover:text-primary transition-colors"
+                      <div className="space-y-1">
+                        {services.map((service, j) => (
+                          <motion.div
+                            key={service.path}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: (i + j) * 0.05 }}
                           >
-                            {service.name}
-                          </Link>
-                        </motion.div>
-                      ))}
+                            <Link
+                              to={service.path}
+                              className="flex items-center px-4 py-3 text-foreground hover:text-primary hover:bg-primary/5 transition-all rounded-lg mx-2"
+                            >
+                              {service.name}
+                            </Link>
+                          </motion.div>
+                        ))}
+                      </div>
                     </motion.div>
                   ) : (
                     <motion.div
@@ -207,8 +275,8 @@ const Header = () => {
                       <Link
                         to={link.path}
                         className={cn(
-                          "px-4 py-2.5 text-foreground hover:text-primary transition-colors block",
-                          location.pathname === link.path && "text-primary font-semibold"
+                          "flex items-center px-4 py-3 text-foreground hover:text-primary hover:bg-primary/5 transition-all rounded-lg mx-2",
+                          location.pathname === link.path && "text-primary bg-primary/10 font-semibold"
                         )}
                       >
                         {link.name}
@@ -216,20 +284,21 @@ const Header = () => {
                     </motion.div>
                   )
                 )}
-                <motion.div
-                  className="mt-4 px-4"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <a href="tel:+971505551234">
-                    <Button className="w-full gap-2">
-                      <Phone className="h-4 w-4" />
-                      {t("nav.callNow")}
-                    </Button>
-                  </a>
-                </motion.div>
               </div>
+
+              <motion.div
+                className="mt-8 px-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <a href="tel:+971505551234">
+                  <Button className="w-full gap-2 h-12 text-base font-semibold bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-600/20">
+                    <Phone className="h-5 w-5" />
+                    {t("nav.callNow")}
+                  </Button>
+                </a>
+              </motion.div>
             </SheetContent>
           </Sheet>
         </div>
