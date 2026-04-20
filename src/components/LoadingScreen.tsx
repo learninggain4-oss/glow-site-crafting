@@ -277,12 +277,13 @@ const LoadingScreen = () => {
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
               className="relative flex h-24 w-24 items-center justify-center rounded-full bg-slate-950/95 border border-primary/20 shadow-[0_0_18px_rgba(34,197,94,0.18)]"
             >
-              <motion.svg
+            <motion.svg
                 viewBox="0 0 120 120"
                 className="h-24 w-24 text-primary/80"
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 2.8, ease: "linear", repeat: Infinity }}
               >
+                {/* Outer tire */}
                 <motion.circle
                   cx="60" cy="60" r="54"
                   className="fill-none stroke-current/20"
@@ -301,6 +302,7 @@ const LoadingScreen = () => {
                     stroke: { duration: 4, repeat: Infinity, ease: "easeInOut" }
                   }}
                 />
+                {/* Inner rim */}
                 <motion.circle
                   cx="60" cy="60" r="42"
                   className="fill-none stroke-current/30"
@@ -319,6 +321,118 @@ const LoadingScreen = () => {
                     stroke: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
                   }}
                 />
+                {/* Wheel spokes - enhanced alloy design */}
+                {new Array(10).fill(null).map((_, index) => (
+                  <motion.g key={index} transform={`rotate(${index * 36} 60 60)`}>
+                    <motion.rect
+                      x="58"
+                      y="14"
+                      width="4"
+                      height="20"
+                      rx="2"
+                      className="fill-current text-primary/80"
+                      animate={{
+                        opacity: [0.3, 1, 0.3],
+                        scale: [1, 1.4, 1],
+                        fill: [
+                          "rgba(34,197,94,0.8)",
+                          "rgba(59,130,246,0.9)",
+                          "rgba(147,51,234,0.8)",
+                          "rgba(34,197,94,0.8)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 1.2,
+                        repeat: Infinity,
+                        delay: index * 0.1,
+                        ease: "easeInOut",
+                        fill: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.1 }
+                      }}
+                    />
+                    {/* Additional spoke details for alloy look */}
+                    <motion.rect
+                      x="59"
+                      y="16"
+                      width="2"
+                      height="16"
+                      rx="1"
+                      className="fill-current text-primary/60"
+                      animate={{
+                        opacity: [0.2, 0.8, 0.2],
+                        fill: [
+                          "rgba(34,197,94,0.6)",
+                          "rgba(59,130,246,0.7)",
+                          "rgba(147,51,234,0.6)",
+                          "rgba(34,197,94,0.6)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        delay: index * 0.1 + 0.3,
+                        ease: "easeInOut",
+                        fill: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.1 + 0.3 }
+                      }}
+                    />
+                  </motion.g>
+                ))}
+                {/* Tire tread pattern - enhanced */}
+                {new Array(20).fill(null).map((_, index) => (
+                  <motion.g key={`tread-${index}`} transform={`rotate(${index * 18} 60 60)`}>
+                    <motion.rect
+                      x="56"
+                      y="4"
+                      width="8"
+                      height="12"
+                      rx="4"
+                      className="fill-current text-primary/70"
+                      animate={{
+                        opacity: [0.2, 0.9, 0.2],
+                        scaleY: [1, 1.5, 1],
+                        fill: [
+                          "rgba(34,197,94,0.7)",
+                          "rgba(59,130,246,0.8)",
+                          "rgba(147,51,234,0.7)",
+                          "rgba(34,197,94,0.7)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 1.8,
+                        repeat: Infinity,
+                        delay: index * 0.04,
+                        ease: "easeInOut",
+                        fill: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.04 }
+                      }}
+                    />
+                    {/* Additional tread blocks for realism */}
+                    <motion.rect
+                      x="57"
+                      y="6"
+                      width="6"
+                      height="8"
+                      rx="3"
+                      className="fill-current text-primary/50"
+                      animate={{
+                        opacity: [0.1, 0.7, 0.1],
+                        scaleY: [1, 1.3, 1],
+                        fill: [
+                          "rgba(34,197,94,0.5)",
+                          "rgba(59,130,246,0.6)",
+                          "rgba(147,51,234,0.5)",
+                          "rgba(34,197,94,0.5)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 2.2,
+                        repeat: Infinity,
+                        delay: index * 0.04 + 0.2,
+                        ease: "easeInOut",
+                        fill: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.04 + 0.2 }
+                      }}
+                    />
+                  </motion.g>
+                ))}
+                {/* Center hubcap */}
                 <motion.circle
                   cx="60" cy="60" r="16"
                   className="fill-current text-primary/80"
@@ -336,64 +450,32 @@ const LoadingScreen = () => {
                     fill: { duration: 3, repeat: Infinity, ease: "easeInOut" }
                   }}
                 />
-                {new Array(8).fill(null).map((_, index) => (
-                  <motion.rect
-                    key={index}
-                    x="58"
-                    y="14"
-                    width="4"
-                    height="20"
-                    rx="2"
-                    className="fill-current text-primary/80"
-                    transform={`rotate(${index * 45} 60 60)`}
+                {/* Hubcap center bolt pattern */}
+                {new Array(5).fill(null).map((_, index) => (
+                  <motion.circle
+                    key={`bolt-${index}`}
+                    cx={60 + 8 * Math.cos((index * 72) * Math.PI / 180)}
+                    cy={60 + 8 * Math.sin((index * 72) * Math.PI / 180)}
+                    r="2"
+                    className="fill-current text-primary/90"
                     animate={{
-                      opacity: [0.3, 1, 0.3],
-                      scale: [1, 1.4, 1],
+                      scale: [1, 1.6, 1],
+                      opacity: [0.7, 1, 0.7],
                       fill: [
-                        "rgba(34,197,94,0.8)",
-                        "rgba(59,130,246,0.9)",
-                        "rgba(147,51,234,0.8)",
-                        "rgba(34,197,94,0.8)"
+                        "rgba(34,197,94,0.9)",
+                        "rgba(251,191,36,1)",
+                        "rgba(239,68,68,0.9)",
+                        "rgba(34,197,94,0.9)"
                       ]
                     }}
                     transition={{
-                      duration: 1.2,
-                      repeat: Infinity,
-                      delay: index * 0.1,
-                      ease: "easeInOut",
-                      fill: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: index * 0.1 }
+                      scale: { duration: 1, repeat: Infinity },
+                      opacity: { duration: 1, repeat: Infinity },
+                      fill: { duration: 2, repeat: Infinity, ease: "easeInOut" }
                     }}
                   />
                 ))}
-                {new Array(16).fill(null).map((_, index) => (
-                  <motion.rect
-                    key={`tread-${index}`}
-                    x="56"
-                    y="4"
-                    width="8"
-                    height="12"
-                    rx="4"
-                    className="fill-current text-primary/70"
-                    transform={`rotate(${index * 22.5} 60 60)`}
-                    animate={{
-                      opacity: [0.2, 0.9, 0.2],
-                      scaleY: [1, 1.5, 1],
-                      fill: [
-                        "rgba(34,197,94,0.7)",
-                        "rgba(59,130,246,0.8)",
-                        "rgba(147,51,234,0.7)",
-                        "rgba(34,197,94,0.7)"
-                      ]
-                    }}
-                    transition={{
-                      duration: 1.8,
-                      repeat: Infinity,
-                      delay: index * 0.04,
-                      ease: "easeInOut",
-                      fill: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.04 }
-                    }}
-                  />
-                ))}
+                {/* Center logo or emblem */}
                 <motion.circle
                   cx="60" cy="60" r="6"
                   className="fill-current text-primary/90"
