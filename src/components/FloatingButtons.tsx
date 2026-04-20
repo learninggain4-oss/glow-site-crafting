@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const FloatingButtons = () => {
   return (
     <motion.div
-      className="fixed bottom-6 right-6 z-50 flex flex-col gap-3"
+      className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col gap-3"
       initial={{ opacity: 0, y: 60, scale: 0.5 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 15 }}

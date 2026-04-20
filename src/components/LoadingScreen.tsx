@@ -409,7 +409,7 @@ const LoadingScreen = () => {
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            className="text-xs uppercase tracking-[0.35em] text-muted-foreground mb-3"
+            className="text-xs md:text-sm uppercase tracking-[0.35em] text-muted-foreground mb-3"
           >
             Loading
           </motion.p>
@@ -422,7 +422,7 @@ const LoadingScreen = () => {
               type: "spring",
               stiffness: 150
             }}
-            className="font-heading text-3xl font-semibold text-foreground"
+            className="font-heading text-2xl md:text-3xl font-semibold text-foreground"
           >
             {"Revving up the ride".split("").map((char, index) => (
               <motion.span
