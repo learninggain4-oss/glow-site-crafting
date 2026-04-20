@@ -67,7 +67,7 @@ const Index = () => {
   }, [nextSlide]);
 
   useEffect(() => {
-    if (sessionStorage.getItem("welcomeShown")) return;
+    if (sessionStorage.getItem("welcomeShown_v2")) return;
     const timer = setTimeout(() => {
       toast.custom(
         (id) => (
@@ -79,7 +79,7 @@ const Index = () => {
         ),
         { duration: 5000, position: "top-center" }
       );
-      sessionStorage.setItem("welcomeShown", "1");
+      sessionStorage.setItem("welcomeShown_v2", "1");
     }, 800);
     return () => clearTimeout(timer);
   }, []);
