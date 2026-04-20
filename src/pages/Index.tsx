@@ -8,10 +8,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
-import ParticleField from "@/components/ParticleField";
-import TypewriterText from "@/components/TypewriterText";
-import TextReveal from "@/components/TextReveal";
-import AnimatedCounter from "@/components/AnimatedCounter";
 import TrustedBrands from "@/components/TrustedBrands";
 import { TranslationKey } from "@/i18n/translations";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -157,13 +153,6 @@ const Index = () => {
     { name: "James W.", text: t("testimonial.james"), rating: 5, avatar: avatarJames },
   ];
 
-  const typewriterTexts = [
-    t("hero.title2"),
-    "Auto Detailing",
-    "Paint Protection",
-    "Interior Care",
-  ];
-
   return (
     <Layout>
       {/* Hero Section with Parallax */}
@@ -185,7 +174,7 @@ const Index = () => {
         </motion.div>
 
         {/* Floating particles */}
-        <ParticleField count={15} />
+        {/* <ParticleField count={15} /> */}
 
         <motion.div className="container mx-auto px-4 relative z-10" style={{ opacity: heroOpacity }}>
           <motion.div
@@ -203,7 +192,7 @@ const Index = () => {
             >
               <span className="text-foreground drop-shadow-lg">{t("hero.title1")}</span>{" "}
               <span className="animate-gradient-text drop-shadow-lg">
-                <TypewriterText texts={typewriterTexts} speed={100} deleteSpeed={50} pauseDuration={2500} />
+                {t("hero.title2")}
               </span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
@@ -262,7 +251,7 @@ const Index = () => {
                     </motion.div>
                     <div>
                       <p className="font-heading text-3xl font-bold text-foreground">
-                        <AnimatedCounter value={stat.value} />
+                        {stat.value}
                       </p>
                       <p className="text-sm text-muted-foreground">{stat.label}</p>
                     </div>
@@ -276,14 +265,12 @@ const Index = () => {
 
       {/* Features */}
       <section className="py-24 relative overflow-hidden">
-        <ParticleField count={8} className="opacity-30" />
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("features.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <TextReveal text={t("features.title1")} className="text-[#675f5f]" />
-                {" "}
+                <span className="text-[#675f5f]">{t("features.title1")}</span>{" "}
                 <span className="text-primary">{t("features.title2")}</span>
               </h2>
             </div>
@@ -317,7 +304,6 @@ const Index = () => {
 
       {/* Seasonal Offers */}
       <section className="py-24 bg-gradient-to-br from-primary/5 via-background to-secondary/10 relative overflow-hidden">
-        <ParticleField count={8} className="opacity-20" />
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
@@ -335,8 +321,7 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
               >
-                <TextReveal text={t("offers.title1")} className="text-foreground" />
-                {" "}
+                <span className="text-foreground">{t("offers.title1")}</span>{" "}
                 <span className="text-primary">{t("offers.title2")}</span>
               </motion.h2>
               <motion.p
@@ -497,14 +482,12 @@ const Index = () => {
 
       {/* Services */}
       <section className="py-24 bg-secondary/30 relative overflow-hidden">
-        <ParticleField count={6} className="opacity-20" />
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("services.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <TextReveal text={t("services.title1")} className="text-foreground" />
-                {" "}
+                <span className="text-foreground">{t("services.title1")}</span>{" "}
                 <span className="text-primary">{t("services.title2")}</span>
               </h2>
             </div>
@@ -543,14 +526,12 @@ const Index = () => {
 
       {/* Premium Packages */}
       <section className="py-24 bg-background/80 relative overflow-hidden">
-        <ParticleField count={6} className="opacity-15" />
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("packages.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <TextReveal text={t("packages.title1")} className="text-foreground" />
-                {" "}
+                <span className="text-foreground">{t("packages.title1")}</span>{" "}
                 <span className="text-primary">{t("packages.title2")}</span>
               </h2>
             </div>
@@ -582,25 +563,24 @@ const Index = () => {
 
       {/* Trusted Partners */}
       <section className="py-20 bg-background relative overflow-hidden">
-        <ParticleField count={5} className="opacity-20" />
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-14">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("trust.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <TextReveal text={t("trust.title1")} className="text-foreground" /> <span className="text-primary">{t("trust.title2")}</span>
+                <span className="text-foreground">{t("trust.title1")}</span> <span className="text-primary">{t("trust.title2")}</span>
               </h2>
               <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{t("trust.note")}</p>
             </div>
           </ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {["trust.partner1", "trust.partner2", "trust.partner3"].map((key, idx) => (
+            {(["trust.partner1", "trust.partner2", "trust.partner3"] as TranslationKey[]).map((key, idx) => (
               <ScrollReveal key={key} variant="fadeUp" delay={idx * 0.1}>
                 <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 280 }}>
                   <Card className="bg-card border-border card-hover-glow h-full">
                     <CardContent className="p-8 text-center">
                       <Award className="mx-auto mb-4 h-12 w-12 text-primary" />
-                      <p className="font-heading text-2xl font-semibold text-foreground">{t(key as any)}</p>
+                      <p className="font-heading text-2xl font-semibold text-foreground">{t(key)}</p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -612,14 +592,12 @@ const Index = () => {
 
       {/* Smart Service Benefits */}
       <section className="py-24 bg-secondary/10 relative overflow-hidden">
-        <ParticleField count={6} className="opacity-15" />
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("homeFeatures.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <TextReveal text={t("homeFeatures.title1")} className="text-foreground" />
-                {" "}
+                <span className="text-foreground">{t("homeFeatures.title1")}</span>{" "}
                 <span className="text-primary">{t("homeFeatures.title2")}</span>
               </h2>
               <p className="mt-4 text-muted-foreground max-w-3xl mx-auto">{t("homeFeatures.description")}</p>
@@ -645,13 +623,11 @@ const Index = () => {
 
       {/* Flawless Finish */}
       <section className="py-24 relative overflow-hidden">
-        <ParticleField count={5} className="opacity-20" />
         <div className="container mx-auto px-4 text-center relative z-10">
           <ScrollReveal variant="blur">
             <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("flawless.subtitle")}</p>
             <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-sm">
-              <TextReveal text={t("flawless.title1")} className="text-[#5f5858]" />
-              {" "}
+              <span className="text-[#5f5858]">{t("flawless.title1")}</span>{" "}
               <span className="text-primary">{t("flawless.title2")}</span>
             </h2>
             <p className="max-w-2xl mx-auto mb-12 text-[#544a4a]">
@@ -739,14 +715,12 @@ const Index = () => {
 
       {/* Testimonials */}
       <section className="py-24 bg-background relative overflow-hidden">
-        <ParticleField count={5} className="opacity-15" />
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="fadeUp">
             <div className="text-center mb-16">
               <p className="text-primary font-medium tracking-widest uppercase text-sm mb-2">{t("testimonials.subtitle")}</p>
               <h2 className="font-heading text-4xl md:text-5xl font-extrabold">
-                <TextReveal text={t("testimonials.title1")} className="text-foreground" />
-                {" "}
+                <span className="text-foreground">{t("testimonials.title1")}</span>{" "}
                 <span className="text-primary">{t("testimonials.title2")}</span>
               </h2>
             </div>
@@ -800,13 +774,11 @@ const Index = () => {
           animate={{ x: ["-100%", "100%"] }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
         />
-        <ParticleField count={8} className="opacity-20" />
         <div className="container mx-auto px-4 relative z-10">
           <ScrollReveal variant="blur">
             <div className="text-center max-w-3xl mx-auto">
                <h2 className="font-heading text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-sm">
-                 <TextReveal text={t("cta.title1")} className="text-[#837272]" />
-                 {" "}
+                 <span className="text-[#837272]">{t("cta.title1")}</span>{" "}
                  <span className="text-primary">{t("cta.title2")}</span>?
                </h2>
                <p className="text-lg mb-8 text-[#595454]">
