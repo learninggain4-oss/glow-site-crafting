@@ -65,6 +65,18 @@ const Index = () => {
     return () => clearInterval(interval);
   }, [nextSlide]);
 
+  useEffect(() => {
+    if (sessionStorage.getItem("welcomeShown")) return;
+    const timer = setTimeout(() => {
+      toast.success("Welcome — site is live and ready", {
+        description: "Explore our services and book your appointment.",
+        duration: 4000,
+      });
+      sessionStorage.setItem("welcomeShown", "1");
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
+
   const stats = [
     { label: t("stats.googleRating"), value: "4.9+", icon: Star },
     { label: t("stats.yearsExperience"), value: "4+", icon: Award },
