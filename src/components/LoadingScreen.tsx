@@ -66,95 +66,29 @@ const LoadingScreen = () => {
         ))}
       </div>
 
-      {/* Enhanced floating particles with trails */}
-      <div className="absolute inset-0">
-        {[...Array(40)].map((_, i) => (
+      {/* Refined motion rays for cleaner animation */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="relative"
-          >
-            {/* Particle trail */}
-            <motion.div
-              className={`absolute rounded-full ${
-                i % 4 === 0 ? 'bg-primary/50' :
-                i % 4 === 1 ? 'bg-blue-400/40' :
-                i % 4 === 2 ? 'bg-purple-400/40' :
-                'bg-green-400/40'
-              }`}
-              style={{
-                width: `${1 + Math.random() * 2}px`,
-                height: `${20 + Math.random() * 30}px`,
-                filter: 'blur(1px)'
-              }}
-              initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                scale: 0,
-                opacity: 0
-              }}
-              animate={{
-                x: [
-                  Math.random() * window.innerWidth,
-                  Math.random() * window.innerWidth,
-                  Math.random() * window.innerWidth
-                ],
-                y: [
-                  Math.random() * window.innerHeight,
-                  Math.random() * window.innerHeight,
-                  Math.random() * window.innerHeight
-                ],
-                scale: [0, 1, 0.3, 1, 0],
-                opacity: [0, 0.6, 0.2, 0.8, 0]
-              }}
-              transition={{
-                duration: 5 + Math.random() * 3,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-                ease: "easeInOut"
-              }}
-            />
-            {/* Main particle */}
-            <motion.div
-              className={`absolute rounded-full ${
-                i % 4 === 0 ? 'bg-primary' :
-                i % 4 === 1 ? 'bg-blue-400' :
-                i % 4 === 2 ? 'bg-purple-400' :
-                'bg-green-400'
-              }`}
-              style={{
-                width: `${2 + Math.random() * 3}px`,
-                height: `${2 + Math.random() * 3}px`,
-                boxShadow: `0 0 ${4 + Math.random() * 6}px currentColor`
-              }}
-              initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                scale: 0,
-                opacity: 0
-              }}
-              animate={{
-                x: [
-                  Math.random() * window.innerWidth,
-                  Math.random() * window.innerWidth,
-                  Math.random() * window.innerWidth
-                ],
-                y: [
-                  Math.random() * window.innerHeight,
-                  Math.random() * window.innerHeight,
-                  Math.random() * window.innerHeight
-                ],
-                scale: [0, 1.5, 0.5, 1, 0],
-                opacity: [0, 1, 0.4, 1, 0],
-                rotate: [0, 180, 360]
-              }}
-              transition={{
-                duration: 5 + Math.random() * 3,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
+            className="absolute rounded-full bg-white/10"
+            style={{
+              width: `${80 + i * 20}px`,
+              height: `${80 + i * 20}px`,
+              border: '1px solid rgba(255,255,255,0.08)'
+            }}
+            animate={{
+              scale: [0.9, 1.04, 0.9],
+              opacity: [0.12, 0.4, 0.12],
+              rotate: [0, 8, 0]
+            }}
+            transition={{
+              duration: 4.2 + i * 0.2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 0.1
+            }}
+          />
         ))}
       </div>
 
