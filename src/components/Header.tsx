@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Menu, X, ChevronDown, Phone, Globe } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Globe, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -160,6 +160,20 @@ const Header = () => {
               </Button>
             </motion.div>
           </a>
+
+          {/* Admin Login Button */}
+          <Link to="/admin/login">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button 
+                size="sm" 
+                variant="outline" 
+                className="gap-2 bg-slate-900/95 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+              >
+                <Lock className="h-4 w-4" />
+                <span className="hidden md:inline">Admin</span>
+              </Button>
+            </motion.div>
+          </Link>
 
           {/* Mobile Quick Call Button */}
           <a href="tel:+971505551234" className="md:hidden">
