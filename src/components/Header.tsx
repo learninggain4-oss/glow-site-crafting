@@ -313,6 +313,24 @@ const Header = () => {
                   </Button>
                 </a>
               </motion.div>
+
+              {/* Mobile Admin Login */}
+              <motion.div
+                className="mt-4 px-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <Link to="/admin/login">
+                  <Button 
+                    variant="outline" 
+                    className="w-full gap-2 h-12 text-base font-semibold bg-slate-900/95 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                  >
+                    <Lock className="h-5 w-5" />
+                    Admin Login
+                  </Button>
+                </Link>
+              </motion.div>
             </SheetContent>
           </Sheet>
         </div>
