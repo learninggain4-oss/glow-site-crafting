@@ -166,8 +166,7 @@ const Header = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button 
                 size="sm" 
-                variant="outline" 
-                className="gap-2 bg-slate-900/95 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                className="gap-2 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:from-violet-700 hover:via-purple-700 hover:to-fuchsia-700 text-white border-0 shadow-lg shadow-purple-500/25 font-semibold"
               >
                 <Lock className="h-4 w-4" />
                 <span className="hidden md:inline">Admin</span>
@@ -323,8 +322,7 @@ const Header = () => {
               >
                 <Link to="/admin/login">
                   <Button 
-                    variant="outline" 
-                    className="w-full gap-2 h-12 text-base font-semibold bg-slate-900/95 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                    className="w-full gap-2 h-12 text-base font-semibold bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:from-violet-700 hover:via-purple-700 hover:to-fuchsia-700 text-white border-0 shadow-lg shadow-purple-500/25"
                   >
                     <Lock className="h-5 w-5" />
                     Admin Login
