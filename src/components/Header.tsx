@@ -163,29 +163,41 @@ const Header = () => {
 
           {/* Admin Login Button */}
           <Link to="/admin/login">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <motion.div 
+              whileHover={{ scale: 1.05 }} 
+              whileTap={{ scale: 0.95 }}
+              className="relative group"
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 rounded-lg opacity-75 group-hover:opacity-100 blur transition duration-500 group-hover:duration-200 animate-tilt" />
               <Button 
                 size="sm" 
-                className="gap-2 relative overflow-hidden group font-semibold"
-                style={{
-                  background: "linear-gradient(90deg, #7c3aed, #a855f7, #d946ef, #a855f7, #7c3aed)",
-                  backgroundSize: "200% 100%",
-                  animation: "liquidFlow 3s ease infinite",
-                }}
+                className="gap-2 relative font-semibold bg-slate-950/80 backdrop-blur-xl border border-white/10 text-white hover:bg-slate-950/90"
               >
-                <style>{`
-                  @keyframes liquidFlow {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                  }
-                `}</style>
-                <span className="relative z-10 flex items-center gap-2">
-                  <Lock className="h-4 w-4" />
-                  <span className="hidden md:inline">Admin</span>
+                <Lock className="h-4 w-4 text-purple-400" />
+                <span className="hidden md:inline">Admin</span>
+                {/* Liquid blobs */}
+                <span className="absolute inset-0 rounded-lg overflow-hidden">
+                  <span className="absolute top-0 left-1/4 w-16 h-16 bg-purple-500/30 rounded-full blur-xl animate-blob mix-blend-screen" />
+                  <span className="absolute bottom-0 right-1/4 w-12 h-12 bg-fuchsia-500/30 rounded-full blur-xl animate-blob animation-delay-2000 mix-blend-screen" />
+                  <span className="absolute top-1/2 left-1/2 w-10 h-10 bg-violet-500/30 rounded-full blur-xl animate-blob animation-delay-4000 mix-blend-screen" />
                 </span>
-                <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
               </Button>
+              <style>{`
+                @keyframes blob {
+                  0%, 100% { transform: translate(0, 0) scale(1); }
+                  33% { transform: translate(10px, -10px) scale(1.1); }
+                  66% { transform: translate(-5px, 5px) scale(0.9); }
+                }
+                .animate-blob {
+                  animation: blob 4s ease-in-out infinite;
+                }
+                .animation-delay-2000 {
+                  animation-delay: 2s;
+                }
+                .animation-delay-4000 {
+                  animation-delay: 4s;
+                }
+              `}</style>
             </motion.div>
           </Link>
 
@@ -335,20 +347,19 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <Link to="/admin/login">
+                <Link to="/admin/login" className="relative group block">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 rounded-xl opacity-75 group-hover:opacity-100 blur transition duration-500 group-hover:duration-200" />
                   <Button 
-                    className="w-full gap-2 h-12 text-base font-semibold relative overflow-hidden group"
-                    style={{
-                      background: "linear-gradient(90deg, #7c3aed, #a855f7, #d946ef, #a855f7, #7c3aed)",
-                      backgroundSize: "200% 100%",
-                      animation: "liquidFlow 3s ease infinite",
-                    }}
+                    className="w-full gap-2 h-12 text-base font-semibold relative bg-slate-950/80 backdrop-blur-xl border border-white/10 text-white hover:bg-slate-950/90"
                   >
-                    <span className="relative z-10 flex items-center gap-2">
-                      <Lock className="h-5 w-5" />
-                      Admin Login
+                    <Lock className="h-5 w-5 text-purple-400" />
+                    Admin Login
+                    {/* Liquid blobs */}
+                    <span className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+                      <span className="absolute top-0 left-1/4 w-20 h-20 bg-purple-500/30 rounded-full blur-xl animate-blob mix-blend-screen" />
+                      <span className="absolute bottom-0 right-1/4 w-16 h-16 bg-fuchsia-500/30 rounded-full blur-xl animate-blob animation-delay-2000 mix-blend-screen" />
+                      <span className="absolute top-1/2 left-1/2 w-12 h-12 bg-violet-500/30 rounded-full blur-xl animate-blob animation-delay-4000 mix-blend-screen" />
                     </span>
-                    <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
                   </Button>
                 </Link>
               </motion.div>
