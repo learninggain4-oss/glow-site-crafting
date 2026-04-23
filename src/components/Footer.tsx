@@ -1,7 +1,7 @@
 import { useState, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter, Youtube, Heart } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Facebook, Instagram, Twitter, Youtube, Heart, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
@@ -29,6 +29,7 @@ const Footer = () => {
     { name: t("nav.portfolio"), path: "/portfolio" },
     { name: t("nav.booking"), path: "/booking" },
     { name: t("nav.contact"), path: "/contact" },
+    { name: "Admin Login", path: "/admin/login" },
   ];
 
   const serviceLinks = [
