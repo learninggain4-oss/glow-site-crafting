@@ -166,10 +166,25 @@ const Header = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button 
                 size="sm" 
-                className="gap-2 bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:from-violet-700 hover:via-purple-700 hover:to-fuchsia-700 text-white border-0 shadow-lg shadow-purple-500/25 font-semibold"
+                className="gap-2 relative overflow-hidden group font-semibold"
+                style={{
+                  background: "linear-gradient(90deg, #7c3aed, #a855f7, #d946ef, #a855f7, #7c3aed)",
+                  backgroundSize: "200% 100%",
+                  animation: "liquidFlow 3s ease infinite",
+                }}
               >
-                <Lock className="h-4 w-4" />
-                <span className="hidden md:inline">Admin</span>
+                <style>{`
+                  @keyframes liquidFlow {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                  }
+                `}</style>
+                <span className="relative z-10 flex items-center gap-2">
+                  <Lock className="h-4 w-4" />
+                  <span className="hidden md:inline">Admin</span>
+                </span>
+                <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
               </Button>
             </motion.div>
           </Link>
@@ -322,10 +337,18 @@ const Header = () => {
               >
                 <Link to="/admin/login">
                   <Button 
-                    className="w-full gap-2 h-12 text-base font-semibold bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 hover:from-violet-700 hover:via-purple-700 hover:to-fuchsia-700 text-white border-0 shadow-lg shadow-purple-500/25"
+                    className="w-full gap-2 h-12 text-base font-semibold relative overflow-hidden group"
+                    style={{
+                      background: "linear-gradient(90deg, #7c3aed, #a855f7, #d946ef, #a855f7, #7c3aed)",
+                      backgroundSize: "200% 100%",
+                      animation: "liquidFlow 3s ease infinite",
+                    }}
                   >
-                    <Lock className="h-5 w-5" />
-                    Admin Login
+                    <span className="relative z-10 flex items-center gap-2">
+                      <Lock className="h-5 w-5" />
+                      Admin Login
+                    </span>
+                    <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
                   </Button>
                 </Link>
               </motion.div>
